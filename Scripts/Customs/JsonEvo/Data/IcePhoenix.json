@@ -1,0 +1,218 @@
+﻿{
+	"BaseName": "Ice Phoenix",
+	"RandomGender": true,
+	"AI": "AI_NecroMage",
+	"Props": {
+		"BodyValue": 6,
+		"BaseSoundID": 143,
+		"Hue": 2591,
+		"Tamable": true,
+		"ControlSlots": 2,
+		"ControlSlotsMax": 4
+	},
+	"Levels": [
+		{
+			"NameMod":"",
+			"ExpLimit": 5000,
+			"ExpGain": {"Min":3,"Max":1},
+			"EvoMessage":"has shattered into a cloud of frost to been reborn",
+			"EvoSound":0,
+			"EffectConfig": {
+				"ItemId": 0,
+				"Speed": 0,
+				"Duration": 0,
+				"Effect":0
+			},
+			"EvoItemDrops": [
+				{
+					"Item": "phoenixtears",
+					"Amount": 1,
+					"Props": {}
+				}
+			],
+			"Props": {
+				"BodyValue": 6
+			},
+			"Skills": {
+				"MagicResist": {"Min":90.4,"Max":97.8},
+				"Tactics": {"Min":99.0,"Max":99.5},
+				"Wrestling": {"Min":84.2,"Max":87.7},
+				"EvalInt": {"Min":84.2,"Max":97.7},
+				"Magery": {"Min":94.0,"Max":99.5},
+				"Meditation": {"Min":-1,"Max":120.0},
+				"Anatomy": {"Min":84.2,"Max":97.7}
+			},
+			"Stats": {
+				"Str": {"Min":696,"Max":750},
+				"Int": {"Min":288,"Max":325},
+				"Dex": {"Min":395,"Max":450},
+				"Hits": {"Min":950,"Max":1125},
+				"Damage": {"Min":22,"Max":30},
+			},
+			"Resistances": { 
+				"Physical": 75,
+				"Fire": 75,
+				"Cold": 75,
+				"Poison": 75,
+				"Energy": 75
+			},
+			"DamageTypes": {
+				"Energy": 50,
+				"Cold": 50
+			},
+			"WeaponAbilities": ["BleedAttack","ColdWind"],
+			"SpecialAbilities": [],
+		},
+		{
+			"NameMod":"fledgling",
+			"ExpLimit": 25000,
+			"ExpGain": {"Min":5,"Max":2},
+			"EvoMessage":"has become a fledgling Ice Phoenix",
+			"EvoSound":0,
+			"EffectConfig": {
+				"ItemId": 0,
+				"Speed": 0,
+				"Duration": 0,
+				"Effect":0
+			},
+			"EvoItemDrops": [
+				{
+					"Item": "phoenixtears",
+					"Amount": 1,
+					"Props": {}
+				}
+			],
+			"Props": {
+				"BodyValue": 831
+			},
+			"Skills": { },
+			"Stats": { },
+			"Resistances": { },
+			"DamageTypes": { },
+			"WeaponAbilities": [],
+			"SpecialAbilities": [],
+		},
+		{
+			"NameMod":"strong",
+			"ExpLimit": 75000,
+			"ExpGain": {"Min":7,"Max":3},
+			"EvoMessage":"has become a stronger Ice Phoenix",
+			"EvoSound":0,
+			"EffectConfig": {
+				"ItemId": 0,
+				"Speed": 0,
+				"Duration": 0,
+				"Effect":0
+			},
+			"EvoItemDrops": [
+				{
+					"Item": "phoenixtears",
+					"Amount": 1,
+					"Props": {}
+				}
+			],
+			"Props": {
+				"BodyValue": 5
+			},
+			"Skills": { },
+			"Stats": { },
+			"Resistances": { },
+			"DamageTypes": { },
+			"WeaponAbilities": [],
+			"SpecialAbilities": [],
+		},
+		{
+			"NameMod":"adolescent",
+			"ExpLimit": 150000,
+			"ExpGain": {"Min":9,"Max":4},
+			"EvoMessage":"has become an adolescent Ice Phoenix",
+			"EvoSound":0,
+			"EffectConfig": {
+				"ItemId": 0,
+				"Speed": 0,
+				"Duration": 0,
+				"Effect":0
+			},
+			"EvoItemDrops": [
+				{
+					"Item": "phoenixtears",
+					"Amount": 1,
+					"Props": {}
+				}
+			],
+			"Props": {
+				"BodyValue": 254
+			},
+			"Skills": { },
+			"Stats": { },
+			"Resistances": { },
+			"DamageTypes": { },
+			"WeaponAbilities": [],
+			"SpecialAbilities": [],
+		},
+		{
+			"NameMod":"adult",
+			"ExpLimit": 225000,
+			"ExpGain": {"Min":10,"Max":5},
+			"EvoMessage":"has become an adult Ice Phoenix",
+			"EvoSound":0,
+			"EffectConfig": {
+				"ItemId": 0,
+				"Speed": 0,
+				"Duration": 0,
+				"Effect":0
+			},
+			"EvoItemDrops": [
+				{
+					"Item": "phoenixtears",
+					"Amount": 1,
+					"Props": {}
+				},
+				{
+					"Item": "phoenixash",
+					"Amount": 1,
+					"Props": {}
+				}
+			],
+			"Props": {
+				"BodyValue": 243
+			},
+			"Skills": { },
+			"Stats": { },
+			"Resistances": { },
+			"DamageTypes": { },
+			"WeaponAbilities": [],
+			"SpecialAbilities": [],
+		},
+		{
+			"NameMod":"legendary",
+			"ExpLimit": 750000,
+			"ExpGain": {"Min":10,"Max":5},
+			"EvoMessage":"has become a legendary Ice Phoenix",
+			"EvoSound":520,
+			"EffectConfig": {
+				"ItemId": 14089,
+				"Speed": 10,
+				"Duration": 30,
+				"Effect":5052
+			},
+			"EvoItemDrops": [
+				{
+					"Item": "phoenixtears",
+					"Amount": 1,
+					"Props": {}
+				}
+			],
+			"Props": {
+				"BodyValue": 832,
+				"Title": "The Legendary Ice Phoenix"
+			},
+			"Skills": { },
+			"Stats": { },
+			"Resistances": { },
+			"DamageTypes": { },
+			"WeaponAbilities": [],
+			"SpecialAbilities": [],
+		}
+	]
+}

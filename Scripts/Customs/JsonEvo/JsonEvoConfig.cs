@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Server.Customs.JsonEvo
 {
@@ -10,7 +10,7 @@ namespace Server.Customs.JsonEvo
         public Dictionary<string, object> Props { get; set; }
         public List<JsonEvoLevel> Levels { get; set; }
 
-        public void Serialize(GenericWriter writer)
+        /*public void Serialize(GenericWriter writer)
         {
             writer.Write(BaseName);
             writer.Write(RandomGender);
@@ -38,6 +38,6 @@ namespace Server.Customs.JsonEvo
                 level.Deserialize(reader);
                 Levels.Add(level);
             }
-        }
+        }*/
     }
 }

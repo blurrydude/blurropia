@@ -1,0 +1,361 @@
+﻿{
+	"BaseName": "Daemon",
+	"RandomGender": true,
+	"AI": "AI_NecroMage",
+	"Props": {
+		"BodyValue": 51,
+		"BaseSoundID": 357,
+		"Hue": 139,
+		"Tamable": true,
+		"ControlSlots": 4,
+		"ControlSlotsMax": 5
+	},
+	"Levels": [
+		{
+			"NameMod":"Primordial",
+			"ExpLimit": 1000,
+			"ExpGain": {"Min":3,"Max":1},
+			"EvoMessage":"slides onto the ground",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 51
+			},
+			"Skills": {
+				"MagicResist": {"Min":30.0,"Max":35.0},
+				"Tactics":     {"Min":30.0,"Max":35.0},
+				"Wrestling":   {"Min":30.0,"Max":35.0},
+				"EvalInt":     {"Min":30.0,"Max":35.0},
+				"Magery":      {"Min":30.0,"Max":35.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":30.0,"Max":35.0}
+			},
+			"Stats": {
+				"Str":    {"Min":30,"Max":40},
+				"Int":    {"Min":50,"Max":60},
+				"Dex":    {"Min":70,"Max":80},
+				"Hits":   {"Min":90,"Max":100},
+				"Damage": {"Min":2,"Max":5}
+			},
+			"Resistances": { 
+				"Physical": 25,
+				"Fire": 35,
+				"Cold": 5,
+				"Poison": 35,
+				"Energy": 25
+			},
+			"DamageTypes": {
+				"Physical": 50,
+				"Fire": 50
+			},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Wingling",
+			"ExpLimit": 2500,
+			"ExpGain": {"Min":5,"Max":2},
+			"EvoMessage":"morphs into a weak, winged form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 74,
+				"Hue": 139
+			},
+			"Skills": {
+				"MagicResist": {"Min":40.0,"Max":45.0},
+				"Tactics":     {"Min":40.0,"Max":45.0},
+				"Wrestling":   {"Min":40.0,"Max":45.0},
+				"EvalInt":     {"Min":40.0,"Max":45.0},
+				"Magery":      {"Min":40.0,"Max":45.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":40.0,"Max":45.0}
+			},
+			"Stats": {
+				"Str":    {"Min":50,"Max":60},
+				"Int":    {"Min":70,"Max":80},
+				"Dex":    {"Min":90,"Max":100},
+				"Hits":   {"Min":110,"Max":120},
+				"Damage": {"Min":5,"Max":8}
+			},
+			"Resistances": { 
+				"Physical": 30,
+				"Fire": 40,
+				"Cold": 10,
+				"Poison": 40,
+				"Energy": 30
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Squashling",
+			"ExpLimit": 5000,
+			"ExpGain": {"Min":7,"Max":3},
+			"EvoMessage":"grows to a stronger form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 39
+			},
+			"Skills": {
+				"MagicResist": {"Min":50.0,"Max":55.0},
+				"Tactics":     {"Min":50.0,"Max":55.0},
+				"Wrestling":   {"Min":50.0,"Max":55.0},
+				"EvalInt":     {"Min":50.0,"Max":55.0},
+				"Magery":      {"Min":50.0,"Max":55.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":50.0,"Max":55.0}
+			},
+			"Stats": {
+				"Str":    {"Min":70,"Max":80},
+				"Int":    {"Min":90,"Max":100},
+				"Dex":    {"Min":110,"Max":120},
+				"Hits":   {"Min":130,"Max":140},
+				"Damage": {"Min":8,"Max":12}
+			},
+			"Resistances": { 
+				"Physical": 35,
+				"Fire": 45,
+				"Cold": 15,
+				"Poison": 45,
+				"Energy": 35
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Thrashling",
+			"ExpLimit": 10000,
+			"ExpGain": {"Min":9,"Max":4},
+			"EvoMessage":"grows to a stronger form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 67
+			},
+			"Skills": {
+				"MagicResist": {"Min":60.0,"Max":65.0},
+				"Tactics":     {"Min":60.0,"Max":65.0},
+				"Wrestling":   {"Min":60.0,"Max":65.0},
+				"EvalInt":     {"Min":60.0,"Max":65.0},
+				"Magery":      {"Min":60.0,"Max":65.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":60.0,"Max":65.0}
+			},
+			"Stats": {
+				"Str":    {"Min":90,"Max":100},
+				"Int":    {"Min":110,"Max":120},
+				"Dex":    {"Min":130,"Max":140},
+				"Hits":   {"Min":150,"Max":160},
+				"Damage": {"Min":12,"Max":17}
+			},
+			"Resistances": { 
+				"Physical": 40,
+				"Fire": 50,
+				"Cold": 20,
+				"Poison": 50,
+				"Energy": 40
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Thrasher",
+			"ExpLimit": 25000,
+			"ExpGain": {"Min":11,"Max":5},
+			"EvoMessage":"grows to a stronger form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 4
+			},
+			"Skills": {
+				"MagicResist": {"Min":70.0,"Max":75.0},
+				"Tactics":     {"Min":70.0,"Max":75.0},
+				"Wrestling":   {"Min":70.0,"Max":75.0},
+				"EvalInt":     {"Min":70.0,"Max":75.0},
+				"Magery":      {"Min":70.0,"Max":75.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":70.0,"Max":75.0}
+			},
+			"Stats": {
+				"Str":    {"Min":110,"Max":120},
+				"Int":    {"Min":130,"Max":140},
+				"Dex":    {"Min":150,"Max":160},
+				"Hits":   {"Min":170,"Max":180},
+				"Damage": {"Min":17,"Max":23}
+			},
+			"Resistances": { 
+				"Physical": 45,
+				"Fire": 55,
+				"Cold": 25,
+				"Poison": 55,
+				"Energy": 45
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Ruiner",
+			"ExpLimit": 50000,
+			"ExpGain": {"Min":13,"Max":6},
+			"EvoMessage":"grows to a stronger form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 40
+			},
+			"Skills": {
+				"MagicResist": {"Min":80.0,"Max":85.0},
+				"Tactics":     {"Min":80.0,"Max":85.0},
+				"Wrestling":   {"Min":80.0,"Max":85.0},
+				"EvalInt":     {"Min":80.0,"Max":85.0},
+				"Magery":      {"Min":80.0,"Max":85.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":80.0,"Max":85.0}
+			},
+			"Stats": {
+				"Str":    {"Min":130,"Max":140},
+				"Int":    {"Min":150,"Max":160},
+				"Dex":    {"Min":170,"Max":180},
+				"Hits":   {"Min":190,"Max":200},
+				"Damage": {"Min":23,"Max":30}
+			},
+			"Resistances": { 
+				"Physical": 50,
+				"Fire": 60,
+				"Cold": 30,
+				"Poison": 60,
+				"Energy": 50
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Ravager",
+			"ExpLimit": 100000,
+			"ExpGain": {"Min":15,"Max":7},
+			"EvoMessage":"grows to a stronger form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 43
+			},
+			"Skills": {
+				"MagicResist": {"Min":90.0,"Max":100.0},
+				"Tactics":     {"Min":90.0,"Max":100.0},
+				"Wrestling":   {"Min":90.0,"Max":100.0},
+				"EvalInt":     {"Min":90.0,"Max":100.0},
+				"Magery":      {"Min":90.0,"Max":100.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":90.0,"Max":100.0}
+			},
+			"Stats": {
+				"Str":    {"Min":150,"Max":170},
+				"Int":    {"Min":170,"Max":180},
+				"Dex":    {"Min":180,"Max":200},
+				"Hits":   {"Min":250,"Max":300},
+				"Damage": {"Min":30,"Max":38}
+			},
+			"Resistances": { 
+				"Physical": 55,
+				"Fire": 65,
+				"Cold": 35,
+				"Poison": 65,
+				"Energy": 55
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Destroyer",
+			"ExpLimit": 250000,
+			"ExpGain": {"Min":17,"Max":8},
+			"EvoMessage":"grows to a stronger form",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 9
+			},
+			"Skills": {
+				"MagicResist": {"Min":100.0,"Max":110.0},
+				"Tactics":     {"Min":100.0,"Max":110.0},
+				"Wrestling":   {"Min":100.0,"Max":110.0},
+				"EvalInt":     {"Min":100.0,"Max":110.0},
+				"Magery":      {"Min":100.0,"Max":110.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":100.0,"Max":110.0}
+			},
+			"Stats": {
+				"Str":    {"Min":150,"Max":170},
+				"Int":    {"Min":170,"Max":180},
+				"Dex":    {"Min":180,"Max":200},
+				"Hits":   {"Min":250,"Max":300},
+				"Damage": {"Min":30,"Max":38}
+			},
+			"Resistances": { 
+				"Physical": 60,
+				"Fire": 70,
+				"Cold": 40,
+				"Poison": 70,
+				"Energy": 60
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		},
+		{
+			"NameMod":"Supreme",
+			"ExpLimit": 100000000,
+			"ExpGain": {"Min":19,"Max":9},
+			"EvoMessage":"ascends to the most destructive form possible",
+			"EvoSound":0,
+			"EffectConfig": { "ItemId": 0,"Speed": 0,"Duration": 0,"Effect":0 },
+			"EvoItemDrops": [],
+			"Props": {
+				"BodyValue": 1248
+			},
+			"Skills": {
+				"MagicResist": {"Min":-1,"Max":120.0},
+				"Tactics":     {"Min":-1,"Max":120.0},
+				"Wrestling":   {"Min":-1,"Max":120.0},
+				"EvalInt":     {"Min":-1,"Max":120.0},
+				"Magery":      {"Min":-1,"Max":120.0},
+				"Meditation":  {"Min":-1,"Max":120.0},
+				"Anatomy":     {"Min":-1,"Max":120.0}
+			},
+			"Stats": {
+				"Str":    {"Min":170,"Max":200},
+				"Int":    {"Min":200,"Max":250},
+				"Dex":    {"Min":250,"Max":300},
+				"Hits":   {"Min":350,"Max":400},
+				"Damage": {"Min":38,"Max":47}
+			},
+			"Resistances": { 
+				"Physical": 70,
+				"Fire": 80,
+				"Cold": 50,
+				"Poison": 80,
+				"Energy": 70
+			},
+			"DamageTypes": {},
+			"WeaponAbilities": [],
+			"SpecialAbilities": []
+		}
+	]
+}

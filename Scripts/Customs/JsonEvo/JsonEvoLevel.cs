@@ -12,14 +12,14 @@ namespace Server.Customs.JsonEvo
         public EffectConfig EffectConfig { get; set; }
         public List<JsonItem> EvoItemDrops { get; set; }
         public Dictionary<string, object> Props { get; set; }
-        public Dictionary<string, object> Skills { get; set; }
-        public Dictionary<string, object> Stats { get; set; }
-        public Dictionary<string, object> Resistances { get; set; }
-        public Dictionary<string, object> DamageTypes { get; set; }
+        public Dictionary<string, RangeDouble> Skills { get; set; }
+        public Dictionary<string, RangeInt> Stats { get; set; }
+        public Dictionary<string, int> Resistances { get; set; }
+        public Dictionary<string, int> DamageTypes { get; set; }
         public List<string> WeaponAbilities { get; set; }
         public List<string> SpecialAbilities { get; set; }
 
-        public void Serialize(GenericWriter writer)
+        /*public void Serialize(GenericWriter writer)
         {
             writer.Write(NameMod);
             writer.Write(ExpLimit);
@@ -85,6 +85,6 @@ namespace Server.Customs.JsonEvo
             {
                 SpecialAbilities.Add(reader.ReadString());
             }
-        }
+        }*/
     }
 }

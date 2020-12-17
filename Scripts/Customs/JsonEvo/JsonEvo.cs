@@ -53,9 +53,10 @@ namespace Server.Customs.JsonEvo
                 _level = Math.Max(Math.Min(Config?.Levels.Count ?? 1, value), 1);
                 if (Config != null)
                 {
-                    var pl = _level == 1 ? Config.Levels.Count : _level - 1;
-                    var xp = Config.Levels[pl - 1].ExpLimit;
-                    Experience = xp;
+                    var pl = _level - 1;
+                    var xp = pl < 1 ? 0 : Config.Levels[pl-1].ExpLimit;
+                    _experience = xp;
+                    SetLevel();
                 }
             }
         }
@@ -69,6 +70,18 @@ namespace Server.Customs.JsonEvo
             Name = "blank json evo";
             BodyValue = 400;
             Level = 1;
+            Female = Utility.RandomBool();
+        }
+
+        [Constructable]
+        public JsonEvo(string fileName)
+            : base(AIType.AI_NecroMage, FightMode.Weakest, 10, 1, 0.1, 0.2)
+        {
+            Name = "blank json evo";
+            BodyValue = 400;
+            Level = 1;
+            Female = Utility.RandomBool();
+            FileName = fileName;
         }
 
         public JsonEvo(Serial serial) : base(serial)
@@ -81,9 +94,10 @@ namespace Server.Customs.JsonEvo
             if (String.IsNullOrEmpty(FileName)) return;
             try
             {
-                var json = File.ReadAllText($"JsonEvo/{FileName}.json");
+                var json = File.ReadAllText($"Scripts/Customs/JsonEvo/Data/{FileName}.json");
                 Config = (JsonEvoConfig) JsonUtility.Deserialize<JsonEvoConfig>(json);
-                if (Config.RandomGender) Female = Utility.RandomBool();
+                Console.Write(Config);
+                if (Config.RandomGender) 
                 if (!String.IsNullOrEmpty(Config.AI))
                 {
                     AIType ai = AI;
@@ -120,7 +134,7 @@ namespace Server.Customs.JsonEvo
             if (Config == null) return;
             var currentLevel = Config.Levels[Level - 1];
             if (Experience < currentLevel.ExpLimit) return;
-            Level = Level + 1;
+            Level = Math.Max(Math.Min(Config.Levels.Count, Level + 1), 1);
             SetLevel();
         }
 
@@ -164,121 +178,198 @@ namespace Server.Customs.JsonEvo
 
                 foreach (var jsonitem in currentLevel.EvoItemDrops)
                 {
-                    AddToBackpack(jsonitem.GetItem());
+                    try
+                    {
+                        AddToBackpack(jsonitem.GetItem());
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to add item {jsonitem.Item}.");
+                            Console.Write(e);
+                        }
+                    }
                 }
 
                 foreach (var data in currentLevel.DamageTypes)
                 {
-                    Enum.TryParse<ResistanceType>(data.Key, true, out var t);
-                    SetDamageType(t, (int) data.Value);
+                    try
+                    {
+                        Enum.TryParse<ResistanceType>(data.Key, true, out var t);
+                        SetDamageType(t, (int) data.Value);
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to set {data.Key} damage type.");
+                            Console.Write(e);
+                        }
+                    }
                 }
 
                 foreach (var data in currentLevel.Resistances)
                 {
-                    Enum.TryParse<ResistanceType>(data.Key, true, out var t);
-                    SetResistance(t, (int) data.Value);
+                    try
+                    {
+                        Enum.TryParse<ResistanceType>(data.Key, true, out var t);
+                        SetResistance(t, (int) data.Value);
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to set {data.Key} resistance.");
+                            Console.Write(e);
+                        }
+                    }
                 }
 
                 foreach (var data in currentLevel.Skills)
                 {
-                    var d = (RangeDouble) data.Value;
-                    Enum.TryParse<SkillName>(data.Key, true, out var t);
-                    if (d.Min < 0)
+                    try
                     {
-                        SetSkill(t, d.Max);
-                        continue;
-                    }
+                        var d = (RangeDouble) data.Value;
+                        Enum.TryParse<SkillName>(data.Key, true, out var t);
+                        if (d.Min < 0)
+                        {
+                            SetSkill(t, d.Max);
+                            continue;
+                        }
 
-                    SetSkill(t, d.Min, d.Max);
+                        SetSkill(t, d.Min, d.Max);
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to set {data.Key} skill.");
+                            Console.Write(e);
+                        }
+                    }
                 }
 
                 foreach (var data in currentLevel.Stats)
                 {
-                    var k = ((string) data.Key).ToLower();
-                    var v = (RangeInt) data.Value;
-                    switch (k)
+                    try
                     {
-                        case "str":
-                            if (v.Min < 0)
-                            {
-                                SetStr(v.Max);
-                            }
-                            else
-                            {
-                                SetStr(v.Min, v.Max);
-                            }
+                        var k = ((string) data.Key).ToLower();
+                        var v = (RangeInt) data.Value;
+                        switch (k)
+                        {
+                            case "str":
+                                if (v.Min < 0)
+                                {
+                                    SetStr(v.Max);
+                                }
+                                else
+                                {
+                                    SetStr(v.Min, v.Max);
+                                }
 
-                            break;
-                        case "stam":
-                            if (v.Min < 0)
-                            {
-                                SetStam(v.Max);
-                            }
-                            else
-                            {
-                                SetStam(v.Min, v.Max);
-                            }
+                                break;
+                            case "stam":
+                                if (v.Min < 0)
+                                {
+                                    SetStam(v.Max);
+                                }
+                                else
+                                {
+                                    SetStam(v.Min, v.Max);
+                                }
 
-                            break;
-                        case "int":
-                            if (v.Min < 0)
-                            {
-                                SetInt(v.Max);
-                            }
-                            else
-                            {
-                                SetInt(v.Min, v.Max);
-                            }
+                                break;
+                            case "int":
+                                if (v.Min < 0)
+                                {
+                                    SetInt(v.Max);
+                                }
+                                else
+                                {
+                                    SetInt(v.Min, v.Max);
+                                }
 
-                            break;
-                        case "dex":
-                            if (v.Min < 0)
-                            {
-                                SetDex(v.Max);
-                            }
-                            else
-                            {
-                                SetDex(v.Min, v.Max);
-                            }
+                                break;
+                            case "dex":
+                                if (v.Min < 0)
+                                {
+                                    SetDex(v.Max);
+                                }
+                                else
+                                {
+                                    SetDex(v.Min, v.Max);
+                                }
 
-                            break;
-                        case "hits":
-                            if (v.Min < 0)
-                            {
-                                SetHits(v.Max);
-                            }
-                            else
-                            {
-                                SetHits(v.Min, v.Max);
-                            }
+                                break;
+                            case "hits":
+                                if (v.Min < 0)
+                                {
+                                    SetHits(v.Max);
+                                }
+                                else
+                                {
+                                    SetHits(v.Min, v.Max);
+                                }
 
-                            break;
-                        case "damage":
-                            if (v.Min < 0)
-                            {
-                                SetDamage(v.Max);
-                            }
-                            else
-                            {
-                                SetDamage(v.Min, v.Max);
-                            }
+                                break;
+                            case "damage":
+                                if (v.Min < 0)
+                                {
+                                    SetDamage(v.Max);
+                                }
+                                else
+                                {
+                                    SetDamage(v.Min, v.Max);
+                                }
 
-                            break;
+                                break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to set {data.Key} stat.");
+                            Console.Write(e);
+                        }
                     }
                 }
 
                 foreach (var data in currentLevel.SpecialAbilities)
                 {
-                    var sa = SpecialAbility.Abilities.FirstOrDefault(x => x.ToString().Split('.').Last() == data);
-                    if (sa == null) continue;
-                    SetSpecialAbility(sa);
+                    try
+                    {
+                        var sa = SpecialAbility.Abilities.FirstOrDefault(x => x.ToString().Split('.').Last() == data);
+                        if (sa == null) continue;
+                        SetSpecialAbility(sa);
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to set {data} special ability.");
+                            Console.Write(e);
+                        }
+                    }
                 }
 
                 foreach (var data in currentLevel.WeaponAbilities)
                 {
-                    var wa = WeaponAbility.Abilities.FirstOrDefault(x => x.ToString().Split('.').Last() == data);
-                    if (wa == null) continue;
-                    SetWeaponAbility(wa);
+                    try
+                    {
+                        var wa = WeaponAbility.Abilities.FirstOrDefault(x => x.ToString().Split('.').Last() == data);
+                        if (wa == null) continue;
+                        SetWeaponAbility(wa);
+                    }
+                    catch (Exception e)
+                    {
+                        if (_debugging)
+                        {
+                            Say($"Failed to set {data} special ability.");
+                            Console.Write(e);
+                        }
+                    }
                 }
 
                 if (currentLevel.EvoSound != 0) PlaySound(currentLevel.EvoSound);
@@ -305,9 +396,11 @@ namespace Server.Customs.JsonEvo
             base.Serialize(writer);
             {
                 writer.Write(0);
-
-                writer.Write(Experience);
-                writer.Write(Level);
+                
+                writer.Write(_debugging);
+                writer.Write(_fileName);
+                writer.Write(_experience);
+                writer.Write(_level);
                 //Config.Serialize(writer);
             }
         }
@@ -316,14 +409,111 @@ namespace Server.Customs.JsonEvo
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
-
-            Experience = reader.ReadInt();
-            Level = reader.ReadInt();
+            _debugging = reader.ReadBool();
+            _fileName = reader.ReadString();
+            _experience = reader.ReadInt();
+            _level = reader.ReadInt();
             // getting stack overflows, probably the samt Int64 to Int32 problem as above, but don't really need it
             //Config = new JsonEvoConfig();
             //Config.Deserialize(reader);
             // I'll make a service that stores these and updates them realtime later so this doesn't have ot happen for each instance of the mob
-            if(!String.IsNullOrEmpty(FileName)) LoadFromFile();
+            if(!String.IsNullOrEmpty(_fileName)) LoadFromFile();
+        }
+    }
+
+    public class JsonEvoEgg : Item
+    {
+        private string _fileName;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string FileName
+        {
+            get => _fileName;
+            set {
+                _fileName = value;
+                LoadFromFile();
+            }
+        }
+        public JsonEvoConfig Config { get; set; }
+
+        [Constructable]
+        public JsonEvoEgg() : base(5928)
+        {
+            Weight = 0.0;
+            Name = "An evo egg";
+            Hue = 2591;
+        }
+
+        public JsonEvoEgg(Serial serial) : base(serial)
+        {
+        }
+
+        public virtual int FollowerSlots
+        {
+            get { return 1; }
+        }
+
+        public override void OnDoubleClick(Mobile from)
+        {
+            if (Config == null) return;
+            if (!IsChildOf(from.Backpack))
+            {
+                from.SendMessage("You must have the egg in your backpack to hatch it.");
+            }
+
+            else if ((from.Followers + FollowerSlots) > from.FollowersMax)
+            {
+                from.SendMessage("You have too many followers.");
+            }
+
+
+            else
+            {
+                this.Delete();
+                from.SendMessage($"{Config.Levels[0].NameMod} {Config.BaseName} {Config.Levels[0].EvoMessage}");
+
+                JsonEvo evo = new JsonEvo();
+                evo.Config = Config;
+
+                evo.Map = from.Map;
+                evo.Location = from.Location;
+
+                evo.Controlled = true;
+
+                evo.ControlMaster = from;
+
+                evo.IsBonded = true;
+                evo.Level = 1;
+            }
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int) 1);
+            writer.Write(_fileName);
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+            _fileName = reader.ReadString();
+            if(!String.IsNullOrEmpty(_fileName)) LoadFromFile();
+        }
+        private void LoadFromFile()
+        {
+            if (String.IsNullOrEmpty(FileName)) return;
+            try
+            {
+                var json = File.ReadAllText($"Scripts/Customs/JsonEvo/Data/{FileName}.json");
+                Config = (JsonEvoConfig) JsonUtility.Deserialize<JsonEvoConfig>(json);
+                Hue = ((int?) Config.Levels[0].Props.FirstOrDefault(x => x.Key == "Hue").Value) ?? 0;
+                Name = $"{Config.BaseName} Egg";
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
         }
     }
 }
