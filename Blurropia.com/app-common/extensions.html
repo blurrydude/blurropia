@@ -1,0 +1,346 @@
+<script>
+    String.prototype.hexEncode = function(){
+        var hex, i;
+    
+        var result = "";
+        for (i=0; i<this.length; i++) {
+            hex = this.charCodeAt(i).toString(16);
+            result += ("000"+hex).slice(-4);
+        }
+    
+        return result
+    }
+    
+    String.prototype.hexDecode = function(){
+        var j;
+        var hexes = this.match(/.{1,4}/g) || [];
+        var back = "";
+        for(j = 0; j<hexes.length; j++) {
+            back += String.fromCharCode(parseInt(hexes[j], 16));
+        }
+    
+        return back;
+    }
+
+    Number.prototype.toDate = function() {
+        return new Date(this*1000);
+    }
+
+    Date.prototype.addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
+    Date.prototype.addHours = function(hours) {
+        var epoch = Math.round(this.getTime()/1000);
+        var newEpoch = epoch + (hours*3600);
+        var date = new Date(newEpoch*1000);
+        return date;
+    }
+
+    Date.prototype.addMinutes = function(minutes) {
+        var epoch = Math.round(this.getTime()/1000);
+        var newEpoch = epoch + (minutes*60);
+        var date = new Date(newEpoch*1000);
+        return date;
+    }
+
+    Date.prototype.addSeconds = function(seconds) {
+        var epoch = Math.round(this.getTime()/1000);
+        var newEpoch = epoch + seconds;
+        var date = new Date(newEpoch*1000);
+        return date;
+    }
+
+    Date.prototype.startOfTheHour = function() {
+        var t = this;
+        var epoch = Math.round(d.getTime()/1000);
+        var toth = new Date(Math.floor(epoch/3600)*3600000);
+        return toth;
+    }
+
+    Date.prototype.startOfTheDay = function() {
+        var t = this;
+        var totd = new Date((t.getMonth()+1)+'/'+t.getDate()+'/'+t.getFullYear());
+        return totd;
+    }
+
+    Date.prototype.startOfTheMonth = function() {
+        var t = this;
+        var totm = new Date((t.getMonth()+1)+'/1/'+t.getFullYear());
+        return totm;
+    }
+
+    Date.prototype.startOfTheYear = function() {
+        var t = this;
+        var totm = new Date('1/1/'+t.getFullYear());
+        return totm;
+    }
+
+    String.prototype.sha256 = function() {
+        var ascii = this;
+        function rightRotate(value, amount) {
+            return (value>>>amount) | (value<<(32 - amount));
+        };
+        
+        var mathPow = Math.pow;
+        var maxWord = mathPow(2, 32);
+        var lengthProperty = 'length'
+        var i, j; // Used as a counter across the whole file
+        var result = ''
+
+        var words = [];
+        var asciiBitLength = ascii[lengthProperty]*8;
+        
+        //* caching results is optional - remove/add slash from front of this line to toggle
+        // Initial hash value: first 32 bits of the fractional parts of the square roots of the first 8 primes
+        // (we actually calculate the first 64, but extra values are just ignored)
+        var hash = sha256.h = sha256.h || [];
+        // Round constants: first 32 bits of the fractional parts of the cube roots of the first 64 primes
+        var k = sha256.k = sha256.k || [];
+        var primeCounter = k[lengthProperty];
+        /*/
+        var hash = [], k = [];
+        var primeCounter = 0;
+        //*/
+
+        var isComposite = {};
+        for (var candidate = 2; primeCounter < 64; candidate++) {
+            if (!isComposite[candidate]) {
+                for (i = 0; i < 313; i += candidate) {
+                    isComposite[i] = candidate;
+                }
+                hash[primeCounter] = (mathPow(candidate, .5)*maxWord)|0;
+                k[primeCounter++] = (mathPow(candidate, 1/3)*maxWord)|0;
+            }
+        }
+        
+        ascii += '\x80' // Append Ƈ' bit (plus zero padding)
+        while (ascii[lengthProperty]%64 - 56) ascii += '\x00' // More zero padding
+        for (i = 0; i < ascii[lengthProperty]; i++) {
+            j = ascii.charCodeAt(i);
+            if (j>>8) return; // ASCII check: only accept characters in range 0-255
+            words[i>>2] |= j << ((3 - i)%4)*8;
+        }
+        words[words[lengthProperty]] = ((asciiBitLength/maxWord)|0);
+        words[words[lengthProperty]] = (asciiBitLength)
+        
+        // process each chunk
+        for (j = 0; j < words[lengthProperty];) {
+            var w = words.slice(j, j += 16); // The message is expanded into 64 words as part of the iteration
+            var oldHash = hash;
+            // This is now the undefinedworking hash", often labelled as variables a...g
+            // (we have to truncate as well, otherwise extra entries at the end accumulate
+            hash = hash.slice(0, 8);
+            
+            for (i = 0; i < 64; i++) {
+                var i2 = i + j;
+                // Expand the message into 64 words
+                // Used below if 
+                var w15 = w[i - 15], w2 = w[i - 2];
+
+                // Iterate
+                var a = hash[0], e = hash[4];
+                var temp1 = hash[7]
+                    + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) // S1
+                    + ((e&hash[5])^((~e)&hash[6])) // ch
+                    + k[i]
+                    // Expand the message schedule if needed
+                    + (w[i] = (i < 16) ? w[i] : (
+                            w[i - 16]
+                            + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15>>>3)) // s0
+                            + w[i - 7]
+                            + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2>>>10)) // s1
+                        )|0
+                    );
+                // This is only used once, so *could* be moved below, but it only saves 4 bytes and makes things unreadble
+                var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) // S0
+                    + ((a&hash[1])^(a&hash[2])^(hash[1]&hash[2])); // maj
+                
+                hash = [(temp1 + temp2)|0].concat(hash); // We don't bother trimming off the extra ones, they're harmless as long as we're truncating when we do the slice()
+                hash[4] = (hash[4] + temp1)|0;
+            }
+            
+            for (i = 0; i < 8; i++) {
+                hash[i] = (hash[i] + oldHash[i])|0;
+            }
+        }
+        
+        for (i = 0; i < 8; i++) {
+            for (j = 3; j + 1; j--) {
+                var b = (hash[i]>>(j*8))&255;
+                result += ((b < 16) ? 0 : '') + b.toString(16);
+            }
+        }
+        return result;
+    }
+
+    function getDiffs(original, newVersion) {
+        var ddm = deepDiffMapper();
+        var diffs = ddm.map(original, newVersion);
+
+        return diffs;
+    }
+
+    function deepDiffMapper() {
+        return {
+            VALUE_CREATED: 'created',
+            VALUE_UPDATED: 'updated',
+            VALUE_DELETED: 'deleted',
+            VALUE_UNCHANGED: 'unchanged',
+            map: function(obj1, obj2) {
+                var ddm = this;
+                if (ddm.isFunction(obj1) || ddm.isFunction(obj2)) {
+                    throw 'Invalid argument. Function given, object expected.';
+                }
+                if (ddm.isValue(obj1) || ddm.isValue(obj2)) {
+                    return {
+                        type: ddm.compareValues(obj1, obj2),
+                        data: obj2||null//obj2 === undefined ? obj1 : obj2
+                    };
+                }
+
+                var diff = {};
+                var obj1IsArray = obj1 !== undefined && ddm.isArray(obj1);
+                var obj2IsArray = obj2 !== undefined && ddm.isArray(obj2);
+
+                if(obj1IsArray||obj2IsArray) {
+                    if(!obj1IsArray && obj2IsArray) {
+                        for(var i = 0; i < obj2.length; i++) {
+                            diff[i] = {type:ddm.VALUE_CREATED, data:obj2[i]};
+                        }
+                        diff['isArray'] = true;
+                        return diff;
+                    }
+                    if(obj1IsArray && !obj2IsArray) {
+                        diff = {
+                            type: obj2===undefined ? ddm.VALUE_DELETED : ddm.VALUE_UPDATED,
+                            data: obj2||null
+                        }
+                        return diff;
+                    }
+                    var obj1length = obj1IsArray ? obj1.length : 0;
+                    var obj2length = obj2IsArray ? obj2.length : 0;
+                    var max = obj2length > obj1length ? obj2length : obj1length;
+                    for(var i = 0; i < max; i++) {
+                        var value2 = undefined;
+                        if (obj2[i] !== undefined) {
+                            value2 = obj2[i];
+                        }
+                        var d = ddm.map(obj1[i], value2);
+                        if(d.type != ddm.VALUE_UNCHANGED) diff[i] = d;
+                    }
+                    diff['isArray'] = true;
+                    return diff;
+                }
+        
+                for (var key in obj1) {
+                    if(key === 'key') continue;
+                    if (ddm.isFunction(obj1[key])) {
+                        continue;
+                    }
+            
+                    var value2 = undefined;
+                    if (obj2[key] !== undefined) {
+                        value2 = obj2[key];
+                    }
+                    var d = ddm.map(obj1[key], value2);
+                    if(d.type != ddm.VALUE_UNCHANGED) diff[key] = d;
+                }
+                for (var key in obj2) {
+                    if(key === 'key') continue;
+                    if (ddm.isFunction(obj2[key]) || diff[key] !== undefined) {
+                        continue;
+                    }
+            
+                    diff[key] = ddm.map(undefined, obj2[key]);
+                }
+        
+                return diff;
+        
+            },
+            compareValues: function (value1, value2) {
+                if (value1 === value2) {
+                    return this.VALUE_UNCHANGED;
+                }
+                if (this.isDate(value1) && this.isDate(value2) && value1.getTime() === value2.getTime()) {
+                    return this.VALUE_UNCHANGED;
+                }
+                if (value1 === undefined) {
+                    return this.VALUE_CREATED;
+                }
+                if (value2 === undefined) {
+                    return this.VALUE_DELETED;
+                }
+                return this.VALUE_UPDATED;
+            },
+            isFunction: function (x) {
+                return Object.prototype.toString.call(x) === '[object Function]';
+            },
+            isArray: function (x) {
+                return Object.prototype.toString.call(x) === '[object Array]';
+            },
+            isDate: function (x) {
+                return Object.prototype.toString.call(x) === '[object Date]';
+            },
+            isObject: function (x) {
+                return Object.prototype.toString.call(x) === '[object Object]';
+            },
+            isValue: function (x) {
+                var ddm = this;
+                if(ddm===undefined) console.log('WTF?!');
+                return x !== undefined && !ddm.isObject(x) && !ddm.isArray(x);
+            }
+        }
+    }
+
+    function Flags(array) {
+        var flags = this;
+        flags.NONE = 0;
+        flags.labels = {0: 'none'};
+        flags.length = array.length;
+        var p = 1;
+        for(var i in array) {
+            flags[array[i].toUpperCase()] = p;
+            flags.labels[p] = array[i];
+            p = p * 2;
+        }
+    }
+
+    Flags.prototype.Contains = function(value, label) {
+        var flags = this;
+        var x = isNaN(label) ? flags[label.toUpperCase()] : label;
+        return (value & x) != 0;
+    }
+
+    Flags.prototype.Count = function(value) {
+        var flags = this;
+        var c = value & 1;
+        for(var i = 0; i < flags.length; i++) {
+            if(i == 0) continue;
+            var x = Math.pow(2,i);
+            if((value & x) !== 0) c++;
+        }
+        return c;
+    }
+
+    Flags.prototype.ToArray = function(value) {
+        var flags = this;
+        var array = [];
+        var x = value & 1;
+        if(value === 0) return ['none'];
+        if(x === 1) array.push(flags.labels[x]);
+        for(var i = 0; i < flags.length; i++) {
+            if(i == 0) continue;
+            x = Math.pow(2,i);
+            if((value & x) !== 0) array.push(flags.labels[x]); 
+        }
+        return array;
+    }
+
+    Flags.prototype.ToString = function(value, noSpaces) {
+        var flags = this;
+        return this.ToArray(value).join(noSpaces?',':', ');
+    }
+</script>

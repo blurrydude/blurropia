@@ -1,0 +1,313 @@
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item" > <a href="" class="active nav-link" data-toggle="pill" data-target="#tabsix"><i class="fal fa-house"></i> Home</a> </li>
+            <li class="nav-item" > <a href="" class="nav-link" data-toggle="pill" data-target="#tabone"><i class="fal fa-analytics"></i> Data</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill" data-target="#tabfour"><i class="fad fa-cogs"></i> Settings</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill" data-target="#tabfive"><i class="fad fa-gavel"></i> Laws</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="" data-toggle="pill" data-target="#tabtwo"><i class="fad fa-map"></i> Live Map</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill" data-target="#tabthree"><i class="fal fa-drafting-compass"></i> Customs</a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+
+            <div class="tab-pane fade" id="tabone" role="tabpanel">
+                
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Player List</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item" data-ng-class="{'text-muted':!player.LoggedIn,'text-success font-bold':player.LoggedIn}" data-ng-repeat="player in vm.players">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                {{player.Name}}<br/>
+                                                <span class="badge badge-pill badge-info" data-ng-show="['BlurryDude','Dezra'].indexOf(player.Name)>-1">admin</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <small class="float-right">last activity:<br/>
+                                                    <span data-ng-show="vm.mostRecentActivity[player.Name]>0">{{(vm.mostRecentActivity[player.Name]*1000)|date:'h:mm a'}}</span>
+                                                    <span data-ng-show="!vm.mostRecentActivity[player.Name]||vm.mostRecentActivity[player.Name]==0">over 5 hours ago</span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Activity</h4>
+                                <small>for the last 5 hours in descending order</small>
+                            </div>
+                            <div class="card-body bg-dark text-white">
+                                <span data-ng-repeat="activity in vm.activities">
+                                    <span class="badge badge-secondary">{{activity.time | date:'mediumTime'}}</span>&nbsp;&middot&nbsp;
+                                    <span data-ng-class="{'text-danger':activity.Action.indexOf('slain')>-1,'text-success':activity.Action.indexOf('entered')>-1,'text-warning':activity.Action.indexOf('left')>-1,'text-info':activity.Action.indexOf('chat')>-1}">{{activity.Name}} {{activity.Action}}</span>
+                                    <br/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <h4>Live Map</h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-control" data-ng-model="vm.map" data-ng-options="map for map in vm.maps" data-ng-change="vm.changeMap()"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body bg-dark text-white">
+                                <div class="row">
+                                    <div class="col-10 offset-1 d-flex justify-content-center">
+                                        <img src="https://blurropia.com/UOImages/Gumps/4000/4500/4500.png" data-ng-click="vm.moveMap(0)"/>
+                                    </div>
+                                </div>
+            
+                                <div class="row">
+                                    <div class="col-1 p-0">
+                                        <img style="margin-top:280px" class="float-right" src="https://blurropia.com/UOImages/Gumps/4000/4500/4506.png" data-ng-click="vm.moveMap(3)"/>
+                                    </div>
+                                    <div class="col-10 d-flex justify-content-center">
+                                        <div id="konvaStage" data-ng-class="{'uninverted':inverted}"></div>
+                                    </div>
+                                    <div class="col-1 p-0">
+                                        <img style="margin-top:280px" class="float-left" src="https://blurropia.com/UOImages/Gumps/4000/4500/4502.png" data-ng-click="vm.moveMap(1)"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 offset-1 d-flex justify-content-center">
+                                        <img src="https://blurropia.com/UOImages/Gumps/4000/4500/4504.png" data-ng-click="vm.moveMap(2)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="tabthree" role="tabpanel">
+              <p class="">Working on this screen...</p>
+              <ul class="list-group">
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed, but new hitching posts need distributed</small>
+                      <h5>Pet Shrinking Posts</h5>
+                      <small><u>Description</u></small>
+                      <p>Allows players to conveniently store their pets and call them out without the need to stable them. Pets left beyond the normal stable limits will be lost forever if they are not bonded. Shrunken pets do not take control slots, but unshrunk pets will, so if you have too many pets out, you will not be able to unshrink another.</p>
+                      <small><u>Usage</u></small>
+                      <p>Double click the hitching post and then target the pet to shrink. You will receive a statuette of your pet. Double click the statuette while it is in your backpack to unshrink it.</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed, but not set up</small>
+                      <h5>Battle Pets</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed, but not set up</small>
+                      <h5>Slot Machines</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed and working</small>
+                      <h5>Airship Travel</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed and working</small>
+                      <h5>Arena Battles</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed and working, but has enhancements pending</small>
+                      <h5>Multi-Customizable Addons</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>in development</small>
+                      <h5>Better Farming</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+                  <li class="list-group-item">
+                      <small class="float-right"><strong>status: </strong>installed, but not distributed</small>
+                      <h5>Vendor Stones</h5>
+                      <small><u>Description</u></small>
+                      <p>Pending details...</p>
+                      <small><u>Usage</u></small>
+                      <p>Pending details...</p>
+                  </li>
+              </ul>
+            </div>
+
+            <div class="tab-pane fade" id="tabfour" role="tabpanel">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Shard Configuration</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Skill Cap</strong>
+                                        <span>1,500</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Stat Cap</strong>
+                                        <span>300 total, 150 individual, 175 enhanced</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Houses per Account</strong>
+                                        <span>3</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Daily login stipend <small>under 7 days in a row</small>&nbsp;&nbsp;&nbsp;<small class="badge badge-pill badge-warning text-info">custom</small></strong>
+                                        <span>500 gold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Daily login stipend <small>7-13 days in a row</small>&nbsp;&nbsp;&nbsp;<small class="badge badge-pill badge-warning text-info">custom</small></strong>
+                                        <span>1,000 gold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Daily login stipend <small>14 or more days in a row</small>&nbsp;&nbsp;&nbsp;<small class="badge badge-pill badge-warning text-info">custom</small></strong>
+                                        <span>2,000 gold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <strong>Monthly stipend bonus&nbsp;&nbsp;&nbsp;<small class="badge badge-pill badge-warning text-info">custom</small></strong>
+                                        <span>1,000 gold for every 28 days in a row logged in</span>
+                                    </li>
+                                </ul>
+                                <small>&nbsp;&nbsp;&nbsp;&nbsp;* - pending change</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="tabfive" role="tabpanel">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Shard Rules</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <p>The First Law of Blurropia is there will be no hate here. We will not tolerate hate speech of any kind. If you do not agree with or like another player, there is plenty of room in the world and--at the most extreme--there are other servers. Any hate speech will be met by swift banishment from the server.</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p>The Second Law of Blurropia is PVP must be consensual and carried out in the appropriate areas. If you happen to guild up, please keep any potential guild PVP away from largely used areas like West Brit Bank. If this becomes a problem, it may result in up to two days in jail with no travel or chat access, and/or a 10,000 gold fine.</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p>The Third Law of Blurropia is the Staff are final judge, jury, executioner, and tax collector--what they say ultimately goes so long as it does not break these rules. We're here to have fun and to enjoy the benefits of having multiple gamers together in one community. All grievances will be brought before at least one admin and one witness (admin or player) from outside the dispute. Grievances can be posted on Discord and dealt with in a private text/voice channel, or in game, but whatever medium is agreed upon must be agreed upon and attended by all parties.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade show active" id="tabsix" role="tabpanel">
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <div class="card mb-1">
+                            <div class="card-header d-flex justify-content-center">
+                                <h4>Client Tips</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">Press comma before typing to talk in chat.</li>
+                                    <li class="list-group-item">Holding Ctrl + Shift helps see items and mobiles in the area.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card mb-1">
+                            <div class="card-header d-flex justify-content-center">
+                                <h4>Join Us!</h4>
+                            </div>
+                            <div class="card-body">
+                                <a href="https://discord.gg/75tj74dJ85" target="_NEW">Blurropia Discord</a><br/>
+                                <small>Please join the discord for even more shard info and updates as well as interacting with staff and other players!</small><br/>
+                                <a href="https://blurropia.com/ticket/UOClassicSetup_7_0_24_0.exe">Download Client</a><br/>
+                                <small>We're currently running client 7.0.87.11</small><br/>
+                                <a href="https://blurropia.com/ticket/Razor_Latest.exe">Download Razor</a><br/>
+                                <small>Razor is what allows you to connect to the server. For more information on how to use Razor with the client, please check the passage-to-blurropia channel on Discord.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h4>NOTICE</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>We're making progress on restoring the on-site chat functionality, please be patient with us. As a consolation, once the
+                                    work on the server-side that supports site chat is complete, it will also enable other awesome features on the site like
+                                    character stats tracking, inventory management, pet management, and a ton more!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" data-ng-repeat="channel in vm.chat">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4>Chat</h4><span class="badge badge-pill badge-dark text-light">channel: {{channel.Channel}}</span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item" data-ng-repeat="message in channel.Messages">
+                                        <strong>{{(message.Name)}}: </strong> {{message.Message}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

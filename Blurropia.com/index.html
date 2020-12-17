@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400, 400i, 500, 700, 900" rel="stylesheet">
+  
+    <?!= include('style/site.css.html'); ?>
+    <?!= include('style/site.scss.html'); ?>
+</head>
+
+<body data-ng-class="{'inverted bg-dark':inverted}">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container"> 
+      <a class="navbar-brand" href="#">
+        <b>&nbsp;&nbsp;Blurropia&nbsp;&nbsp;</b>
+        <small>UO Freeshard</small>
+      </a>
+      <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar11">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar11">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"> <a class="nav-link cursor" href="#!/questeditor"><i class="fa fa-adjust"></i></a> </li>
+          <li class="nav-item"> <a class="nav-link cursor" data-ng-click="inverted=!inverted"><i class="fa fa-adjust"></i></a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="lights-out" data-ng-show="spin"></div>
+  <div class="loader-holder" data-ng-show="spin||!routesLoaded"><div class="loader"></div></div>
+  <div class="container w-100">
+    <div class="row w-100">
+
+      <div id="content-div" class="w-100" data-ng-view data-ng-show="routesLoaded"></div>
+
+    </div>
+  </div>
+  
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="toaster">
+      <div class="toast-header bg-{{toast.type}} text-light">
+        <strong class="mr-auto text-capitalize">{{toast.type}}</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body bg-dark text-light">
+        {{toast.message}}
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   
+    <!-- Font Awesome Pro -->
+    <script src="https://kit.fontawesome.com/b79a825bd9.js"></script>
+    
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://code.angularjs.org/1.6.0/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.0/angular-route.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.0/angular-cookies.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.0/angular-animate.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.0/angular-touch.min.js"></script>
+    <!-- Lodash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <!-- Angular UI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    
+    <!-- Konva -->
+    <script src="https://cdn.rawgit.com/konvajs/konva/2.1.6/konva.min.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+
+    <!-- Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
+
+    <!-- <script src="https://dev.idkline.com/scripts/firestoreServiceWrapper.js"></script> -->
+
+    <!-- FileSaver.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+
+    <script>
+      var db = {};
+      var Firestore = {};
+      var FirestoreReady = false;
+      google.script.run.withSuccessHandler(function(firebaseConfig) {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        Firestore = new FirestoreServiceWrapper();
+        FirestoreReady = true;
+      }).getFirestoreCredentials();
+    </script>
+    <?!= include('firestoreServiceWrapper'); ?>
+
+    <?!= include('app-common/extensions'); ?>
+    <?!= include('app-common/models'); ?>
+
+    <?!= include('common'); ?>
+    <?!= include('shared-models/battleplant'); ?>
+
+    <?!= include('app-common/crypto-service'); ?>
+    <?!= include('app-common/storage-chain'); ?>
+    <?!= include('startup/app'); ?>
+    
+    <?!= include('app-services/firestore.service'); ?>
+    
+    <?!= include('home/home.controller'); ?>
+    <?!= include('questeditor/questeditor.controller'); ?>
+    <?!= include('log/log.controller'); ?>
+</body>
+
+</html>

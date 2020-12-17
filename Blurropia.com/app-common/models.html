@@ -1,0 +1,362 @@
+<script>
+function DemoCoinBlock(data) {
+    data = data||{};
+    this.Index = data.Index||0;
+    this.Timestamp = data.Timestamp||(new Date()).getTime();
+    this.LastHash = data.LastHash||'';
+    this.Hash = data.Hash||'';
+    this.Transaction = data.Transaction||{};
+    this.MinerWalletId = data.MinerWalletId||'';
+    this.MinerReward = data.MinerReward||0;
+}
+
+DemoCoinBlock.prototype.ComputeNewHash = function(index, transaction, lastHash) {
+    var cs = new CryptoService();
+    var block = this;
+    var toHash = index + '' + lastHash + block.Timestamp + JSON.stringify(transaction);
+    var hash = cs.sha256(toHash);
+    block.Hash = hash;
+}
+
+DemoCoinBlock.prototype.GetCoinSize = function() {
+    var size = 0;
+    for(var i in this.Hash) {
+        if(this.Hash[i] != '0') break;
+        size++;
+    }
+    return size;
+}
+
+function DemoCoinChain(data) {
+    data = data||{};
+    this.Blocks = data.Blocks||[];
+    this.Difficulty = data.Difficulty||1;
+    this.PendingTransactions = data.PendingTransactions||[];
+    this.LastHash = data.LastHash||'';
+    this.Wallets = data.Wallets||{};
+    this.Objects = data.Objects||[];
+    this.MinerBaseReward = data.MinerBaseReward||0.5;
+    this.MinerDifficultyReward = data.MinerDifficultyReward||0.5;
+    this.SignOnBonus = data.SignOnBonus||1;
+    this.FeeMultiplier = data.FeeMultiplier||1.0001;
+    this.UpsertByteCharge = data.UpsertByteCharge||0.0001;
+    this.DeleteCharge = data.DeleteCharge||0.001;
+    this.FactorTenDifficulty = data.FactorTenDifficulty||true;
+}
+
+DemoCoinChain.prototype.JsonSerialize = function() {
+    var chain = this;
+    var data = {};
+    var ignore = ['PendingTransactions','Wallets','Objects'];
+    _.each(chain, function(d,k) {
+        if(ignore.indexOf(k)>-1) return;
+        data[k] = d;
+    });
+    return angular.toJson(data);
+}
+
+DemoCoinChain.prototype.CheckDifficulty = function() {
+    var diff = 1;
+    if(this.Blocks.length > 10) diff++;
+    if(this.Blocks.length > 100) diff++;
+    if(this.Blocks.length > 1000) diff++;
+    if(this.Blocks.length > 10000) diff++;
+    if(this.Blocks.length > 100000) diff++;
+    if(this.Blocks.length > 1000000) diff++;
+    if(this.Blocks.length > 10000000) diff++;
+
+    if(diff != this.Difficulty) {
+        console.log(this.Blocks.length + ' blocks discovered, setting difficulty from ' + this.Difficulty + ' to ' + diff);
+        this.Difficulty = diff;
+    }
+}
+
+// PROTECT THIS FUNCTION LATER!!!
+DemoCoinChain.prototype.AddTransaction = function(transaction) {
+    this.PendingTransactions.push(transaction);
+}
+
+DemoCoinChain.prototype.GetPendingTransaction = function() {
+    return this.PendingTransactions.length>0?this.PendingTransactions[0]:null;
+}
+
+DemoCoinChain.prototype.ProposeBlock = function(block, minerWalletId) {
+    var chain = this;
+    if(chain.PendingTransactions.length == 0) return false;
+    var nextTransaction = chain.PendingTransactions[0];
+    var size = block.GetCoinSize();
+    var bonus = size - chain.Difficulty;
+    if(size < chain.Difficulty) return false;
+    if(block.LastHash != chain.LastHash) return false;
+    if(block.Transaction != nextTransaction) return false;
+    block.MinerWalletId = minerWalletId;
+    var reward = chain.MinerBaseReward + (chain.MinerDifficultyReward*bonus);
+    block.MinerReward = reward;
+    chain.Blocks.push(block);
+    if(chain.FactorTenDifficulty===true) chain.CheckDifficulty();
+    chain.LastHash = block.Hash;
+    chain.PendingTransactions.splice(0,1);
+    chain.Wallets[minerWalletId].balance += reward;
+    if(block.Transaction.type) {
+        switch(block.Transaction.type) {
+            case 'funds_transfer':
+                var fromWallet = chain.Wallets[block.Transaction.fromWalletId];
+                fromWallet.locked = parseFloat(fromWallet.locked) - parseFloat(block.Transaction.amountWithFee);
+                var toWallet = chain.Wallets[block.Transaction.toWalletId];
+                toWallet.balance = parseFloat(toWallet.balance) + parseFloat(block.Transaction.amount);
+                break;
+            case 'upsert_object':
+                var wallet = chain.Wallets[block.Transaction.walletId];
+                wallet.locked = parseFloat(wallet.locked) - parseFloat(block.Transaction.charge);
+                var result = _.filter(chain.Objects, function(o) { return o.key == block.Transaction.objectKey; });
+                var newObject = result.length == 0;
+                var index = newObject ? chain.Objects.length : chain.Objects.indexOf(result[0]);
+                if(newObject) chain.Objects.push({key:block.Transaction.objectKey});
+                _.each(block.Transaction.diffs, function(diff,key) {
+                    if(diff.isArray) {
+                        if(!chain.Objects[index][key]) chain.Objects[index][key] = [];
+                        _.each(diff, function(val,ind) {
+                            if(ind === 'isArray') return;
+                            chain.Objects[index][key][parseInt(ind)] = val.data;
+                        });
+                    } else {
+                        chain.Objects[index][key] = diff.data;
+                    }
+                });
+                chain.Objects[index]['walletId'] = block.Transaction.walletId;
+                break;
+            case 'delete_object':
+                var wallet = chain.Wallets[block.Transaction.walletId];
+                wallet.locked = parseFloat(wallet.locked) - parseFloat(block.Transaction.charge);
+                var result = _.filter(chain.Objects, function(o) { return o.key == block.Transaction.objectKey; });
+                var index = chain.Objects.indexOf(result[0]);
+                chain.Objects.splice(index,1);
+                break;
+        }
+    }
+    console.log(chain);
+}
+
+DemoCoinChain.prototype.CreateWallet = function(fundingWalletId) {
+    var chain = this;
+    var cs = new CryptoService();
+    var epoch = (new Date()).getTime();
+    return new Promise(function(resolve, reject) {
+        httpGet('https://www.cloudflare.com/cdn-cgi/trace').then(function(data) {
+            var clientData = {};
+            var split1 = data.split('\n');
+            _.each(split1, function(kvp) {
+                if(kvp=="") return;
+                var split2 = kvp.replace('\r','').split('=');
+                clientData[split2[0]] = split2[1];
+            });
+            var walletId = cs.sha256(JSON.stringify(clientData)+epoch);
+            var secret = cs.sha256(clientData.ip+epoch);
+            var check = cs.sha256(secret);
+            chain.AddTransaction({type:'create_wallet',walletId:walletId,check:check});
+            if(fundingWalletId) { // Let's give everyone a sign-on bonus from the funding account
+                chain.Wallets[fundingWalletId].balance = chain.Wallets[fundingWalletId].balance - chain.SignOnBonus*chain.FeeMultiplier;
+                chain.Wallets[fundingWalletId].locked = chain.Wallets[fundingWalletId].locked + chain.SignOnBonus*chain.FeeMultiplier;
+                chain.AddTransaction({type:'funds_transfer',fromWalletId:fundingWalletId,toWalletId:walletId,amount:chain.SignOnBonus,amountWithFee:chain.SignOnBonus*chain.FeeMultiplier});
+            }
+            chain.Wallets[walletId] = {
+                check: check,
+                balance: 0,
+                locked: 0,
+                created: epoch
+            };
+            resolve({walletId,secret});
+        });
+    });
+}
+
+DemoCoinChain.prototype.Send = function(fromWalletId, secret, toWalletId, amount) {
+    if(fromWalletId == toWalletId) return 'Cannot Send Funds To Self';
+    if(amount <= 0) return 'Invalid Amount';
+    var cs = new CryptoService();
+    var chain = this;
+    if(!chain.Wallets[fromWalletId]) return 'Invalid Sender';
+    if(!chain.Wallets[toWalletId]) return 'Invalid Recipient';
+    var check = cs.sha256(secret);
+    if(check != chain.Wallets[fromWalletId].check) return 'Invalid Secret Key';
+    if(amount <= 0) return 'Invalid Amount';
+    var amountWithFee = amount * chain.FeeMultiplier;
+    if(amountWithFee > chain.Wallets[fromWalletId].balance) return 'Insufficient Funds';
+    chain.AddTransaction({type:'funds_transfer',fromWalletId:fromWalletId,toWalletId:toWalletId,amount:amount,amountWithFee:amountWithFee});
+    chain.Wallets[fromWalletId].balance = chain.Wallets[fromWalletId].balance - amountWithFee;
+    chain.Wallets[fromWalletId].locked = chain.Wallets[fromWalletId].locked + amountWithFee;
+}
+
+DemoCoinChain.prototype.UpsertData = function(walletId, secret, objectKey, objectToStore) {
+    objectToStore = JSON.parse(angular.toJson(objectToStore));
+    var chain = this;
+    var cs = new CryptoService();
+    var check = cs.sha256(secret);
+    if(!objectKey || objectKey == '') return 'Invalid Object Key';
+    if(!chain.Wallets[walletId]) return 'Invalid Wallet ID';
+    if(check != chain.Wallets[walletId].check) return 'Invalid Secret Key';
+    var result = _.filter(chain.Objects, function(o) { return o.key == objectKey; });
+    var original = result.length == 0 ? {key:objectKey} : result[0];
+    var diffs = getDiffs(original, objectToStore);
+    var diffsJson = JSON.stringify(diffs);
+    var charge = diffsJson.length * chain.UpsertByteCharge;
+    chain.Wallets[walletId].balance = chain.Wallets[walletId].balance - charge;
+    chain.Wallets[walletId].locked = chain.Wallets[walletId].locked + charge;
+    chain.AddTransaction({type:'upsert_object',walletId:walletId,charge:charge,objectKey:objectKey,diffs:diffs});
+}
+
+DemoCoinChain.prototype.GetUpsertCharge = function(walletId, objectKey, objectToStore) {
+    var chain = this;
+    if(!objectKey || objectKey == '') return 'Invalid Object Key';
+    if(!chain.Wallets[walletId]) return 'Invalid Wallet ID';
+    var result = _.filter(chain.Objects, function(o) { return o.key == objectKey; });
+    var original = result.length == 0 ? {key:objectKey} : result[0];
+    var diffs = getDiffs(original, objectToStore);
+    diffsJson = JSON.stringify(diffs);
+    var charge = diffsJson.length * chain.UpsertByteCharge;
+    return charge;
+}
+
+DemoCoinChain.prototype.DeleteObject = function(walletId, secret, objectKey) {
+    var chain = this;
+    var cs = new CryptoService();
+    var check = cs.sha256(secret);
+    if(!objectKey || objectKey == '') return 'Invalid Object Key';
+    if(!chain.Wallets[walletId]) return 'Invalid Wallet ID';
+    if(check != chain.Wallets[walletId].check) return 'Invalid Secret Key';
+    var charge = chain.DeleteCharge;
+    chain.Wallets[walletId].balance = chain.Wallets[walletId].balance - charge;
+    chain.Wallets[walletId].locked = chain.Wallets[walletId].locked + charge;
+    chain.AddTransaction({type:'delete_object',walletId:walletId,charge:charge,objectKey:objectKey});
+}
+
+DemoCoinChain.prototype.GetObject = function(walletId, objectKey) {
+    var chain = this;
+    var results = _.filter(chain.Objects, function(o) { return o.key == objectKey && o.walletId == walletId; });
+    if(results.length > 0) return results[0];
+}
+
+DemoCoinChain.prototype.Query = function(walletId, compareFunc) {
+    var chain = this;
+    var results = _.filter(chain.Objects, function(o) { return o.walletId == walletId && compareFunc(o); });
+    return results;
+}
+
+DemoCoinChain.prototype.ImportChainJson = function(json) {
+    var chain = this;
+    chain.Blocks = [];
+    chain.Difficulty = 1;
+    chain.PendingTransactions = [];
+    chain.LastHash = '';
+    chain.Wallets = {};
+    chain.Objects = [];
+    var imprt = JSON.parse(json);
+    _.each(imprt, function(d,k) {
+        if(k==='Blocks') return;
+        chain[k] = d;
+    });
+    var firstBlock = true;
+    _.each(imprt.Blocks, function(block) {
+        block = new DemoCoinBlock(block);
+        chain.Blocks.push(block);
+        if(block.Transaction.type) {
+            switch(block.Transaction.type) {
+                case 'create_wallet':
+                    chain.Wallets[block.Transaction.walletId] = {
+                        check: block.Transaction.check,
+                        balance: 0,
+                        locked: 0,
+                        created: block.Timestamp
+                    };
+                    break;
+                case 'funds_transfer':
+                    var fromWallet = chain.Wallets[block.Transaction.fromWalletId];
+                    fromWallet.balance = parseFloat(fromWallet.balance) - parseFloat(block.Transaction.amountWithFee);
+                    var toWallet = chain.Wallets[block.Transaction.toWalletId];
+                    toWallet.balance = parseFloat(toWallet.balance) + parseFloat(block.Transaction.amount);
+                    break;
+                case 'upsert_object':
+                    var wallet = chain.Wallets[block.Transaction.walletId];
+                    wallet.balance = parseFloat(wallet.balance) - parseFloat(block.Transaction.charge);
+                    var result = _.filter(chain.Objects, function(o) { return o.key == block.Transaction.objectKey; });
+                    var newObject = result.length == 0;
+                    var index = newObject ? chain.Objects.length : chain.Objects.indexOf(result[0]);
+                    if(newObject) chain.Objects.push({key:block.Transaction.objectKey});
+                    _.each(block.Transaction.diffs, function(diff,key) {
+                        if(diff.isArray) {
+                            if(!chain.Objects[index][key]) chain.Objects[index][key] = [];
+                            _.each(diff, function(val,ind) {
+                                if(ind === 'isArray') return;
+                                chain.Objects[index][key][parseInt(ind)] = val.data;
+                            });
+                        } else {
+                            chain.Objects[index][key] = diff.data;
+                        }
+                    });
+                    chain.Objects[index]['walletId'] = block.Transaction.walletId;
+                    break;
+                case 'delete_object':
+                    var wallet = chain.Wallets[block.Transaction.walletId];
+                    wallet.balance = parseFloat(wallet.balance) - parseFloat(block.Transaction.charge);
+                    var result = _.filter(chain.Objects, function(o) { return o.key == block.Transaction.objectKey; });
+                    var index = chain.Objects.indexOf(result[0]);
+                    chain.Objects.splice(index,1);
+                    break;
+            }
+        }
+        var minerWallet = chain.Wallets[block.MinerWalletId];
+        minerWallet.balance = parseFloat(minerWallet.balance) + parseFloat(block.MinerReward);
+    });
+    console.log(chain);
+}
+
+function httpGet(theUrl)
+{
+    return new Promise(function(resolve, reject) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        resolve(xmlHttp.responseText);
+    });
+}
+
+function JsonQuestGiver()
+{
+    this.Name = "";
+    this.Title = "";
+    this.Female = false;
+    this.RandomGender = false;
+    this.RandomName = false;
+    this.AutoDress = false;
+    this.Clothes = [];
+    this.StartMap = "Trammel";
+    this.CantWalk = false;
+    this.StartLocation = [0,0,0];
+    this.ConvoNodes = [];
+    this.Hue = null;
+    this.SpeechHue = null;
+    this.Body = null;
+    this.HairItemId = null;
+    this.HairHue = null;
+    this.FacialHairItemId = null;
+    this.FacialHairHue = null;
+}
+
+function JsonQuestConvoNode()
+{
+    this.NodeId = 0;
+    this.OptionText = "";
+    this.Nodes = [];
+    this.Text = "";
+    this.Item = null;
+    this.TriggerItem = null;
+    this.CompletesQuest = false;
+}
+
+function JsonQuestItem() 
+{
+    this.Item = "";
+    this.Amount = 1;
+    this.Props = {};
+}
+</script>

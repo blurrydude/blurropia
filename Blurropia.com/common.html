@@ -1,0 +1,72 @@
+<script>
+var fib = null;
+
+
+function getRequirement(value) {
+    var fib = getFib();
+    var l = 0;
+    while(fib[l] < value) l++;
+    return fib[l+1];
+}
+
+function getFibLevel(value) {
+    var fib = getFib();
+    var l = 0;
+    while(fib[l] < value) l++;
+    return l;
+}
+
+function getFib() {
+    if(fib == null) {
+        var n = 1;
+        var p = 0;
+        var a = [];
+        while(a.length < 150) {
+            var t = p;
+            p = n;
+            n = n + t;
+            a.push(n);
+        }
+        fib = a;
+    }
+    return fib;
+}
+
+var base = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+function toBabylonian(t, digits) {
+    var f = '';
+    var bump = ((t/60)+'').indexOf('.')===-1;
+    for(var p = digits; p >= 0; p--) {
+      var v = Math.pow(60,p);
+      if(v > t) continue;
+      if(p == 0) v = 1;
+      var d = t / v;
+      var m = Math.floor(d);
+      var r = m * v;
+      t = t - r;
+      var g = m === 0 ? t : m;
+      f += base[g];
+    }
+    var l = f.length;
+    var d = digits - l;
+    if(d > 0) {
+      for(var x = 0; x < d; x++) f = '0'+f;
+    }
+    if(bump) f += '0';
+    return f;
+  }
+  
+  
+  function fromBabylonian(f) {
+    var e = 0;
+    var p = f.length-1;
+    for(var c = 0; c < f.length; c++) {
+      var i = base.indexOf(f[c]);
+      var v = Math.pow(60,p);
+      if(p == 60) v = 1;
+      e = e + v * i;
+      p--;
+    }
+    return e;
+  }
+</script>

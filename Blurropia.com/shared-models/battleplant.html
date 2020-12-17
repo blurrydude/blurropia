@@ -1,0 +1,108 @@
+<script>
+var Upgrades = new Flags(['thorns','tendrils','barbs','aroma','bark']);
+
+function BattlePlant() {
+    this.id = (new Date()).getTime();
+    this.roots = 1;
+    this.trunk = 1;
+    this.limbs = 1;
+    this.rootLevel = 0;
+    this.trunkLevel = 0;
+    this.limbsLevel = 0;
+    this.water = 10;
+    this.upgrades = 0;
+    this.upgradeReady = false;
+    this.level = 0;
+    this.trunkNeedsRoots = getRequirement(this.trunk);
+    this.limbsNeedTrunk = getRequirement(this.limbs);
+    this.rootsNeedWater = getRequirement(this.roots);
+    this.thoughts = '';
+}
+
+BattlePlant.prototype.Serialize = function() {
+    var serial = toBabylonian(this.id, 8) +
+    toBabylonian(this.roots, 8) + 
+    toBabylonian(this.trunk, 8) + 
+    toBabylonian(this.limbs, 8) + 
+    toBabylonian(this.rootLevel, 2) + 
+    toBabylonian(this.trunkLevel, 2) + 
+    toBabylonian(this.limbsLevel, 2) + 
+    toBabylonian(this.water, 8) + 
+    toBabylonian(this.upgrades, 1) + 
+    (this.upgradeReady ? '1' : '0') + 
+    toBabylonian(this.level, 1) + 
+    toBabylonian(this.trunkNeedsRoots, 8) + 
+    toBabylonian(this.limbsNeedTrunk, 8) + 
+    toBabylonian(this.rootsNeedWater, 8);
+    return serial;
+}
+
+BattlePlant.prototype.Upgrade = function(upgrade) {
+    switch(upgrade) {
+        case 'thorns': if(!Upgrades.Contains(this.upgrades, Upgrades.THORNS)) { this.upgrades += Upgrades.THORNS; } break;
+        case 'tendrils': if(!Upgrades.Contains(this.upgrades, Upgrades.TENDRILS)) { this.upgrades += Upgrades.TENDRILS; } break;
+        case 'barbs': if(!Upgrades.Contains(this.upgrades, Upgrades.BARBS)) { this.upgrades += Upgrades.BARBS; } break;
+        case 'aroma': if(!Upgrades.Contains(this.upgrades, Upgrades.AROMA)) { this.upgrades += Upgrades.AROMA; } break;
+        case 'bark': if(!Upgrades.Contains(this.upgrades, Upgrades.BARK)) { this.upgrades += Upgrades.BARK; } break;
+    }
+    this.upgradeReady = false;
+}
+
+BattlePlant.prototype.AddWater = function(amount) {
+    this.water += amount;
+}
+
+BattlePlant.prototype.Grow = function() {
+    this.trunkNeedsRoots = getRequirement(this.trunk);
+    this.limbsNeedTrunk = getRequirement(this.limbs);
+    this.rootsNeedWater = Math.min(getRequirement(this.roots),1000000);
+    var rootsCanGrow = this.water >= this.rootsNeedWater;
+    var limbsCanGrow = this.trunk >= this.limbsNeedTrunk || (this.water >= 15000&&this.trunkLevel==75);
+    var trunkCanGrow = this.roots >= this.trunkNeedsRoots || (this.water >= 30000&&this.rootLevel==75);
+    var rootsConsume = Math.min(this.rootsNeedWater,10000);
+    var limbsConsume = Math.round(rootsConsume*1.5);
+    var trunkConsumes = limbsConsume*2;
+    var growFactor = this.level < 2 ? 100 : this.level < 3 ? 50 : this.level < 4 ? 10 : this.level < 5 ? 5 : this.level < 6 ? 2 : this.level < 7 ? 0.25 : this.level < 8 ? 0.1 : 0.05;
+    switch(this.level) {
+        case 0: growFactor = 100; break;
+        case 1: growFactor = 100; break;
+        case 2: growFactor = 50; break;
+        case 3: growFactor = 10; break;
+        case 4: growFactor = 5; break;
+        case 5: growFactor = 2; break;
+        case 6: growFactor = 0.1; break;
+        case 7: growFactor = 0.0005; break;
+        case 8: growFactor = 0.0000001; break;
+        case 9: growFactor = 0.00000000001; break;
+        case 10: growFactor = 0; break;
+    }
+    var rootsGrow = Math.max(1,Math.ceil(this.rootLevel/growFactor));
+    var limbsGrow = Math.max(1,Math.ceil(this.limbsLevel/growFactor));
+    var trunkGrow = Math.max(1,Math.ceil(this.trunkLevel/growFactor));
+    if(rootsCanGrow && this.rootLevel < 75 && this.water >= rootsConsume) {this.roots+=rootsGrow; this.water-=rootsConsume; this.rootLevel = getFibLevel(this.roots); }
+    if(limbsCanGrow && this.limbsLevel < 75 && this.water >= limbsConsume) {this.limbs+=limbsGrow; this.water-=limbsConsume; this.limbsLevel = getFibLevel(this.limbs); }
+    if(trunkCanGrow && this.trunkLevel < 75 && this.water >= trunkConsumes) {this.trunk+=trunkGrow; this.water-=trunkConsumes; this.trunkLevel = getFibLevel(this.trunk); }
+    this.LevelCheck();
+}
+
+BattlePlant.prototype.LevelCheck = function() {
+    if(this.level == 10) return;
+    var l = Math.round((this.trunkLevel + this.rootLevel + this.limbsLevel)/3);
+    var level = this.trunkLevel==75&&this.rootLevel==75&&this.limbsLevel==75?10:getFibLevel(l);
+    if(level > this.level) {
+        this.level++;
+        this.UpgradeCheck();
+        this.thoughts = 'I\'ve leveled up'+(this.upgradeReady?' and have an upgrade ready':'')+'.';
+    }
+}
+
+BattlePlant.prototype.UpgradeCheck = function() {
+    var upgrades = 0;
+    if(this.thorns) upgrades++;
+    if(this.tendrils) upgrades++;
+    if(this.barbs) upgrades++;
+    if(this.aroma) upgrades++;
+    if(this.bark) upgrades++;
+    this.upgradeReady = (this.level == 5 && upgrades == 0) || (this.level == 8 && upgrades < 2);
+}
+</script>

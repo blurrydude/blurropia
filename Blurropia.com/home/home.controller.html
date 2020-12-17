@@ -1,0 +1,206 @@
+<script>
+    (function () {
+        'use strict';
+    
+        angular
+            .module('app')
+            .controller('HomeController', HomeController);
+    
+        HomeController.$inject = ['$rootScope', '$timeout', '$location', 'FirestoreService'];
+        function HomeController($rootScope, $timeout, $location, FirestoreService) {
+            var vm = this;
+
+            var updateDelayMs = 15000;
+
+            vm.changeMap = changeMap;
+            vm.moveMap = moveMap;
+
+            vm.players = [];
+            vm.activities = [];
+            vm.mostRecentActivity = {};
+            vm.map = "Trammel";
+            vm.x = 20 * -50;
+            vm.y = 26 * -50;
+            vm.chat = [];
+
+            vm.stage = new Konva.Stage({
+                container: 'konvaStage',
+                width: 800,
+                height: 600
+            });
+
+            vm.maps = ["Trammel","Felucca","Ilshenar","Malas","Tokuno","TerMur"];
+
+            vm.layers = {
+                maps: {},
+                tokens: {}
+            };
+
+            initialize();
+            
+            function initialize() {
+                loadMaps();
+                loadPlayerList();
+                loadActivityLog();
+                playerStatusLoop();
+                activityLogLoop();
+                loadChat();
+                chatLoop();
+            }
+            
+            function loadPlayerList() {
+                FirestoreService.GetDocuments('PlayerData/').then(function(pdatas) {
+                    var players = [];
+                    _.each(pdatas, function(pdata) {
+                        players.push(pdata.fields);
+                        if(!vm.mostRecentActivity[pdata.fields.Name]) vm.mostRecentActivity[pdata.fields.Name] = 0;
+                    });
+                    vm.players = players;
+                    loadPlayerTokens();
+                });
+            }
+            
+            function playerStatusLoop() {
+                $timeout(function () {
+                    loadPlayerList();
+                    playerStatusLoop();
+                }, updateDelayMs);
+            }
+            
+            function loadActivityLog() {
+                var ignoreContaining = ["The world will save","The world is saving","World save complete","said"];
+                var now = Math.round((new Date()).getTime() / 1000);
+                FirestoreService.Query('ActivityLog',[['UnixTimestamp','>',now-(5*3600)]]).then(function(log) {
+                    var activities = [];
+                    _.each(log, function(entryDoc) {
+                        var activity = entryDoc.fields;
+                        for(var i in ignoreContaining) {
+                            if(activity.Action.indexOf(ignoreContaining[i])>-1) {
+                                return;
+                            }
+                        }
+                        activity.time = new Date(activity.UnixTimestamp * 1000);
+                        if(!vm.mostRecentActivity[activity.Name] || vm.mostRecentActivity[activity.Name] < activity.UnixTimestamp) {
+                            vm.mostRecentActivity[activity.Name] = activity.UnixTimestamp;
+                        }
+                        activities.push(activity);
+                    });
+                    activities.reverse();
+                    vm.activities = activities;
+                });
+            }
+            
+            function activityLogLoop() {
+                $timeout(function () {
+                    loadActivityLog();
+                    activityLogLoop();
+                }, updateDelayMs);
+            }
+
+            function loadMaps() {
+                _.each(vm.maps, function(map) {
+                    vm.layers.maps[map] = new Konva.Layer();
+                    vm.layers.maps[map].setAttrs({
+                        x: vm.x,
+                        y: vm.y
+                    });
+                    vm.stage.add(vm.layers.maps[map]);
+                    Konva.Image.fromURL('https://blurrydude.com/uo/'+map+'.png', function (mapImage) {
+                        // mapImage.setAttrs({
+                        //     x: vm.x,
+                        //     y: vm.y
+                        // });
+                        vm.layers.maps[map].add(mapImage);
+                        vm.layers.maps[map].batchDraw();
+                    });
+                    if(map != vm.map) vm.layers.maps[map].hide();
+                });
+            }
+
+            function changeMap() {
+                console.log('change map to '+vm.map);
+                _.each(vm.maps, function(map) {
+                    if(map == vm.map) {
+                        vm.layers.maps[map].show();
+                    } else {
+                        vm.layers.maps[map].hide();
+                    }
+                });
+                vm.layers.maps[vm.map].batchDraw();
+                loadPlayerTokens();
+            }
+
+            function moveMap(dir) {
+                console.log('move map '+dir);
+                switch(dir) {
+                    case 0: vm.y += 50; break;
+                    case 1: vm.x -= 50; break;
+                    case 2: vm.y -= 50; break;
+                    case 3: vm.x += 50; break;
+                }
+                _.each(vm.maps, function(map) {
+                    vm.layers.maps[map].setAttrs({
+                        x: vm.x,
+                        y: vm.y
+                    });
+                    vm.layers.maps[map].batchDraw();
+                });
+                loadPlayerTokens();
+            }
+
+            function loadPlayerTokens() {
+                _.each(vm.players, function(player) {
+                    var firstLoad = false;
+                    if(!vm.layers.tokens[player.Name]) {
+                        vm.layers.tokens[player.Name] = new Konva.Layer();
+                        firstLoad = true;
+                    }
+                    
+                    var token = new Konva.Rect({
+                        width: 5,
+                        height: 5,
+                        fill: 'white'
+                    });
+
+                    var text = new Konva.Text({
+                        x: 10,
+                        text: player.Name,
+                        fontSize: 14,
+                        fontFamily: 'Calibri',
+                        fill: '#ffffff',
+                    });
+
+                    if(firstLoad) {
+                        vm.layers.tokens[player.Name].add(text);
+                        vm.layers.tokens[player.Name].add(token);
+                        vm.stage.add(vm.layers.tokens[player.Name]);
+                    }
+                    vm.layers.tokens[player.Name].setAttrs({
+                        x: vm.x + player.X,
+                        y: vm.y + player.Y
+                    });
+                    if(!player.LoggedIn || player.Map != vm.map) vm.layers.tokens[player.Name].hide();
+                    if(player.LoggedIn && player.Map == vm.map) vm.layers.tokens[player.Name].show();
+                    vm.layers.tokens[player.Name].batchDraw();
+                });
+            }
+
+            function loadChat() {
+                FirestoreService.GetDocuments('Chat/').then(function(chatDocs) {
+                    var channels = [];
+                    _.each(chatDocs, function(chatDoc) {
+                        channels.push(chatDoc.fields);
+                    });
+                    vm.chat = channels;
+                    console.log(vm.chat);
+                });
+            }
+            
+            function chatLoop() {
+                $timeout(function () {
+                    loadChat();
+                }, updateDelayMs);
+            }
+        }
+    })();
+</script>

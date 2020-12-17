@@ -1,0 +1,195 @@
+<script>
+    (function () {
+        'use strict';
+
+        var routesLoaded = false;
+        var loadingMessage = 'Routing';
+        angular
+            .module('app', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
+            .config(config)
+            .filter('ashtml', function ($sce) { return $sce.trustAsHtml; })
+            .filter('maketitle', function() {
+                return function(string) {
+                    var sentence = string.replace('/','').trim().split('/')[0].toLowerCase().replace(/-/g, ' ').split(' ');
+                    for(var i = 0; i< sentence.length; i++){
+                        sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+                    }
+                    return sentence.join(' ');
+                }
+            })
+            .directive('enterpress', function () {
+                return function (scope, element, attrs) {
+                    element.bind("keydown keypress", function (event) {
+                        if(event.which === 13) {
+                            scope.$apply(function (){
+                                scope.$eval(attrs.enterpress);
+                            });
+
+                            event.preventDefault();
+                        }
+                    });
+                };
+            }).directive("dropzone", function() {
+                return {
+                    restrict : "A",
+                    scope: true,
+                    link: function (scope, elem, attrs) {
+                        elem.bind('dragenter', function(evt) { evt.stopPropagation(); evt.preventDefault(); });
+                        elem.bind('dragleave', function(evt) { evt.stopPropagation(); evt.preventDefault(); });
+                        elem.bind('dragover', function(evt) { evt.stopPropagation(); evt.preventDefault(); });
+                        elem.bind('drop', function(evt) {
+                            var file;
+                            if(evt.dataTransfer) {
+                                file = evt.dataTransfer.files[0];
+                            } else {
+                                file = evt.originalEvent.dataTransfer.files[0];
+                            }
+                            var reader = new FileReader();
+                            reader.readAsText(file);
+                            reader.onload = (function(theFile) {
+                                // scope.chainFile = theFile;
+                                // scope.importChain(theFile);
+                                scope.$apply(function (){
+                                    scope.$eval(attrs.dropzone)(theFile);
+                                });
+                            });
+                            evt.stopPropagation();
+                            evt.preventDefault();
+                            // scope.$apply(function (){
+                            //     scope.$eval(attrs.dropzone)(files);
+                            // });
+                            // for (var i = 0, f; f = files[i]; i++) {
+                                // var reader = new FileReader();
+                                // reader.readAsArrayBuffer(f);
+
+                                // reader.onload = (function(theFile) {
+                                    // return function(e) {
+                                        // var newFile = { name : theFile.name,
+                                        //     type : theFile.type,
+                                        //     size : theFile.size,
+                                        //     lastModifiedDate : theFile.lastModifiedDate
+                                        // }
+
+                                        // scope.addfile(newFile);
+                                    // };
+                                // })(f);
+                            // }
+                        });
+                    }
+                }
+            })            
+            .run(run);
+
+        config.$inject = ['$routeProvider', '$locationProvider'];
+        function config($routeProvider, $locationProvider) {
+            var loadFiles = [
+                'home/home.view',
+                'questeditor/questeditor.view',
+                'log/log.view'
+            ];
+            
+            var templates = [];
+            new Promise(function (resolve, reject) {
+                google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).getTemplates(loadFiles);
+            }).then(function (data) {
+                templates = data;
+                
+                loadRoute('/', 'HomeController', 'home/home.view');
+                loadRoute('/home', 'HomeController', 'home/home.view');
+                loadRoute('/questeditor', 'QuestEditorController', 'questeditor/questeditor.view');
+                loadRoute('/log', 'LogController', 'log/log.view');
+                
+                $routeProvider.otherwise({ redirectTo: '/' });
+                routesLoaded = true;
+            }, function (err) {
+                console.log(err);
+            });
+
+            function loadRoute(route, controller, template) {
+                var data = _.filter(templates, function (t) { return t.key == template; })[0];
+                $routeProvider.when(route, {
+                    cache: false,
+                    controller: controller,
+                    template: data.value,
+                    controllerAs: 'vm'
+                });
+            }
+        }
+
+        run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$interval', '$window', '$timeout', 'FirestoreService'];
+        function run($rootScope, $location, $cookies, $http, $interval, $window, $timeout, FirestoreService) {
+            $rootScope.intervals = [];
+            $rootScope.routesLoaded = false;
+            $rootScope.spin = false;
+            $rootScope.inverted = false;
+            
+            $rootScope.currentHash = '';
+            $rootScope.hashesDiscovered = [];
+            $rootScope.chain = [];
+            $rootScope.difficulty = 3;
+
+            $rootScope.db = db;
+            $rootScope.dbTest;
+            
+            $rootScope.killIntervals = killIntervals;
+            $rootScope.passhash = passhash;
+            $rootScope.popToast = popToast;
+            
+            checkRoutes();
+            heartbeat();
+
+            function loadStuff() {
+
+            }
+            
+            function checkRoutes() {
+                $timeout(function () {
+                    if (routesLoaded && FirestoreReady) {
+                        loadStuff();
+                        $rootScope.routesLoaded = true;
+                        $location.path('/home');
+                    } else {
+                        checkRoutes();
+                    }
+                }, 100);
+            }
+
+            function heartbeat() {
+                $timeout(function () {
+                    
+                    heartbeat();
+                }, 100);
+            }
+
+            function killIntervals() {
+                // Let's kill some intervals...
+                angular.forEach($rootScope.intervals, function (interval) {
+                    $interval.cancel(interval);
+                });
+                $rootScope.intervals.length = 0;
+            }
+            
+            function passhash(str) {
+              return new Promise(function (resolve, reject) {
+                  google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).MD5(str);
+              });
+            }
+
+            function popToast(type, message) {
+                var time = Math.round((new Date()).getTime()/1000);
+                $rootScope.toast={time, type, message};
+                $('#toaster').toast({delay:3000});
+                $('#toaster').toast('show');
+            }
+            
+            $rootScope.$on('$locationChangeStart', function (event, next, current) {
+                
+                $rootScope.killIntervals();
+                if ($location.protocol() !== 'https') {
+                    $window.location.href = $location.absUrl().replace('http', 'https').replace('//www.', '//');
+                }
+            });
+        }
+
+    })();
+</script>

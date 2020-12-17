@@ -1,0 +1,88 @@
+<script>
+    (function () {
+        'use strict';
+    
+        angular
+            .module('app')
+            .controller('LogController', LogController);
+    
+        LogController.$inject = ['$rootScope', '$timeout', '$location'];
+        function LogController($rootScope, $timeout, $location) {
+            var vm = this;
+
+            vm.chain = new DBChain();
+            vm.objectToStore = {
+                key: '',
+                json: ''
+            };
+            vm.objectToDelete = {
+                key: ''
+            };
+            vm.objectToGet = {
+                key: ''
+            };
+            vm.query = {
+                compareFuncString: 'o.num == 42',
+                walletId: ''
+            }
+            vm.objectGot = {};
+            vm.queryResults = [];
+            vm.chainFile;
+            vm.highlight = highlight;
+            vm.getCalendar = getCalendar;
+            vm.upsertObject = upsertObject;
+            vm.getObject = getObject;
+            vm.getJson = getJson;
+            vm.queryObject = queryObject;
+            vm.deleteObject = deleteObject;
+            vm.downloadChain = downloadChain;
+            vm.importChain = importChain;
+            
+            function importChain(data) {
+                vm.chain.ImportChainJson(data.target.result);
+            }
+
+            function downloadChain() {
+                var sbcJson = vm.chain.JsonSerialize();
+                var blob = new Blob([sbcJson], {type: "text/plain;charset=utf-8"});
+                saveAs(blob, "LogChain.json");
+            }
+
+            function deleteObject() {
+                vm.chain.DeleteObject(vm.objectToDelete.key);
+            }
+
+            function queryObject() {
+                var results = vm.chain.Query(vm.query.compareFuncString);
+                vm.queryResults = results;
+            }
+
+            function getObject() {
+                var o = vm.chain.GetObject(vm.objectToGet.key);
+                vm.objectGot = getJson(o);//JSON.stringify(o).replace(/\{/g,'{\r\n').replace(/\,/g,',\r\n').replace(/\}/g,'\r\n}').replace(/\[/g,'\r\n[\r\n').replace(/\]/g,'\r\n]\r\n');
+            }
+
+            function getJson(obj, pretty) {
+                if(pretty) return JSON.stringify(obj).replace(/\{/g,'{\r\n').replace(/\,/g,',\r\n').replace(/\}/g,'\r\n}').replace(/\[/g,'\r\n[\r\n').replace(/\]/g,'\r\n]\r\n');
+                return JSON.stringify(obj);
+            }
+
+            function upsertObject() {
+                var objectToStore = JSON.parse(vm.objectToStore.json);
+                vm.chain.UpsertData(vm.objectToStore.key, objectToStore);
+            }
+
+            function getCalendar(epoch) {
+                return moment(epoch).calendar();
+            }
+
+            function highlight(block) {
+                var replace = '';
+                for(var i = 0; i < block.GetCoinSize(); i++) {
+                    replace += '0';
+                }
+                return block.Hash.replace(replace,'<span class="text-warning">'+replace+'</span>');
+            }
+        }
+    })();
+    </script>

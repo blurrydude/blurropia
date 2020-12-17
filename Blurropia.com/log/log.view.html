@@ -1,0 +1,124 @@
+<div class="container pt-3">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div dropzone="vm.importChain">Drop Chain File Here To Import</div>
+        </div>
+    </div>
+</div>
+
+<div class="container pt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-sm btn-secondary mr-2 float-right" data-ng-click="vm.downloadChain()">Download Chain</button>
+                    <!--<button class="btn btn-sm btn-secondary mr-2 float-right" data-ng-click="vm.openImportChain()">Import Chain</button>-->
+                </div>
+                <div class="card-body" style="max-height: 334px; overflow: auto;">
+                    <div class="container">
+                        
+                        <div class="row">
+                            <div class="col-4" data-ng-repeat="obj in vm.chain.Objects">
+                                <div class="card">
+                                    <div class="card-header">{{obj.key}}</div>
+                                    <div class="card-body">{{vm.getJson(obj, true)}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Store/Update Object
+                    </div>
+                    <div class="card-body">
+                        <small>Object Key</small><br/>
+                        <input type="text" data-ng-model="vm.objectToStore.key" class="form-control"/><br/>
+                        <small>JSON Object To Store</small><br/>
+                        <textarea data-ng-model="vm.objectToStore.json" class="form-control"></textarea><br/>
+                        <button class="btn btn-primary" data-ng-click="vm.upsertObject()">Store/Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Get Object
+                    </div>
+                    <div class="card-body">
+                        <small>Object Key</small><br/>
+                        <input type="text" data-ng-model="vm.objectToGet.key" class="form-control"/><br/>
+                        <button class="btn btn-primary mb-2" data-ng-click="vm.getObject()">Get</button>
+                        <pre>{{vm.objectGot}}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Query
+                    </div>
+                    <div class="card-body">
+                        <small>Query</small><br/>
+                        <textarea data-ng-model="vm.query.compareFuncString" class="form-control"></textarea><br/>
+                        <button class="btn btn-primary mb-2" data-ng-click="vm.queryObject()">Query</button>
+                        <pre data-ng-repeat="result in vm.queryResults">{{vm.getJson(result)}}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Delete Object
+                    </div>
+                    <div class="card-body">
+                        <small>Object Key</small><br/>
+                        <input type="text" data-ng-model="vm.objectToDelete.key" class="form-control"/><br/>
+                        <button class="btn btn-danger mb-2" data-ng-click="vm.deleteObject()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pt-3">
+    <div class="container">
+        
+        <div class="row" data-ng-repeat="block in vm.chain.Blocks">
+            <div class="col-md-12 text-monospace mt-2">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <small class="float-right">{{vm.getCalendar(block.Timestamp)}}</small>
+                        <small data-ng-bind-html="vm.highlight(block) | ashtml"></small>
+                    </div>
+                    <div class="card-body">
+                        <!-- <small>{{block.Hash}}</small><br/> -->
+                        <small>{{block.Transaction.type}}</small>
+                        <small data-ng-show="block.Transaction.objectKey"><br/>&nbsp;&nbsp;&nbsp;&nbsp;objectKey: {{block.Transaction.objectKey}}</small>
+                        <small data-ng-show="block.Transaction.diffs"><br/>&nbsp;&nbsp;&nbsp;&nbsp;diffs: {{vm.getJson(block.Transaction.diffs)}}</small>
+                        <small data-ng-show="block.LastHash"><br/>LastHash: {{block.LastHash}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<script> // BlockNetBlock
+    function BlockNetBlock(data) {
+        data = data||{};
+        this.Index = data.Index||0;
+        this.Timestamp = data.Timestamp||(new Date()).getTime();
+        this.LastXHash = data.LastXHash||'';
+        this.XHash = data.XHash||'';
+        this.LastYHash = data.LastYHash||'';
+        this.YHash = data.YHash||'';
+        this.LastZHash = data.LastZHash||'';
+        this.ZHash = data.ZHash||'';
+        this.Transaction = data.Transaction||{};
+    }
+    
+    BlockNetBlock.prototype.ComputeHash = function() {
+        var cs = new CryptoService();
+        var block = this;
+        var toXHash = block.Index + '' + block.LastXHash + block.Timestamp + JSON.stringify(block.Transaction);
+        var toYHash = block.Index + '' + block.LastYHash + block.Timestamp + JSON.stringify(block.Transaction);
+        var toZHash = block.Index + '' + block.LastZHash + block.Timestamp + JSON.stringify(block.Transaction);
+        var xhash = cs.sha256(toXHash);
+        var yhash = cs.sha256(toYHash);
+        var zhash = cs.sha256(toZHash);
+        return {xhash,yhash,zhash};
+    }
+    
+    BlockNetBlock.prototype.GetCoinSize = function() {
+        var size = 0;
+        for(var i in this.XHash) {
+            if(this.XHash[i] != '0') break;
+            size++;
+        }
+        for(var i in this.YHash) {
+            if(this.YHash[i] != '0') break;
+            size++;
+        }
+        for(var i in this.ZHash) {
+            if(this.ZHash[i] != '0') break;
+            size++;
+        }
+        return size;
+    }
+
+    BlockNetBlock.prototype.CheckHashes = function() {
+        var hashes = this.ComputeHash();
+        return this.XHash == hashes.xhash && this.YHash == hashes.yhash && this.ZHash == hashes.zhash;
+    }
+</script>
+<script> // BlockNetChain
+    function BlockNetChain(data) {
+        data = data||{};
+        this.Blocks = data.Blocks||[];
+        this.LastXHash = data.LastXHash||'';
+        this.Objects = data.Objects||[];
+    }
+
+    BlockNetChain.prototype.Download = function() {
+        var chainJson = this.JsonSerialize();
+        var blob = new Blob([chainJson], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "BlockNetChain.json");
+    }
+    
+    BlockNetChain.prototype.JsonSerialize = function() {
+        var chain = this;
+        var data = {};
+        var ignore = ['Objects'];
+        _.each(chain, function(d,k) {
+            if(ignore.indexOf(k)>-1) return;
+            data[k] = d;
+        });
+        if(angular) return angular.toJson(data);
+        return JSON.stringify(data);
+    }
+    
+    BlockNetChain.prototype.AddTransaction = function(transaction) {
+        var chain = this;
+        var block = new BlockNetBlock({
+            Index: chain.Blocks.length,
+            Timestamp: (new Date()).getTime(),
+            LastHash: chain.LastHash,
+            Transaction: transaction
+        });
+        var hash = block.ComputeHash();
+        block.Hash = hash;
+        chain.LastHash = block.Hash;
+        chain.Blocks.push(block);
+
+        chain.ExecuteAction(transaction);
+    }
+
+    BlockNetChain.prototype.ExecuteAction = function(transaction) {
+        var chain = this;
+        if(transaction.type) {
+            switch(transaction.type) {
+                case 'upsert_object':
+                    var result = _.filter(chain.Objects, function(o) { return o.key == transaction.objectKey; });
+                    var newObject = result.length == 0;
+                    var index = newObject ? chain.Objects.length : chain.Objects.indexOf(result[0]);
+                    if(newObject) chain.Objects.push({key:transaction.objectKey});
+                    _.each(transaction.diffs, function(diff,key) {
+                        
+                        if(diff.isArray) {
+                            if(!chain.Objects[index][key]) chain.Objects[index][key] = [];
+                            _.each(diff, function(val,ind) {
+                                if(ind === 'isArray') return;
+                                chain.Objects[index][key][parseInt(ind)] = val.data;
+                            });
+                            return;
+                        } 
+                        if(diff.type == 'deleted') {
+                            delete(chain.Objects[index][key]);    
+                            return;
+                        }
+                        chain.Objects[index][key] = diff.data;
+                    });
+                    break;
+                case 'delete_object':
+                    var result = _.filter(chain.Objects, function(o) { return o.key == transaction.objectKey; });
+                    var index = chain.Objects.indexOf(result[0]);
+                    chain.Objects.splice(index,1);
+                    break;
+            }
+        }
+    }
+
+    BlockNetChain.prototype.UpsertData = function(objectKey, objectToStore) {
+        console.log(objectToStore);
+        objectToStore = JSON.parse(angular.toJson(objectToStore));
+        var chain = this;
+        if(!objectKey || objectKey == '') return 'Invalid Object Key';
+        var result = _.filter(chain.Objects, function(o) { return o.key == objectKey; });
+        console.log(result);
+        var original = result.length == 0 ? {key:objectKey} : result[0];
+        original = JSON.parse(angular.toJson(original)); // Gotta scrub this because AngularJS
+        var diffs = getDiffs(original, objectToStore);
+        var diffsJson = JSON.stringify(diffs);
+        chain.AddTransaction({type:'upsert_object',objectKey:objectKey,diffs:diffs});
+    }
+    
+    BlockNetChain.prototype.DeleteObject = function(objectKey) {
+        var chain = this;
+        var cs = new CryptoService();
+        if(!objectKey || objectKey == '') return 'Invalid Object Key';
+        chain.AddTransaction({type:'delete_object',objectKey:objectKey});
+    }
+    
+    BlockNetChain.prototype.GetObject = function(objectKey) {
+        var chain = this;
+        var results = _.filter(chain.Objects, function(o) { return o.key == objectKey; });
+        if(results.length > 0) return results[0];
+    }
+    
+    BlockNetChain.prototype.Query = function(queryString) {
+        var chain = this;
+        var results = _.filter(chain.Objects, function(o) { return eval(queryString); });
+        return results;
+    }
+    
+    BlockNetChain.prototype.ImportChainJson = function(json, playToHead) {
+        var chain = this;
+        chain.Blocks = [];
+        chain.LastHash = '';
+        chain.Objects = [];
+        var imprt = JSON.parse(json);
+        // _.each(imprt, function(d,k) {
+        //     if(k==='Blocks') return;
+        //     chain[k] = d;
+        // });
+        var firstBlock = true;
+        var finished = false;
+        _.each(imprt.Blocks, function(block) {
+            if(finished) return;
+            block = new BlockNetBlock(block);
+            if((block.LastHash == chain.LastHash || firstBlock) && block.CheckHash()) {
+                firstBlock = false;
+                if(block.Hash == playToHead) finished = true;
+                chain.Blocks.push(block);
+                chain.LastHash = block.Hash;
+                chain.ExecuteAction(block.Transaction);
+            } else {
+                console.log('Invalid Block',block);
+            }
+        });
+        console.log(chain);
+    }
+</script>
+<script> // BlockChainTransaction
+    function BlockChainTransaction(data) {
+        data = data||{};
+        this.Type = data.Type||Enums.TransactionType.UPSERT;
+        this.ObjectKey = data.ObjectKey||'';
+        this.DiffData = data.DiffData||{};
+    }
+</script>
+<script>
+    var Enums = {
+        TransactionType: {
+            UPSERT: 0,
+            DELETE: 1
+        }
+    }
+</script>

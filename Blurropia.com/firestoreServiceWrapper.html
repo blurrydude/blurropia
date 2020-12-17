@@ -1,0 +1,188 @@
+<script>
+function FirestoreServiceWrapper() {
+	var service = {};//this;
+
+	service.debug = false;
+
+	service.GetDocument = GetDocument;
+	service.GetDocuments = GetDocuments;
+	service.CreateDocument = CreateDocument;
+	service.MergeDocument = MergeDocument;
+	service.UpdateDocument = UpdateDocument;
+	service.UpdateDocuments = UpdateDocuments;
+	service.DeleteDocument = DeleteDocument;
+	service.DeleteDocuments = DeleteDocuments;
+	service.Query = Query;
+	
+	return service;
+
+	function GetDocument(path) {
+		if(service.debug) console.log('FirestoreServiceWrapper.GetDocument', {path});
+		var docRef = getDocRef(path);
+		return new Promise(function(resolve, reject) {
+            try {
+                if(service.debug) console.log('FirestoreServiceWrapper.GetDocument BEGIN GET');
+                docRef.get().then(function(doc) {
+                    if(service.debug) console.log('FirestoreServiceWrapper.GetDocument', {doc});
+                    if(!doc.exists) return null;
+                    var id = doc.id;
+                    var data = doc.data();
+                    resolve({id:id,fields:data});
+                }, function(e) { 
+                    if(service.debug) console.log('FirestoreServiceWrapper.GetDocument', {exception:e});
+                    reject({id:null,fields:{},empty:true,error:e});
+                });
+            }
+            catch(e) {
+                if(service.debug) console.log('FirestoreServiceWrapper.GetDocument', {exception:e});
+                reject({id:null,fields:{},empty:true,error:e});
+            }
+		});
+	}
+	
+	function GetDocuments(path) {
+		if(service.debug) console.log('FirestoreServiceWrapper.GetDocuments', {path});
+		var docRef = getDocRef(path);
+		return new Promise(function(resolve, reject) {
+			docRef.get().then(function(querySnapshot) {
+				if(service.debug) console.log('FirestoreServiceWrapper.GetDocuments', {querySnapshot});
+				var docs = [];
+				querySnapshot.forEach(function(doc) {
+					var id = doc.id;
+					var data = doc.data();
+					docs.push({id:id,fields:data});
+				});
+				resolve(docs);
+			});
+		});
+	}
+
+	function CreateDocument(path, data) {
+		data = scrubData(data);
+		if(service.debug) console.log('FirestoreServiceWrapper.CreateDocument', {path, data});
+		var docRef = getDocRef(path);
+		return docRef.set(data);
+	}
+
+	function UpdateDocument(path, data, unsafe) {
+		if(service.debug) console.log('FirestoreServiceWrapper.UpdateDocument', {path, data, unsafe});
+		data = scrubData(data);
+		return new Promise(function(resolve, reject) {
+			var docRef = getDocRef(path);
+			try {
+				docRef.update(data).then(resolve);
+			} catch(e) {
+				// probably no document to update
+				if(unsafe) {
+					MergeDocument(path, data).then(resolve);
+				} else {
+					reject();
+				}
+			}
+		});
+	}
+
+	function MergeDocument(path, data) {
+		if(service.debug) console.log('FirestoreServiceWrapper.MergeDocument', {path, data});
+		var docRef = getDocRef(path);
+		return docRef.set(data, { merge: true });
+	}
+
+	function UpdateDocuments(pathDataPairs) {
+		if(service.debug) console.log('FirestoreServiceWrapper.UpdateDocuments', {pathDataPairs});
+		var chunks = Math.ceil(pathDataPairs.length / 500);
+		var promises = [];
+		for(var c = 0; c < chunks; c++) {
+			var batch = db.batch();
+
+			for(var i = 0; i < 500; i++) {
+				var t = i+(c*500);
+				if(t >= pathDataPairs.length) break;
+				var pdp = pathDataPairs[t];
+				var docRef = getDocRef(pdp.path);
+				var data = scrubData(pdp.data);
+				batch.set(docRef, data);
+			}
+
+			promises.push(batch.commit());
+		}
+		return Promise.all(promises);
+	}
+
+	function DeleteDocument(path) {
+		if(service.debug) console.log('FirestoreServiceWrapper.DeleteDocument', {path});
+		var docRef = getDocRef(path);
+		return docRef.delete();
+	}
+
+	function DeleteDocuments(paths) {
+		if(service.debug) console.log('FirestoreServiceWrapper.DeleteDocuments', {paths});
+		var batch = db.batch();
+
+		for(var i in paths) {
+			var docRef = getDocRef(paths[i]);
+			batch.delete(docRef);
+		}
+
+		return batch.commit();
+	}
+
+	function Query(collectionPath, params, start, end) {
+		if(service.debug) console.log('FirestoreServiceWrapper.Query', {collectionPath, params, start, end});
+		var docRef = getDocRef(collectionPath);
+		
+		for(var i in params) {
+			var where = params[i];
+			docRef = docRef.where(where[0], where[1], where[2]);
+		}
+
+		if(start) docRef = docRef.startAt(start);
+
+		if(end) docRef = docRef.endAt(end);
+		return new Promise(function(resolve, reject) {
+			docRef.get().then(function(querySnapshot) {
+				if(service.debug) console.log('FirestoreServiceWrapper.Query', {querySnapshot});
+				var docs = [];
+				querySnapshot.forEach(function(doc) {
+					var id = doc.id;
+					var data = doc.data();
+					docs.push({id:id,fields:data});
+				});
+				resolve(docs);
+			});
+		});
+	}
+
+	function getDocRef(path) {
+		if(service.debug) console.log('FirestoreServiceWrapper.getDocRef', {path});
+		var split = path.split('/');
+		if(service.debug) console.log('FirestoreServiceWrapper.getDocRef', {split});
+		var docRef = db;
+		var type = 'doc';
+		for(var i = 0; i < split.length; i++) {
+			var c = split[i];
+			var isDoc = i%2==1;
+            try {
+                if(isDoc) {
+                    docRef = docRef.doc(c);
+                    type = 'doc';
+                } else {
+                    docRef = docRef.collection(c);
+                }
+                type = 'collection';
+            } catch(e) {
+                if(service.debug) console.log('FirestoreServiceWrapper.getDocRef', {exception:e});
+            }
+		}
+		if(service.debug) console.log('FirestoreServiceWrapper.getDocRef', {path, split, type, docRef});
+		return docRef;
+	}
+
+	function scrubData(data) {
+		if(service.debug) console.log('FirestoreServiceWrapper.scrubData', {prescrub:data});
+		var data = JSON.parse(angular.toJson(data));
+		if(service.debug) console.log('FirestoreServiceWrapper.scrubData', {postscrub:data});
+		return data;
+	}
+}
+</script>

@@ -1,0 +1,163 @@
+<script>
+    (function () {
+        'use strict';
+    
+        angular
+            .module('app')
+            .controller('QuestEditorController', QuestEditorController);
+    
+        QuestEditorController.$inject = ['$rootScope', '$timeout', '$location'];
+        function QuestEditorController($rootScope, $timeout, $location) {
+            var vm = this;
+
+            vm.givers = [];
+            vm.json = "";
+            vm.newGiver = true;
+            vm.newConvoNode = true;
+
+            vm.giver = new JsonQuestGiver();
+            vm.convoNode = new JsonQuestConvoNode();
+            vm.questItem = new JsonQuestItem();
+
+            vm.openGiverModal = openGiverModal;
+            vm.openConvoModal = openConvoModal;
+            vm.openItemModal = openItemModal;
+            vm.openTriggerItemModal = openTriggerItemModal;
+
+            vm.updateJson = updateJson;
+
+            vm.newGiver = newGiver;
+            vm.addGiver = addGiver;
+            vm.removeGiver = removeGiver;
+            vm.editGiver = editGiver;
+            vm.newConvoNode = newConvoNode;
+            vm.addConvoNode = addConvoNode;
+            vm.removeConvoNode = removeConvoNode;
+            vm.editConvoNode = editConvoNode;
+            vm.setItem = setItem;
+            vm.editItem = editItem;
+            vm.removeItem = removeItem;
+            vm.setTriggerItem = setTriggerItem;
+            vm.editTriggerItem = editTriggerItem;
+            vm.removeTriggerItem = removeTriggerItem;
+
+            function openGiverModal() {
+                $('#giver-modal').modal('show');
+            }
+
+            function openConvoModal() {
+                $('#convo-modal').modal('show');
+            }
+
+            function openItemModal() {
+                $('#item-modal').modal('show');
+            }
+
+            function openTriggerItemModal() {
+                $('#trigger-item-modal').modal('show');
+            }
+
+            function updateJson() {
+                vm.json = JSON.stringify(vm.givers);
+            }
+
+            function newGiver() {
+                vm.giver = new JsonQuestGiver();
+                vm.newGiver = true;
+                openGiverModal();
+            }
+
+            function addGiver() {
+                var giver = angular.copy(vm.giver);
+                vm.givers.push(giver);
+                vm.giver = new JsonQuestGiver();
+                updateJson();
+                $('#giver-modal').modal('hide');
+            }
+
+            function removeGiver(giver) {
+                var i = vm.givers.indexOf(giver);
+                if(i > -1) vm.givers.splice(i,1);
+                updateJson();
+            }
+
+            function editGiver(giver) {
+                vm.giver = giver;
+                vm.newGiver = false;
+                openGiverModal();
+            }
+
+            function newConvoNode() {
+                vm.convoNode = new JsonQuestConvoNode();
+                vm.newConvoNode = true;
+                openConvoModal();
+            }
+
+            function addConvoNode() {
+                var convoNode = angular.copy(vm.convoNode);
+                vm.giver.ConvoNodes.push(convoNode);
+                vm.convoNode = new JsonQuestConvoNode();
+                updateJson();
+                $('#convo-modal').modal('hide');
+            }
+
+            function removeConvoNode(convoNode) {
+                var i = vm.giver.ConvoNodes.indexOf(convoNode);
+                if(i > -1) vm.giver.ConvoNodes.splice(i,1);
+                updateJson();
+            }
+
+            function editConvoNode(convoNode) {
+                vm.convoNode = convoNode;
+                vm.newConvoNode = false;
+                openConvoModal();
+            }
+
+            function editItem() {
+                if(vm.convoNode.Item == null) {
+                    vm.questItem = new JsonQuestItem();
+                }
+                else 
+                {
+                    vm.questItem = vm.convoNode.Item;
+                }
+                openItemModal();
+            }
+
+            function editTriggerItem() {
+                if(vm.convoNode.TriggerItem == null) {
+                    vm.questItem = new JsonQuestItem();
+                }
+                else 
+                {
+                    vm.questItem = vm.convoNode.TriggerItem;
+                }
+                openTriggerItemModal();
+            }
+
+            function setItem() {
+                var item = angular.copy(vm.questItem);
+                vm.convoNode.Item = item;
+                vm.questItem = new JsonQuestItem();
+                updateJson();
+                $('#item-modal').modal('hide');
+            }
+
+            function setTriggerItem() {
+                var item = angular.copy(vm.questItem);
+                vm.convoNode.TriggerItem = item;
+                vm.questItem = new JsonQuestItem();
+                updateJson();
+                $('#trigger-item-modal').modal('hide');
+            }
+
+            function removeItem() {
+                vm.convoNode.Item = null;
+            }
+
+            function removeTriggerItem() {
+                vm.convoNode.TriggerItem = null;
+            }
+        }
+    })();
+    </script>

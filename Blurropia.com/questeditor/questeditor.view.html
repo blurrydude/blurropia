@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <button data-ng-click="vm.openGiverModal()" class="btn btn-primary float-right">Add Quest Mobile</button>
+                    <h3>Quest Mobiles</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" data-ng-click="vm.editGiver(giver)" data-ng-repeat="giver in vm.givers">
+                            {{giver.Name}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <textarea class="form-control" rows="30" data-ng-model="vm.json"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="giver-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giver</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-1">
+                    <div class="col-4"><strong>Name</strong></div>
+                    <div class="col-8"><input type="text" data-ng-model="vm.giver.Name" class="form-control" data-ng-change="vm.updateJson()"/></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4"><strong>Title</strong></div>
+                    <div class="col-8"><input type="text" data-ng-model="vm.giver.Title" class="form-control" data-ng-change="vm.updateJson()"/></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6">
+                        <input type="checkbox" data-ng-model="vm.giver.Female" class="form-check-input ml-0" id="female" data-ng-change="vm.updateJson()"/>
+                        <label class="form-check-label ml-3" for="female">Female</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="checkbox" data-ng-model="vm.giver.RandomGender" class="form-check-input ml-0" id="RandomGender" data-ng-change="vm.updateJson()"/>
+                        <label class="form-check-label ml-3" for="RandomGender">RandomGender</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center">Starting Location</div>
+                    <div class="col-2 text-center">X</div>
+                    <div class="col-2 text-center">Y</div>
+                    <div class="col-2 text-center">Z</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6">
+                        <select class="form-control" data-ng-model="vm.giver.StartMap" data-ng-change="vm.updateJson()">
+                            <option value="Trammel">Trammel</option>
+                            <option value="Felucca">Felucca</option>
+                            <option value="Ilshenar">Ilshenar</option>
+                            <option value="Malas">Malas</option>
+                            <option value="Tokuno">Tokuno</option>
+                            <option value="TerMur">TerMur</option>
+                        </select>                        
+                    </div>
+                    <div class="col-2 p-0"><input type="number" data-ng-model="vm.giver.StartLocation[0]" class="form-control" data-ng-change="vm.updateJson()"/></div>
+                    <div class="col-2 p-0"><input type="number" data-ng-model="vm.giver.StartLocation[1]" class="form-control" data-ng-change="vm.updateJson()"/></div>
+                    <div class="col-2 p-0"><input type="number" data-ng-model="vm.giver.StartLocation[2]" class="form-control" data-ng-change="vm.updateJson()"/></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6">
+                        <input type="checkbox" data-ng-model="vm.giver.RandomName" class="form-check-input ml-0" id="RandomName" data-ng-change="vm.updateJson()"/>
+                        <label class="form-check-label ml-3" for="RandomName">RandomName</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="checkbox" data-ng-model="vm.giver.AutoDress" class="form-check-input ml-0" id="AutoDress" data-ng-change="vm.updateJson()"/>
+                        <label class="form-check-label ml-3" for="AutoDress">AutoDress</label>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6">
+                        <input type="checkbox" data-ng-model="vm.giver.CantWalk" class="form-check-input ml-0" id="CantWalk" data-ng-change="vm.updateJson()"/>
+                        <label class="form-check-label ml-3" for="CantWalk">CantWalk</label>
+                    </div>
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.Body" class="form-control" data-ng-change="vm.updateJson()"/><strong>Body</strong></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.Hue" class="form-control" data-ng-change="vm.updateJson()"/><strong>Hue</strong></div>
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.SpeechHue" class="form-control" data-ng-change="vm.updateJson()"/><strong>SpeechHue</strong></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.HairItemId" class="form-control" data-ng-change="vm.updateJson()"/><strong>HairItemId</strong></div>
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.HairHue" class="form-control" data-ng-change="vm.updateJson()"/><strong>HairHue</strong></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.FacialHairItemId" class="form-control" data-ng-change="vm.updateJson()"/><strong>FacialHairItemId</strong></div>
+                    <div class="col-6"><input type="number" data-ng-model="vm.giver.FacialHairHue" class="form-control" data-ng-change="vm.updateJson()"/><strong>FacialHairHue</strong></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-12"><strong>Clothes</strong></div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-12"><strong>Conversation</strong></div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-ng-show="vm.newGiver==true" data-ng-click="vm.addGiver()">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-ng-click="vm.newGiver=true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
