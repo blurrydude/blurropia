@@ -308,7 +308,7 @@ namespace Server.Customs.JsonEvo
 
                 writer.Write(Experience);
                 writer.Write(Level);
-                Config.Serialize(writer);
+                //Config.Serialize(writer);
             }
         }
 
@@ -319,8 +319,11 @@ namespace Server.Customs.JsonEvo
 
             Experience = reader.ReadInt();
             Level = reader.ReadInt();
-            Config = new JsonEvoConfig();
-            Config.Deserialize(reader);
+            // getting stack overflows, probably the samt Int64 to Int32 problem as above, but don't really need it
+            //Config = new JsonEvoConfig();
+            //Config.Deserialize(reader);
+            // I'll make a service that stores these and updates them realtime later so this doesn't have ot happen for each instance of the mob
+            if(!String.IsNullOrEmpty(FileName)) LoadFromFile();
         }
     }
 }
