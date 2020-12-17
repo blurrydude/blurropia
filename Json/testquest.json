@@ -1,0 +1,35 @@
+[
+	{
+		"NodeId": 0,
+		"OptionText":"",
+		"Nodes":[1,2],
+		"Text":"This is just a basic test quest to make sure the system works. Please choose an apple or an orange.",
+		"Item":"",
+		"TriggerItem":"",
+		"CompletesQuest":false
+	},{
+		"NodeId": 1,
+		"OptionText":"Apple",
+		"Nodes":[],
+		"Text":"Apple it is",
+		"Item":"Apple",
+		"TriggerItem":"",
+		"CompletesQuest":true
+	},{
+		"NodeId": 2,
+		"OptionText":"Orange",
+		"Nodes":[1],
+		"Text":"Ha! You get nothing!",
+		"Item":"",
+		"TriggerItem":"",
+		"CompletesQuest":true
+	},{
+		"NodeId": 3,
+		"OptionText":"",
+		"Nodes":[],
+		"Text":"Hey! You gave me an apple! Have a book!",
+		"Item":"BlueBook",
+		"TriggerItem":"Apple",
+		"CompletesQuest":true
+	}
+]
