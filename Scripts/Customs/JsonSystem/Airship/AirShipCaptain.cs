@@ -8,7 +8,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 
-namespace Server.Customs
+namespace Server.Customs.JsonSystem
 {
     public class AirshipCaptain : BaseCreature
     {

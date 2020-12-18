@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
-using Server.ArenaBattleEngine;
 using Server.Gumps;
 using Server.Network;
 
-namespace Server.Customs
+namespace Server.Customs.JsonSystem
 {
     public class ArenaBattleGump : Gump
     {

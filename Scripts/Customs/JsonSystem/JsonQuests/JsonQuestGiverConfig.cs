@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public class JsonQuestGiverConfig
     {

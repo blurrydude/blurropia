@@ -1,4 +1,4 @@
-﻿namespace Server.Customs.JsonEvo
+namespace Server.Customs.JsonSystem
 {
     public class EffectConfig
     {

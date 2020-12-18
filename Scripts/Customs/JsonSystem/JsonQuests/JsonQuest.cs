@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Server.ContextMenus;
 using Server.Engines.Quests;
 
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public class JsonQuest
     {

@@ -3,7 +3,7 @@ using System.IO;
 using Server.Items;
 using ServerUtilityExtensions;
 
-namespace Server.Customs
+namespace Server.Customs.JsonSystem
 {
     public class JsonAddon : BaseAddon
     {

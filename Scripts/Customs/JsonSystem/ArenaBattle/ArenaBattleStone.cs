@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Server.ArenaBattleEngine;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 
-namespace Server.Customs
+namespace Server.Customs.JsonSystem
 {
     public class ArenaBattleStone : Item
     {

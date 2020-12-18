@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Server.Customs.JsonEvo
+namespace Server.Customs.JsonSystem
 {
     public class RangeDouble
     {

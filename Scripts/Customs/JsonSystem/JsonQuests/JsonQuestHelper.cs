@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Server.Network;
 
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public static class JsonQuestHelper
     {
@@ -30,7 +30,7 @@ namespace Server.Customs.JsonQuests
             return built;
         }
 
-        public static bool IsEqualJsonQuestItem(Item item, JsonQuestItem jsonQuestItem)
+        public static bool IsEqualJsonItem(Item item, JsonItem jsonQuestItem)
         {
             if (jsonQuestItem == null) return false;
             var itemType = item.GetType().ToString().Split('.').Last();
@@ -51,7 +51,7 @@ namespace Server.Customs.JsonQuests
             return true;
         }
 
-        public static Item ItemFromJsonQuestItem(JsonQuestItem jsonQuestItem)
+        public static Item ItemFromJsonItem(JsonItem jsonQuestItem)
         {
             Item item = (Item)NewItemByTypeString(jsonQuestItem.Item);
             var list = item.GetType().GetProperties();
@@ -74,7 +74,7 @@ namespace Server.Customs.JsonQuests
         {
             if (!String.IsNullOrEmpty(node.Item.Item))
             {
-                var built = ItemFromJsonQuestItem(node.Item);
+                var built = ItemFromJsonItem(node.Item);
 
                 if (built != null)
                 {

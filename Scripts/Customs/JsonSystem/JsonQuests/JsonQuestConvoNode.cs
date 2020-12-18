@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public class JsonQuestConvoNode
     {
@@ -8,8 +8,8 @@ namespace Server.Customs.JsonQuests
         public string OptionText { get; set; }
         public List<int> Nodes { get; set; }
         public string Text { get; set; }
-        public JsonQuestItem Item { get; set; }
-        public JsonQuestItem TriggerItem { get; set; }
+        public JsonItem Item { get; set; }
+        public JsonItem TriggerItem { get; set; }
         public bool CompletesQuest { get; set; }
     }
 }

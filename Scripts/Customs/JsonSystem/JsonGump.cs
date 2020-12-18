@@ -4,7 +4,7 @@ using System.IO;
 using Server.Gumps;
 using ServerUtilityExtensions;
 
-namespace Server.Customs
+namespace Server.Customs.JsonSystem
 {
     public class JsonGump : Gump
     {

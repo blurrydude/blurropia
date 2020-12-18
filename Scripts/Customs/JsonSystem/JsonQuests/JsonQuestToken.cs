@@ -1,4 +1,4 @@
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public class JsonQuestToken : Item
     {

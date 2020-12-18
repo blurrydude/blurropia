@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Server.Customs.JsonEvo
+namespace Server.Customs.JsonSystem
 {
     public class JsonEvoConfig
     {

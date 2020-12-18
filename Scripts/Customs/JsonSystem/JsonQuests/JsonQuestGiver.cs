@@ -6,7 +6,7 @@ using Server.Mobiles;
 using Server.Network;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public class JsonQuestGiver : BaseCreature 
     { 
@@ -64,7 +64,7 @@ namespace Server.Customs.JsonQuests
         public override bool OnDragDrop(Mobile @from, Item dropped)
         {
             var trigger = dropped.GetType().ToString().Split('.').Last();
-            var node = ConvoNodes.FirstOrDefault(x => JsonQuestHelper.IsEqualJsonQuestItem(dropped,x.TriggerItem));
+            var node = ConvoNodes.FirstOrDefault(x => JsonQuestHelper.IsEqualJsonItem(dropped,x.TriggerItem));
             if (node == null)
             {
                 PublicOverheadMessage(MessageType.Regular, 0x35, false, "That's not right");

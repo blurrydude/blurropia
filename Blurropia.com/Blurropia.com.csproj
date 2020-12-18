@@ -32,7 +32,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Content Include="app-common\blocknet.html" />
+    <Content Include="app-common\crypto-service.html" />
+    <Content Include="app-common\extensions.html" />
+    <Content Include="app-common\models.html" />
+    <Content Include="app-common\storage-chain.html" />
+    <Content Include="app-services\firestore.service.html" />
+    <Content Include="Binance.js" />
+    <Content Include="Code.js" />
+    <Content Include="Coinbase.js" />
+    <Content Include="common.html" />
+    <Content Include="Configuration.js" />
+    <Content Include="firestoreServiceWrapper.html" />
+    <Content Include="GameEngine.js" />
+    <Content Include="HistoryFiltering.js" />
+    <Content Include="home\home.controller.html" />
+    <Content Include="home\home.view.html" />
+    <Content Include="index.html" />
+    <Content Include="log\log.controller.html" />
+    <Content Include="log\log.view.html" />
+    <Content Include="questeditor\questeditor.controller.html" />
+    <Content Include="questeditor\questeditor.view.html" />
+    <Content Include="shared-models\battlenursery.html" />
+    <Content Include="shared-models\battleplant.html" />
+    <Content Include="startup\app.html" />
+    <Content Include="style\site.css.html" />
+    <Content Include="style\site.scss.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".clasp.json" />
+    <None Include="appsscript.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

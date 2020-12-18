@@ -8,7 +8,7 @@ using Server.Items;
 using Server.Network;
 using Server.Targeting;
 
-namespace Server.Customs
+namespace Server.Customs.JsonSystem
 {
     public class SudoCommand
     {

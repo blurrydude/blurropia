@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonQuests
+namespace Server.Customs.JsonSystem
 {
     public class JsonQuestEngine : Timer
     {
-        private static bool _enabled = false;
+        private static bool _enabled = true;
         private bool _ready = false;
         private DateTime _lastUpdate;
         private JsonQuestEngineConfig _config;

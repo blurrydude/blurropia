@@ -7,7 +7,7 @@ using Server.Items;
 using Server.Mobiles;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonEvo
+namespace Server.Customs.JsonSystem
 {
     [CorpseName("a corpse")]
     public class JsonEvo : BaseCreature
