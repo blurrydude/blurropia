@@ -94,7 +94,7 @@ namespace Server.Customs.JsonEvo
             if (String.IsNullOrEmpty(FileName)) return;
             try
             {
-                var json = File.ReadAllText($"Scripts/Customs/JsonEvo/Data/{FileName}.json");
+                var json = File.ReadAllText($"Scripts/Customs/JsonSystem/JsonEvo/Data/{FileName}.json");
                 Config = (JsonEvoConfig) JsonUtility.Deserialize<JsonEvoConfig>(json);
                 Console.Write(Config);
                 if (Config.RandomGender) 
@@ -134,7 +134,7 @@ namespace Server.Customs.JsonEvo
             if (Config == null) return;
             var currentLevel = Config.Levels[Level - 1];
             if (Experience < currentLevel.ExpLimit) return;
-            Level = Math.Max(Math.Min(Config.Levels.Count, Level + 1), 1);
+            _level = Math.Max(Math.Min(Config.Levels.Count, _level + 1), 1);
             SetLevel();
         }
 

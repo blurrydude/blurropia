@@ -51,9 +51,9 @@ namespace Server.Customs.JsonQuests
 
         private void LoadQuests()
         {
-            if (!Directory.Exists("JsonQuests"))
+            if (!Directory.Exists("Scripts/Customs/JsonSystem/JsonQuests/Data"))
             {
-                Directory.CreateDirectory("JsonQuests");
+                Directory.CreateDirectory("Scripts/Customs/JsonSystem/JsonQuests/Data");
             }
             
             var existingMobiles = World.Mobiles.Select(x => x.Key).Where(x => _config.Givers.Contains(x.Value)).ToList();
@@ -64,7 +64,7 @@ namespace Server.Customs.JsonQuests
 
             _config.Givers.Clear();
 
-            var files = Directory.GetFiles("JsonQuests", "*.json");
+            var files = Directory.GetFiles("Scripts/Customs/JsonSystem/JsonQuests/Data", "*.json");
             foreach (var file in files)
             {
                 var json = File.ReadAllText(file);
@@ -85,12 +85,12 @@ namespace Server.Customs.JsonQuests
         private void SaveEngineData()
         {
             var json = JsonUtility.Serialize(_config);
-            File.WriteAllText("Json/JsonQuestEngineConfig.json",json);
+            File.WriteAllText("Scripts/Customs/JsonSystem/Data/JsonQuestEngineConfig.json",json);
         }
 
         private void LoadEngineData()
         {
-            var json = File.ReadAllText("Json/JsonQuestEngineConfig.json");
+            var json = File.ReadAllText("Scripts/Customs/JsonSystem/Data/JsonQuestEngineConfig.json");
             _config = (JsonQuestEngineConfig) JsonUtility.Deserialize<JsonQuestEngineConfig>(json);
         }
     }

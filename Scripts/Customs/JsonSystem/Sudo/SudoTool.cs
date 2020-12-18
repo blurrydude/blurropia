@@ -29,7 +29,7 @@ namespace Server.Customs
     {
         private string _menu;
         public SudoTool(string menu)
-            : base($"sudo/{menu}.json")
+            : base($"Scripts/Customs/JsonSystem/Sudo/Data/{menu}.json")
         {
             _menu = menu;
         }

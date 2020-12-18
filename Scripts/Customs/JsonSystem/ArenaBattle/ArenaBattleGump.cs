@@ -103,7 +103,7 @@ namespace Server.Customs
         private ArenaBattleStone _BattleStone;
         private Mobile _From;
         private int _Wager;
-        public ArenaBattleBettingGump(Mobile from, ArenaBattleStone battleStone, int wager = 100) : base($"json/arenaBattleBettingGump.json")
+        public ArenaBattleBettingGump(Mobile from, ArenaBattleStone battleStone, int wager = 100) : base($"Scripts/Customs/JsonSystem/ArenaBattle/Data/arenaBattleBettingGump.json")
         {
             _BattleStone = battleStone;
             _From = from;

@@ -61,12 +61,12 @@ namespace Server.Customs
 
         private void LoadFromJson()
         {
-            if (!Directory.Exists("JsonAddons"))
+            if (!Directory.Exists("Scripts/Customs/JsonSystem/JsonAddons"))
             {
-                Directory.CreateDirectory("JsonAddons");
+                Directory.CreateDirectory("Scripts/Customs/JsonSystem/JsonAddons");
             }
 
-            var file = $"JsonAddons/{Name}.json";
+            var file = $"Scripts/Customs/JsonSystem/JsonAddons/{Name}.json";
             if (!File.Exists(file))
             {
                 var newjson = "[{\"I\":41,\"X\":0,\"Y\":0,\"Z\":0}]";

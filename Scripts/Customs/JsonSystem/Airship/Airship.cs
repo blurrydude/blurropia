@@ -15,13 +15,13 @@ namespace Server.Customs
         public Airship()
         {
             
-            if (!File.Exists("airship.json"))
+            if (!File.Exists("Scripts/Customs/JsonSystem/Airship/Data/airship.json"))
             {
                 var newjson = "[]";
-                File.WriteAllText("airship.json", newjson);
+                File.WriteAllText("Scripts/Customs/JsonSystem/Airship/Data/airship.json", newjson);
             }
 
-            var json = File.ReadAllText("airship.json");
+            var json = File.ReadAllText("Scripts/Customs/JsonSystem/Airship/Data/airship.json");
             var addonComponents = (List<JsonAddonComponent>)JsonUtility.Deserialize<List<JsonAddonComponent>>(json);
             if (addonComponents.Count == 0)
             {
