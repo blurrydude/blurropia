@@ -3,7 +3,7 @@ using System.Linq;
 using Server.Gumps;
 using Server.Network;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class JsonQuestGump : Gump
     {

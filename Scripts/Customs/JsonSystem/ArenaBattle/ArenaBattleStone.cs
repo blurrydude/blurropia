@@ -5,7 +5,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class ArenaBattleStone : Item
     {

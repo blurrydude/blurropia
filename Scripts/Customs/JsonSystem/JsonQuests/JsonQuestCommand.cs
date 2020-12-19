@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Server.Commands;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class JsonQuestCommand
     {

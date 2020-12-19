@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class JsonItem
     {

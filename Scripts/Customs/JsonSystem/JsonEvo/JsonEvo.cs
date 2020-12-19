@@ -7,7 +7,7 @@ using Server.Items;
 using Server.Mobiles;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     [CorpseName("a corpse")]
     public class JsonEvo : BaseCreature
@@ -118,8 +118,8 @@ namespace Server.Customs.JsonSystem
             {
                 if (!(defender is BaseCreature) || ((BaseCreature) defender).Controlled) return;
                 var currentLevel = Config.Levels[Level - 1];
-                var b = 5 + ((BaseCreature) defender).HitsMax;
-                Experience += Utility.RandomList(b + currentLevel.ExpGain.Min, b + currentLevel.ExpGain.Max);
+                var b = ((BaseCreature) defender).HitsMax;
+                Experience += Utility.RandomList(5 + b / currentLevel.ExpGain.Min, 5 + b / currentLevel.ExpGain.Max);
             } 
             catch (Exception e)
             {
@@ -133,7 +133,7 @@ namespace Server.Customs.JsonSystem
         {
             if (Config == null) return;
             var currentLevel = Config.Levels[Level - 1];
-            if (Experience < currentLevel.ExpLimit) return;
+            if (currentLevel.ExpLimit == 0 || Experience < currentLevel.ExpLimit) return;
             _level = Math.Max(Math.Min(Config.Levels.Count, _level + 1), 1);
             SetLevel();
         }
@@ -505,7 +505,7 @@ namespace Server.Customs.JsonSystem
             if (String.IsNullOrEmpty(FileName)) return;
             try
             {
-                var json = File.ReadAllText($"Scripts/Customs/JsonEvo/Data/{FileName}.json");
+                var json = File.ReadAllText($"Scripts/Customs/JsonSystem/JsonEvo/Data/{FileName}.json");
                 Config = (JsonEvoConfig) JsonUtility.Deserialize<JsonEvoConfig>(json);
                 Hue = ((int?) Config.Levels[0].Props.FirstOrDefault(x => x.Key == "Hue").Value) ?? 0;
                 Name = $"{Config.BaseName} Egg";

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class JsonQuestEngine : Timer
     {

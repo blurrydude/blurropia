@@ -6,7 +6,7 @@ using Server.Customs;
 using Server.Items;
 using Server.Mobiles;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public enum ArenaFighterType
     {

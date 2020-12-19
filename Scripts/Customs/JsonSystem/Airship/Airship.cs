@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Server.Items;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class Airship : BaseAddon
     {

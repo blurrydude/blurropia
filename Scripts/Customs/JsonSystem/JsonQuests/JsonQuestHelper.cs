@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Server.Network;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public static class JsonQuestHelper
     {

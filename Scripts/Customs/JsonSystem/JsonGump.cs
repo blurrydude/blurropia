@@ -4,7 +4,7 @@ using System.IO;
 using Server.Gumps;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class JsonGump : Gump
     {
@@ -67,11 +67,16 @@ namespace Server.Customs.JsonSystem
                             AddPage(Convert.ToInt32(gd.V));
                             break;
                         case JsonGumpDataType.PageButton:
-                            AddButton(gd.X, gd.Y, gd.G, gd.P, Convert.ToInt32(gd.V), GumpButtonType.Page, Convert.ToInt32(gd.V));
+                            AddButton(gd.X, gd.Y, gd.G, gd.P, Convert.ToInt32(gd.V), GumpButtonType.Page,
+                                Convert.ToInt32(gd.V));
                             break;
                     }
                 }
-            } catch(Exception){}
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
         }
     }
 

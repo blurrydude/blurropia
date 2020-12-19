@@ -1,4 +1,4 @@
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class EffectConfig
     {

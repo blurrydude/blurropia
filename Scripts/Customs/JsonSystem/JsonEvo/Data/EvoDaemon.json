@@ -321,7 +321,7 @@
 		},
 		{
 			"NameMod":"Supreme",
-			"ExpLimit": 100000000,
+			"ExpLimit": 0,
 			"ExpGain": {"Min":19,"Max":9},
 			"EvoMessage":"ascends to the most destructive form possible",
 			"EvoSound":0,

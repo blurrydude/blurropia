@@ -6,7 +6,7 @@ using Server.Mobiles;
 using Server.Network;
 using ServerUtilityExtensions;
 
-namespace Server.Customs.JsonSystem
+namespace Server.Customs
 {
     public class JsonQuestGiver : BaseCreature 
     { 
