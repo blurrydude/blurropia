@@ -125,7 +125,11 @@ namespace Server.Customs
 
             Mobile m = e.Mobile;
 
-            if (!m.InRange(GetWorldLocation(), 12))
+            if(m.AccessLevel < AccessLevel.GameMaster) {
+                return;
+            }
+
+            if (!m.InRange(GetWorldLocation(), 1))
             {
                 return;
             }
@@ -138,6 +142,12 @@ namespace Server.Customs
             if (e.Speech.Contains("setfile"))
             {
                 Name = e.Speech.Replace("setfile ", string.Empty);
+                Reload();
+            }
+        }
+
+        public override void OnDoubleClick(Mobile @from) {
+            if(Name == "default") {
                 Reload();
             }
         }

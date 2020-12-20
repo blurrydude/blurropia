@@ -100,6 +100,7 @@ namespace Server.Customs
                 {
                     this.AddItem((i * 50) + 25, (r * 200) + 32, i + offset);
                     this.AddButton((i * 50) + 40, (r * 200) + 12, 0x15E2, 0x15E6, i + offset + 10, GumpButtonType.Reply, 0);
+                    this.AddButton((i * 50) + 52, (r * 200) + 12, 0x15E2, 0x15E6, i + offset + 1000000, GumpButtonType.Reply, 0);
                 }
 
                 offset += 14;
@@ -110,6 +111,14 @@ namespace Server.Customs
 
         public override void OnResponse(NetState sender, RelayInfo info)
         {
+            if (info.ButtonID > 1000000)
+            {
+                var itemId = info.ButtonID - 1000000;
+                sender.Mobile.SendMessage("What do you wish to convert into this object? <ESC> to cancel.");
+                //BoundingBoxPicker.Begin(e.Mobile, new BoundingBoxCallback(AddonBox_Callback), null);
+                sender.Mobile.Target = new SetTarget(_page, itemId);
+                return;
+            }
             if (info.ButtonID > 10)
             {
                 var itemId = info.ButtonID - 10;
@@ -161,6 +170,35 @@ namespace Server.Customs
 
                     from.Target = new ItemsViewer.InternalTarget(m_Page, m_ItemId);
                 }
+            }
+
+            protected override void OnTargetCancel(Mobile from, TargetCancelType cancelType)
+            {
+                if (cancelType == TargetCancelType.Canceled)
+                    from.SendGump(new ItemsViewer(m_Page));
+            }
+        }
+
+        public class SetTarget : Target
+        {
+            private readonly int m_Page;
+            private readonly int m_ItemId;
+            public SetTarget(int page, int itemId)
+                : base(-1, true, TargetFlags.None)
+            {
+                this.m_Page = page;
+                m_ItemId = itemId;
+            }
+
+            protected override void OnTarget(Mobile from, object o)
+            {
+                try
+                {
+                    ((Item) o).ItemID = m_ItemId;
+                } catch(Exception) {}
+
+                from.SendGump(new ItemsViewer(m_Page));
+                //from.Target = new ItemsViewer.SetTarget(m_Page, m_ItemId);
             }
 
             protected override void OnTargetCancel(Mobile from, TargetCancelType cancelType)
