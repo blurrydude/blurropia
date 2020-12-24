@@ -18,7 +18,7 @@ namespace Server.Customs
 
         protected override void OnTick()
         {
-            FirestoreChatHandler.HandleIncoming();
+            //FirestoreChatHandler.HandleIncoming();
         }
     }
 }

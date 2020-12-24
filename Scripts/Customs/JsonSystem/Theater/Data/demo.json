@@ -1,0 +1,120 @@
+﻿{
+	"Scenes": [
+		{
+			"Cast":
+			[
+				{
+					"Name": "Mycroft",
+					"Title": "the Producer",
+					"Female": false,
+					"RandomGender": false,
+					"RandomName": false,
+					"AutoDress": true,
+					"Clothes": null,
+					"Hue": null,
+					"SpeechHue": 655,
+					"Body": null,
+					"HairItemId": null,
+					"HairHue": null,
+					"FacialHairItemId": null,
+					"FacialHairHue": null,
+					"StartingPlace": { "X": 3, "Y": 6 }
+				}
+			],
+			"SetProps": [{ "ItemId": 2866, "Position": { "X": 9, "Y": 0, "Z": 5 }, "Hue": null }],
+			"Actions": [
+				{ "TriggerTime": "00:00:01", "Actor": 0, "Action": "walk", "Data": [0, 6], "Text": null },
+				{ "TriggerTime": "00:00:03", "Actor": 0, "Action": "walk", "Data": [0, 4], "Text": null },
+				{ "TriggerTime": "00:00:05", "Actor": 0, "Action": "walk", "Data": [9, 0], "Text": null },
+				{ "TriggerTime": "00:00:10", "Actor": 0, "Action": "say", "Data": null, "Text": "Welcome to the new Grand Theater!" },
+				{ "TriggerTime": "00:00:14", "Actor": 0, "Action": "say", "Data": null, "Text": "We're working on putting together some really nice shows for you!" }, 
+				{ "TriggerTime": "00:00:19", "Actor": 0, "Action": "say", "Data": null, "Text": "Plays and magic shows and more!" },
+				{ "TriggerTime": "00:00:25", "Actor": 0, "Action": "say", "Data": null, "Text": "This is just a small sample of what we can do..." },
+				{ "TriggerTime": "00:00:27", "Actor": 0, "Action": "walk", "Data": [17, 0], "Text": null },
+				{ "TriggerTime": "00:00:33", "Actor": 0, "Action": "face", "Data": null, "Text": "South" },
+				{ "TriggerTime": "00:00:34", "Actor": 0, "Action": "say", "Data": null, "Text": "We can follow choreographed paths" }, 
+				{ "TriggerTime": "00:00:41", "Actor": 0, "Action": "act", "Data": [16,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:00:41", "Actor": 0, "Action": "say", "Data": null, "Text": "We can make gestures" }, 
+				{ "TriggerTime": "00:00:44", "Actor": 0, "Action": "say", "Data": null, "Text": "We can make special effects" }, 
+				{ "TriggerTime": "00:00:45", "Actor": 0, "Action": "effect", "Data": [14089,10,32,0,0], "Text": null },
+				{ "TriggerTime": "00:00:46", "Actor": 0, "Action": "body", "Data": [208], "Text": null },
+				{ "TriggerTime": "00:00:47", "Actor": 0, "Action": "say", "Data": null, "Text": "We can change bodies" }, 
+				{ "TriggerTime": "00:00:50", "Actor": 0, "Action": "body", "Data": [400], "Text": null },
+				{ "TriggerTime": "00:00:52", "Actor": 0, "Action": "say", "Data": null, "Text": "We can remove and change clothes and equipment" }, 
+				{ "TriggerTime": "00:00:54", "Actor": 0, "Action": "remove", "Data": null, "Text": "FancyShirt" },
+				{ "TriggerTime": "00:00:55", "Actor": 0, "Action": "add", "Data": null, "Text": "LordBlackthorneSuit" },
+				{ "TriggerTime": "00:00:56", "Actor": 0, "Action": "say", "Data": null, "Text": "We can even change our name, hairstlye, and more!" }, 
+				{ "TriggerTime": "00:00:59", "Actor": 0, "Action": "walk", "Data": [10, 0], "Text": null },
+				{ "TriggerTime": "00:01:04", "Actor": 0, "Action": "face", "Data": null, "Text": "South" },
+			  { "TriggerTime": "00:01:05", "Actor": 0, "Action": "act", "Data": [32,3,2,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:06", "Actor": 0, "Action": "say", "Data": null, "Text": "Thanks for watching!" }, 
+				{ "TriggerTime": "00:01:10", "Actor": 0, "Action": "face", "Data": null, "Text": "South" }
+			]
+		},
+		{
+			"Cast":
+			[
+				{
+					"Name": "Guy One",
+					"Title": "",
+					"Female": false,
+					"RandomGender": false,
+					"RandomName": false,
+					"AutoDress": true,
+					"Clothes": null,
+					"Hue": null,
+					"SpeechHue": 655,
+					"Body": null,
+					"HairItemId": null,
+					"HairHue": null,
+					"FacialHairItemId": null,
+					"FacialHairHue": null,
+					"StartingPlace": { "X": 0, "Y": 3 }
+				},
+				{
+					"Name": "Guy Two",
+					"Title": "",
+					"Female": false,
+					"RandomGender": false,
+					"RandomName": false,
+					"AutoDress": true,
+					"Clothes": null,
+					"Hue": null,
+					"SpeechHue": 655,
+					"Body": null,
+					"HairItemId": null,
+					"HairHue": null,
+					"FacialHairItemId": null,
+					"FacialHairHue": null,
+					"StartingPlace": { "X": 18, "Y": 3 }
+				}
+			],
+			"SetProps": [],
+			"Actions": [
+				{ "TriggerTime": "00:01:05", "Actor": 0, "Action": "walk", "Data": [9, 1], "Text": null },
+				{ "TriggerTime": "00:01:05", "Actor": 1, "Action": "walk", "Data": [10, 1], "Text": null },
+				{ "TriggerTime": "00:01:09", "Actor": 0, "Action": "remove", "Data": null, "Text": "FancyShirt" },
+				{ "TriggerTime": "00:01:09", "Actor": 1, "Action": "remove", "Data": null, "Text": "FancyShirt" },
+				{ "TriggerTime": "00:01:10", "Actor": 0, "Action": "face", "Data": null, "Text": "East" },
+				{ "TriggerTime": "00:01:11", "Actor": 1, "Action": "face", "Data": null, "Text": "West" },
+				{ "TriggerTime": "00:01:12", "Actor": 0, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:13", "Actor": 1, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:14", "Actor": 0, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:15", "Actor": 1, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:16", "Actor": 0, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:17", "Actor": 1, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:18", "Actor": 0, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:19", "Actor": 1, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:20", "Actor": 0, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:21", "Actor": 1, "Action": "act", "Data": [10,5,1,1,0,0], "Text": null },
+				{ "TriggerTime": "00:01:25", "Actor": 1, "Action": "add", "Data": null, "Text": "DeathRobe" },
+				{ "TriggerTime": "00:01:25", "Actor": 0, "Action": "walk", "Data": [0, 1], "Text": null },
+				{ "TriggerTime": "00:01:25.5", "Actor": 1, "Action": "walk", "Data": [18, 1], "Text": null },
+				{ "TriggerTime": "00:01:30", "Actor": 0, "Action": "face", "Data": null, "Text": "East" },
+				{ "TriggerTime": "00:001:31", "Actor": 1, "Action": "face", "Data": null, "Text": "West" },
+				{ "TriggerTime": "00:01:33", "Actor": 0, "Action": "face", "Data": null, "Text": "East" },
+				{ "TriggerTime": "00:001:33", "Actor": 1, "Action": "face", "Data": null, "Text": "West" }
+			]
+		}
+	]
+}

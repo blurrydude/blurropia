@@ -5,6 +5,7 @@ using System.Linq;
 using Server.Commands;
 using Server.Commands.Generic;
 using Server.Items;
+using Server.Network;
 using Server.Prompts;
 using Server.Targeting;
 using ServerUtilityExtensions;
@@ -102,10 +103,18 @@ namespace Server.Customs
     }
     public class JsonAddon : BaseAddon
     {
+        private int _owner;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int Owner
+        {
+            get => _owner;
+            set => _owner = value;
+        }
         [Constructable]
         public JsonAddon()
         {
             Name = "default";
+            Owner = 0;
             LoadFromJson();
         }
 
@@ -125,7 +134,7 @@ namespace Server.Customs
 
             Mobile m = e.Mobile;
 
-            if(m.AccessLevel < AccessLevel.GameMaster) {
+            if(m.AccessLevel < AccessLevel.GameMaster || _owner > 0 && m.Serial.Value != _owner) {
                 return;
             }
 
@@ -134,14 +143,26 @@ namespace Server.Customs
                 return;
             }
 
+            if (_owner == 0 && e.Speech == "mine")
+            {
+                _owner = m.Serial.Value;
+                PublicOverheadMessage(MessageType.Regular, 0x35, false, $"I now belong to {m.Name}");
+            }
+
+            if (e.Speech == "reset")
+            {
+                Name = "default";
+                Reload();
+            }
+
             if (e.Speech == "reload")
             {
                 Reload();
             }
 
-            if (e.Speech.Contains("setfile"))
+            if (e.Speech.Contains("set to"))
             {
-                Name = e.Speech.Replace("setfile ", string.Empty);
+                Name = e.Speech.Replace("set to ", string.Empty);
                 Reload();
             }
         }
@@ -191,7 +212,8 @@ namespace Server.Customs
             // probably gonna add some more nifty to this later, like the ability to add NPCs to the addon automatically and the like.
             base.Serialize(writer);
 
-            writer.Write((int)0); // version
+            writer.Write((int)1); // version
+            writer.Write(_owner);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -199,6 +221,7 @@ namespace Server.Customs
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
+            _owner = version > 0 ? reader.ReadInt() : 0;
         }
     }
 }

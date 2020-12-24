@@ -39,8 +39,8 @@ namespace Server.Engines.Chat
                 string.Format("{{{0}}} {1}", channel.Name, param)); // %1: %2
             if (!pending)
             {
-                DBLogger.LogEvent(from.Mobile, "chatted on "+channel.Name+" chat: " + param);
-                FirestoreChatHandler.MessageSent(from.Mobile, channel.Name, param);
+                //DBLogger.LogEvent(from.Mobile, "chatted on "+channel.Name+" chat: " + param);
+                //FirestoreChatHandler.MessageSent(from.Mobile, channel.Name, param);
                 /*DatabaseUtility.SaveChatMessage(new ChatLog
                 {
                     Channel = channel.Name,

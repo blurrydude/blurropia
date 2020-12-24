@@ -100,7 +100,8 @@ namespace Server.Customs
                 {
                     this.AddItem((i * 50) + 25, (r * 200) + 32, i + offset);
                     this.AddButton((i * 50) + 40, (r * 200) + 12, 0x15E2, 0x15E6, i + offset + 10, GumpButtonType.Reply, 0);
-                    this.AddButton((i * 50) + 52, (r * 200) + 12, 0x15E2, 0x15E6, i + offset + 1000000, GumpButtonType.Reply, 0);
+                    this.AddButton((i * 50) + 55, (r * 200) + 12, 11400, 11401, i + offset + 1000000, GumpButtonType.Reply, 0);
+                    this.AddButton((i * 50) + 25, (r * 200) + 12, 11410, 11411, i + offset + 2000000, GumpButtonType.Reply, 0);
                 }
 
                 offset += 14;
@@ -109,8 +110,33 @@ namespace Server.Customs
             this.AddLabel(20, 784, 256, $"Page {_page}   (use [itemviewer {{page}} to come directly to this page)");
         }
 
+        private static void AddonBox_Callback(Mobile from, Map map, Point3D start, Point3D end, object state)
+        {
+            var page = ((int[])state)[0];
+            var itemId = ((int[])state)[1];
+
+            for (var x = start.X; x <= end.X; x++)
+            {
+                for (var y = start.Y; y <= end.Y; y++)
+                {
+                    var newItem = new Static();
+                    newItem.Movable = false;
+                    newItem.ItemID = itemId;
+                    newItem.MoveToWorld(new Point3D(x,y,start.Z), from.Map);
+                }
+            }
+            
+            from.SendGump(new ItemsViewer(page));
+        }
+
         public override void OnResponse(NetState sender, RelayInfo info)
         {
+            if (info.ButtonID > 2000000)
+            {
+                var itemId = info.ButtonID - 2000000;
+                BoundingBoxPicker.Begin(sender.Mobile, new BoundingBoxCallback(AddonBox_Callback), new[]{_page,itemId});
+                return;
+            }
             if (info.ButtonID > 1000000)
             {
                 var itemId = info.ButtonID - 1000000;
