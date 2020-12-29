@@ -1,0 +1,14 @@
+﻿{
+	"Width":  400,
+	"Padding": 20,
+	"HtmlHeight": 150,
+	"LineHeight": 24,
+	"LineSpacing": 6,
+	"OptionLineCharLimit": 52,
+	"OptionMarginLeft":  10,
+	"OptionTextMarginLeft": 30, 
+	"ButtonNormal": 1896,
+	"ButtonPressed": 1895,
+	"OptionTextHue":  42,
+	"Background":  5054 
+}

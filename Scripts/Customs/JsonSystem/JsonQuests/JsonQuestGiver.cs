@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Server.ContextMenus;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
@@ -78,6 +79,35 @@ namespace Server.Customs
             JsonQuestHelper.CheckGiveItem(this, node, from);
 
             return true;
+        }
+
+        private class HailEntry : ContextMenuEntry
+        {
+            private Mobile _from;
+            private JsonQuestGiver _giver;
+
+            public HailEntry(Mobile from, JsonQuestGiver giver)
+                : base(3006156, 3)
+            {
+                Enabled = true;
+
+                _from = from;
+                _giver = giver;
+            }
+
+            public override void OnClick()
+            {
+                if (!_from.InRange(_giver.Location, 3) || !(_from is PlayerMobile))
+                    return;
+                _from.SendGump(new JsonQuestGump(_giver));
+            }
+        }
+
+        public override void AddCustomContextEntries(Mobile from, List<ContextMenuEntry> list)
+        {
+            list.Add(new HailEntry(from, this));
+
+            base.AddCustomContextEntries(from, list);
         }
 
         public void LoadConfig(JsonQuestGiverConfig config)

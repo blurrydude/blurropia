@@ -47,7 +47,7 @@ namespace Server.Customs.JsonSystem.Theater
                 if (a.CurrentWayPoint == null ||
                     a.Location == a.CurrentWayPoint.Location)
                 {
-                    a.LockDirection = true;
+                    a.Frozen = true;
                     a.CantWalk = true;
                 }
             }
@@ -63,7 +63,7 @@ namespace Server.Customs.JsonSystem.Theater
                     var waypoint = _stone.Grid[target[0]][target[1]];
                     actor.CurrentWayPoint = waypoint;
                     actor.CantWalk = false;
-                    actor.LockDirection = false;
+                    actor.Frozen = false;
                     break;
                 case "say":
                     var line = action.Text;
@@ -84,9 +84,9 @@ namespace Server.Customs.JsonSystem.Theater
                     actor.Kill();
                     break;
                 case "face":
-                    actor.LockDirection = true;
                     var success = Enum.TryParse<Direction>(action.Text, out var d);
                     if(success) actor.Direction = d;
+                    actor.Frozen = true;
                     break;
                 case "remove":
                     var toRemove = actor.Items.Where(x => x.GetType().ToString().Contains(action.Text)).ToList();

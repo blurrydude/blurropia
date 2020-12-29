@@ -61,13 +61,13 @@ namespace Server.Customs.JsonSystem.Theater
 
             if (this.Female = (config.RandomGender?Utility.RandomBool():config.Female)) 
             { 
-                this.Body = 0x191; 
+                this.Body = config.Body??0x191; 
                 this.Name = config.RandomName?NameList.RandomName("female"):config.Name;
                 if(config.AutoDress) this.AddItem(new FancyDress(Utility.RandomDyedHue())); 
             }
             else 
             { 
-                this.Body = 0x190; 
+                this.Body = config.Body??0x190; 
                 this.Name = config.RandomName?NameList.RandomName("male"):config.Name;
                 if (config.AutoDress)
                 {

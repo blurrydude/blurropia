@@ -67,6 +67,19 @@ namespace Server.Customs.JsonSystem.Theater
             _timer.Start();
         }
 
+        public override bool HandlesOnSpeech { get=>true; }
+        public override void OnSpeech(SpeechEventArgs e)
+        {
+            if (!Active && e.Mobile.InRange(Location, 20) && e.Speech == "begin")
+            {
+                CurrentScene = 0;
+                Active = false;
+                LoadScript();
+                LoadScene();
+                PublicOverheadMessage(MessageType.Regular,0x35,false,"Play starting");
+            }
+        }
+
         public override void OnDoubleClick(Mobile @from)
         {
             base.OnDoubleClick(@from);
