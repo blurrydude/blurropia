@@ -11,7 +11,7 @@ namespace Server.Customs
     {
         public static void Initialize()
         {
-            CommandSystem.Register("sudo", AccessLevel.GameMaster, new CommandEventHandler(JsonQuestCommand_OnCommand));
+            CommandSystem.Register("jsonquests", AccessLevel.GameMaster, new CommandEventHandler(JsonQuestCommand_OnCommand));
         }
 
         [Usage("jsonquestload")]
