@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Server.Items;
 using Server.Network;
 using ServerUtilityExtensions;
@@ -57,18 +58,18 @@ namespace Server.Customs
             if (e.Speech == "reset")
             {
                 Name = "default";
-                Reload();
+                Reload(false);
             }
 
             if (e.Speech == "reload")
             {
-                Reload();
+                Reload(false);
             }
 
             if (e.Speech.Contains("set to"))
             {
                 Name = e.Speech.Replace("set to ", string.Empty);
-                Reload();
+                Reload(false);
             }
         }
 
@@ -78,24 +79,25 @@ namespace Server.Customs
             }
         }
 
-        private void Reload()
+        private void Reload(bool clearonly = false)
         {
-            ClearAddon();
-            LoadFromJson();
-        }
-
-        private void ClearAddon()
-        {
+            ConsoleUtility.OutputLine($"Reloading {Serial}");
             List<AddonComponent> toRemove = new List<AddonComponent>(Components);
-            List<Item> itemsToRemove = new List<Item>(Items);
+            List<int> itemsToRemove = Items.Select(x => x.Serial.Value).Where(x => x != Serial.Value).ToList();
+
+            if (clearonly == false) LoadFromJson();
 
             foreach (var remove in toRemove)
             {
+                ConsoleUtility.OutputLine($"Removing {remove.Serial} {remove.GetType()}");
                 Components.Remove(remove);
                 remove.Delete();
             }
-            foreach (var remove in itemsToRemove)
+            foreach (var serial in itemsToRemove)
             {
+                var remove = World.FindItem(serial);
+                if (remove == null) continue;
+                ConsoleUtility.OutputLine($"Removing {remove.Serial} {remove.GetType()}");
                 Items.Remove(remove);
                 World.RemoveItem(remove);
                 remove.Delete();
@@ -104,6 +106,7 @@ namespace Server.Customs
 
         private void LoadFromJson()
         {
+            ConsoleUtility.OutputLine($"Load From Json {Serial}");
             if (!Directory.Exists("Scripts/Customs/JsonSystem/JsonAddons/Data"))
             {
                 Directory.CreateDirectory("Scripts/Customs/JsonSystem/JsonAddons/Data");
@@ -120,22 +123,27 @@ namespace Server.Customs
             var addonComponents = (List<JsonAddonComponent>)JsonUtility.Deserialize<List<JsonAddonComponent>>(json);
             foreach (var a in addonComponents)
             {
-                if(string.IsNullOrEmpty(a.T) || a.T.ToLower() == "static")
+                /*if(string.IsNullOrEmpty(a.T) || a.T.ToLower() == "static")
                 {
-                    AddComponent(new AddonComponent(a.I) { Hue = a.H??0 }, a.X, a.Y, a.Z);
+                    var ac = new AddonComponent(a.I) { Hue = a.H ?? 0 };
+                    ConsoleUtility.OutputLine($"Adding {ac.Serial} {a.T}");
+                    AddComponent(ac, a.X, a.Y, a.Z);
                     continue;
-                }
+                }*/
+                if (string.IsNullOrEmpty(a.T)) a.T = "Static";
                 var item = JsonSystemHelper.NewItemByTypeString(a.T);
                 if (item == null) continue;
+                ConsoleUtility.OutputLine($"Adding {((Item)item).Serial} {a.T}");
+                if (a.T.ToLower() == "static") ((Item)item).ItemID = a.I;
                 ((Item)item).Hue = a.H??0;
                 ((Item)item).Movable = false;
-                AddItem((Item)item);
+                Items.Add((Item)item);
                 ((Item)item).MoveToWorld(new Point3D(a.X + Location.X, a.Y + Location.Y, a.Z + Location.Z), Map);
             }
         }
         public override void OnDelete()
         {
-            ClearAddon();
+            //Reload(true);
             base.OnDelete();
         }
 
