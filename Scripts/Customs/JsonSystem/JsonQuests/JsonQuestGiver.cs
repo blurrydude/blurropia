@@ -65,7 +65,7 @@ namespace Server.Customs
         public override bool OnDragDrop(Mobile @from, Item dropped)
         {
             var trigger = dropped.GetType().ToString().Split('.').Last();
-            var node = ConvoNodes.FirstOrDefault(x => JsonQuestHelper.IsEqualJsonItem(dropped,x.TriggerItem));
+            var node = ConvoNodes.FirstOrDefault(x => JsonSystemHelper.IsEqualJsonItem(dropped,x.TriggerItem));
             if (node == null)
             {
                 PublicOverheadMessage(MessageType.Regular, 0x35, false, "That's not right");
@@ -151,7 +151,7 @@ namespace Server.Customs
             {
                 foreach (var clothing in config.Clothes)
                 {
-                    var item = JsonQuestHelper.NewItemByTypeString(clothing);
+                    var item = JsonSystemHelper.NewItemByTypeString(clothing);
                     if (item == null) continue;
                     AddItem((Item) item);
                 }

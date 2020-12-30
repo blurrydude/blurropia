@@ -96,7 +96,7 @@ namespace Server.Customs.JsonSystem.Theater
                     }
                     break;
                 case "add":
-                    actor.AddItem((Item)JsonQuestHelper.NewItemByTypeString(action.Text));
+                    actor.AddItem((Item)JsonSystemHelper.NewItemByTypeString(action.Text));
                     break;
                 case "rename":
                     actor.Name = action.Text;

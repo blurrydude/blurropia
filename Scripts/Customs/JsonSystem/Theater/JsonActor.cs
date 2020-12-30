@@ -97,7 +97,7 @@ namespace Server.Customs.JsonSystem.Theater
             {
                 foreach (var clothing in config.Clothes)
                 {
-                    var item = JsonQuestHelper.NewItemByTypeString(clothing);
+                    var item = JsonSystemHelper.NewItemByTypeString(clothing);
                     if (item == null) continue;
                     AddItem((Item) item);
                 }

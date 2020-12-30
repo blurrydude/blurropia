@@ -1,0 +1,2 @@
+D:\Development\ServUODev\Blurropia.com\obj\Debug\Blurropia.com.csprojAssemblyReference.cache
+D:\Development\ServUODev\Blurropia.com\obj\Debug\Blurropia.com.csproj.CoreCompileInputs.cache

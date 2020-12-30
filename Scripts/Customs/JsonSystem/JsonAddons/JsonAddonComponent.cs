@@ -15,5 +15,7 @@ namespace Server.Customs
         public int X { get; set; }
         public int Y { get; set; }
         public int Z { get; set; }
+        public int? H { get; set; }
+        public string T { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,27 +11,6 @@ using Server.Targeting;
 
 namespace Server.Customs
 {
-    public class SudoCommand
-    {
-        public static void Initialize()
-        {
-            CommandSystem.Register("sudo", AccessLevel.GameMaster, SudoToolCommand_OnCommand);
-            Console.WriteLine("sudo command registered");
-            var menus = Directory.GetFiles($@"{AppDomain.CurrentDomain.BaseDirectory}Scripts\Customs\JsonSystem\Sudo\Data\", "*.json");
-            foreach (var menu in menus)
-            {
-                Console.WriteLine(menu);
-            }
-        }
-
-        [Usage("sudo")]
-        [Description("Opens the sudo tool.")]
-        public static void SudoToolCommand_OnCommand(CommandEventArgs arg)
-        {
-            Console.WriteLine("sudo command fired");
-            arg.Mobile.SendGump(new SudoTool(arg.Length > 0 ? arg.GetString(0) : "sudo"));
-        }
-    }
 
     public class SudoTool : JsonGump
     {
@@ -96,47 +74,6 @@ namespace Server.Customs
                 if (cancelType == TargetCancelType.Canceled)
                     from.SendGump(new SudoTool(_menu));
             }
-        }
-    }
-    public class SudoStone : Item
-    {
-        private string _menu;
-        [CommandProperty(AccessLevel.GameMaster)]
-        public string Menu
-        {
-            get => _menu;
-            set
-            {
-                _menu = value;
-                Name = $"Sudo Stone - {_menu}";
-            }
-        }
-        [Constructable]
-        public SudoStone() : base(3631)
-        {
-            Name = $"Sudo Stone - {_menu}";
-            _menu = "sudo";
-        }
-        public SudoStone( Serial serial ) : base( serial )
-        {
-
-        }
-
-        public override void OnDoubleClick(Mobile @from)
-        {
-            from.SendGump(new SudoTool(_menu));
-        }
-
-        public override void Serialize(GenericWriter writer)
-        {
-            writer.Write(_menu);
-            base.Serialize(writer);
-        }
-
-        public override void Deserialize(GenericReader reader)
-        {
-            _menu = reader.ReadString();
-            base.Deserialize(reader);
         }
     }
 }
