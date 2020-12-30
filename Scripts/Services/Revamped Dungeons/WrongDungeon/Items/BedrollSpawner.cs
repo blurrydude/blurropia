@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -323,7 +322,7 @@ namespace Server.Items
                 Timer.DelayCall<Map>(TimeSpan.FromSeconds(5), map => 
                     {
                         EnchantedHotItem.SpawnChests(map);
-                        ConsoleUtility.OutputLine("Hot Item chests spawned for {0}.", this.Map);
+                        Console.WriteLine("Hot Item chests spawned for {0}.", this.Map);
                     }, Map);
             }
         }

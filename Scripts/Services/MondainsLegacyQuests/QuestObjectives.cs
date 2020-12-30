@@ -3,7 +3,6 @@ using Server.Mobiles;
 using Server.Regions;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Quests
 { 
@@ -235,7 +234,7 @@ namespace Server.Engines.Quests
                 m_Region = QuestHelper.FindRegion(region);
 
                 if (m_Region == null)
-                    ConsoleUtility.OutputLine(String.Format("Invalid region name ('{0}') in '{1}' objective!", region, GetType()));
+                    Console.WriteLine(String.Format("Invalid region name ('{0}') in '{1}' objective!", region, GetType()));
             }
         }
 
@@ -683,7 +682,7 @@ namespace Server.Engines.Quests
             Label = label;
 
             if (Region == null)
-                ConsoleUtility.OutputLine(String.Format("Invalid region name ('{0}') in '{1}' objective!", region, GetType()));
+                Console.WriteLine(String.Format("Invalid region name ('{0}') in '{1}' objective!", region, GetType()));
         }        
 
         public override void OnCompleted()
@@ -735,7 +734,7 @@ namespace Server.Engines.Quests
                 m_Leave = leaveRegion;
 				
                 if (m_Region == null)
-                    ConsoleUtility.OutputLine(String.Format("Invalid region name ('{0}') in '{1}' objective!", region, GetType()));
+                    Console.WriteLine(String.Format("Invalid region name ('{0}') in '{1}' objective!", region, GetType()));
             }
         }
 

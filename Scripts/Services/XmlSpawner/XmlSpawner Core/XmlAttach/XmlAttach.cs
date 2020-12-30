@@ -19,7 +19,6 @@ using Server.Accounting;
 using System.Net.Mail;
 using Server.Misc;
 using Server.ContextMenus;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.XmlSpawner2
 {
@@ -634,7 +633,7 @@ namespace Server.Engines.XmlSpawner2
 					{
 						if (!AlreadyReported(valuetype))
 						{
-							ConsoleUtility.OutputLine("\nError deserializing attachments {0}.\nMissing a serial constructor?\n", valuetype);
+							Console.WriteLine("\nError deserializing attachments {0}.\nMissing a serial constructor?\n", valuetype);
 							ReportDeserError(valuetype, "Missing a serial constructor?");
 						}
 						// position the .ima file at the next deser point
@@ -664,7 +663,7 @@ namespace Server.Engines.XmlSpawner2
 					{
 						if (!AlreadyReported(valuetype))
 						{
-							ConsoleUtility.OutputLine("\nError deserializing attachments {0}\n", valuetype);
+							Console.WriteLine("\nError deserializing attachments {0}\n", valuetype);
 							ReportDeserError(valuetype, "save file corruption or incorrect Serialize/Deserialize methods?");
 						}
 						// position the .ima file at the next deser point
@@ -773,7 +772,7 @@ namespace Server.Engines.XmlSpawner2
 						{
 							if (!AlreadyReported(valuetype))
 							{
-								ConsoleUtility.OutputLine("\nError deserializing attachments of type {0}.\n", valuetype);
+								Console.WriteLine("\nError deserializing attachments of type {0}.\n", valuetype);
 								ReportDeserError(valuetype, "save file corruption or incorrect Serialize/Deserialize methods?");
 							}
 							// position the .ima file at the next deser point
@@ -873,7 +872,7 @@ namespace Server.Engines.XmlSpawner2
 						{
 							if (!AlreadyReported(valuetype))
 							{
-								ConsoleUtility.OutputLine("\nError deserializing attachments of type {0}.\n", valuetype);
+								Console.WriteLine("\nError deserializing attachments of type {0}.\n", valuetype);
 								ReportDeserError(valuetype, "save file corruption or incorrect Serialize/Deserialize methods?");
 							}
 							// position the .ima file at the next deser point
@@ -2502,7 +2501,7 @@ namespace Server.Engines.XmlSpawner2
 		{
 			private static void SendEmail(string filePath)
 			{
-				ConsoleUtility.Output("XmlSpawner2 Attachment error: Sending email...");
+				Console.Write("XmlSpawner2 Attachment error: Sending email...");
 
 				MailMessage message = null;
 				try
@@ -2513,7 +2512,7 @@ namespace Server.Engines.XmlSpawner2
 
 				if (message == null)
 				{
-					ConsoleUtility.Output("Unable to send email.  Possible invalid email address.");
+					Console.Write("Unable to send email.  Possible invalid email address.");
 					return;
 				}
 				message.Subject = "Automated XmlSpawner2 Attachment Error Report";
@@ -2523,9 +2522,9 @@ namespace Server.Engines.XmlSpawner2
 				message.Attachments.Add(new Attachment(filePath));
 
 				if (Email.Send(message))
-					ConsoleUtility.OutputLine("done");
+					Console.WriteLine("done");
 				else
-					ConsoleUtility.OutputLine("failed");
+					Console.WriteLine("failed");
 			}
 
 			private static string GetRoot()
@@ -2577,7 +2576,7 @@ namespace Server.Engines.XmlSpawner2
 
 			public static void GenerateErrorReport(string error)
 			{
-				ConsoleUtility.Output("\nXmlSpawner2 Attachment Error:\n{0}\nGenerating report...", error);
+				Console.Write("\nXmlSpawner2 Attachment Error:\n{0}\nGenerating report...", error);
 
 				try
 				{
@@ -2613,14 +2612,14 @@ namespace Server.Engines.XmlSpawner2
 						}
 					}
 
-					ConsoleUtility.OutputLine("done");
+					Console.WriteLine("done");
 
 					if (Email.CrashAddresses != null)
 						SendEmail(filePath);
 				}
 				catch
 				{
-					ConsoleUtility.OutputLine("failed");
+					Console.WriteLine("failed");
 				}
 			}
 

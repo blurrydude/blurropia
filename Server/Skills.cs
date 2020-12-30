@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -168,7 +167,7 @@ namespace Server
 
 			if (m_Lock < SkillLock.Up || m_Lock > SkillLock.Locked)
 			{
-				ConsoleUtility.OutputLine("Bad skill lock -> {0}.{1}", owner.Owner, m_Lock);
+				Console.WriteLine("Bad skill lock -> {0}.{1}", owner.Owner, m_Lock);
 				m_Lock = SkillLock.Up;
 			}
 		}

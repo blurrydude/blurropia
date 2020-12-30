@@ -11,8 +11,6 @@ using Server.Guilds;
 using Server.Network;
 using Server.Engines.Chat;
 using Server.Items;
-using ServerUtilityExtensions;
-using Server.Firestore;
 #endregion
 
 namespace Server.Misc
@@ -118,13 +116,13 @@ namespace Server.Misc
 				Directory.CreateDirectory("web");
 			}
 
+            /*
 			foreach (Mobile m in NetState.Instances.Where(state => state.Mobile != null).Select(state => state.Mobile))
 			{
 			    var pdata = new PlayerData(m);
 			    pdata.LoggedIn = true;
 			    DB.UpdateDocument("PlayerData/"+m.Account.Username + "~" + m.Name, pdata);
 			}
-            /*
             var incomingChat = DatabaseUtility.ReadPendingChatMessages();
             foreach (var entry in incomingChat)
             {
@@ -155,17 +153,17 @@ namespace Server.Misc
                     }
                     else if (command.Command == "syncscripts")
                     {
-                        ConsoleUtility.OutputLine("Alerting players about pending update and wait one minute...");
+                        Console.WriteLine("Alerting players about pending update and wait one minute...");
                         World.Broadcast(0x22, true, "The server will restart in one minute for script updates. We should be back up in just a couple minutes.");
                         Thread.Sleep(60000);
-                        ConsoleUtility.OutputLine("Pulling scripts and executables from dev...");
+                        Console.WriteLine("Pulling scripts and executables from dev...");
                         var process = Process.Start(@"RELEASE_UO.bat");
                         while (!process.HasExited)
                         {
-                            ConsoleUtility.OutputLine("waiting for pull to finish...");
+                            Console.WriteLine("waiting for pull to finish...");
                             Thread.Sleep(1000);
                         }
-                        ConsoleUtility.OutputLine("Issuing restart command");
+                        Console.WriteLine("Issuing restart command");
                         CommandSystem.Handle(World.Mobiles.First(x => x.Key.ToString() == command.Serial).Value,
                             "[restart");
                     }
@@ -174,7 +172,7 @@ namespace Server.Misc
                         CommandSystem.Handle(World.Mobiles.First(x => x.Key.ToString() == command.Serial).Value,
                             command.Command);
                     }
-                } catch(Exception ex) { ConsoleUtility.OutputLine(ex); }
+                } catch(Exception ex) { Console.WriteLine(ex); }
                 DatabaseUtility.MarkCommandExecuted(command);
             }*/
 

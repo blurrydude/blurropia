@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Text;
 using Server.Items;
 using Server.Targeting;
-using ServerUtilityExtensions;
 using CPA = Server.CommandPropertyAttribute;
 
 namespace Server.Commands
@@ -406,7 +405,7 @@ namespace Server.Commands
             }
             catch (Exception ex)
             {
-                ConsoleUtility.OutputLine(ex);
+                Console.WriteLine(ex);
                 return 0;
             }
         }

@@ -1,8 +1,8 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Server.Gumps;
-using ServerUtilityExtensions;
 
 namespace Server.Customs
 {
@@ -18,7 +18,7 @@ namespace Server.Customs
                 AddPage(0);
 
                 var json = File.ReadAllText(configFilePath);
-                GumpData = (List<JsonGumpData>) JsonUtility.Deserialize<List<JsonGumpData>>(json);
+                GumpData = JsonConvert.DeserializeObject<List<JsonGumpData>>(json);
 
                 foreach (var gd in GumpData)
                 {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -142,7 +142,7 @@ namespace Server.Items
             }
 
             m_InvalidatedLocations = true;
-            //ConsoleUtility.OutputLine("Invalidated {0} Map Locations in FishInfo.cs", c.ToString());
+            //Console.WriteLine("Invalidated {0} Map Locations in FishInfo.cs", c.ToString());
         }
 
         public static bool IsRareFish(Type type)

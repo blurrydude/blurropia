@@ -4,7 +4,6 @@ using System.IO;
 using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Misc
 {
@@ -82,14 +81,14 @@ namespace Server.Misc
             if (Required != null)
             {
                 Utility.PushColor(ConsoleColor.White);
-                ConsoleUtility.OutputLine("Restricting classic client version to {0}. Action to be taken: {1}", Required, m_OldClientResponse);
+                Console.WriteLine("Restricting classic client version to {0}. Action to be taken: {1}", Required, m_OldClientResponse);
                 Utility.PopColor();
             }
 
             if (RequiredEC != null)
             {
                 Utility.PushColor(ConsoleColor.White);
-                ConsoleUtility.OutputLine("Restricting enhanced client version to {0}. Action to be taken: {1}", RequiredEC, "Kick");
+                Console.WriteLine("Restricting enhanced client version to {0}. Action to be taken: {1}", RequiredEC, "Kick");
                 Utility.PopColor();
             }
         }
@@ -147,7 +146,7 @@ namespace Server.Misc
                     if (state.Socket != null)
                     {
                         Utility.PushColor(ConsoleColor.Red);
-                        ConsoleUtility.OutputLine("Client: {0}: Disconnecting, bad version", state);
+                        Console.WriteLine("Client: {0}: Disconnecting, bad version", state);
                         Utility.PopColor();
                         state.Dispose();
                     }
@@ -183,7 +182,7 @@ namespace Server.Misc
                 if (!AllowEC)
                 {
                     Utility.PushColor(ConsoleColor.DarkRed);
-                    ConsoleUtility.OutputLine("Client: {0}: Disconnecting, Enhanced Client", state);
+                    Console.WriteLine("Client: {0}: Disconnecting, Enhanced Client", state);
                     Utility.PopColor();
 
                     state.Dispose();
@@ -203,7 +202,7 @@ namespace Server.Misc
                                     Timer.DelayCall(TimeSpan.FromSeconds(5), () =>
                                         {
                                             Utility.PushColor(ConsoleColor.DarkRed);
-                                            ConsoleUtility.OutputLine("Client: {0}: Disconnecting, bad enhanced client version.", state);
+                                            Console.WriteLine("Client: {0}: Disconnecting, bad enhanced client version.", state);
                                             Utility.PopColor();
 
                                             state.Dispose();

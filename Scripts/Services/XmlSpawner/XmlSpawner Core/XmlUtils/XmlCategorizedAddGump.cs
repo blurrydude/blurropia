@@ -4,7 +4,6 @@ using System.Xml;
 using System.Collections;
 using Server.Network;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 /*
 ** Modified from RunUO 1.0.0 CategorizedAddGump.cs
@@ -165,7 +164,7 @@ namespace Server.Gumps
 
 				}
 				} catch (Exception ex){
-                    ConsoleUtility.OutputLine("XmlCategorizedAddGump: Corrupted Data/objects.xml file detected. Not all XmlCAG objects loaded. {0}", ex); 
+                    Console.WriteLine("XmlCategorizedAddGump: Corrupted Data/objects.xml file detected. Not all XmlCAG objects loaded. {0}", ex); 
                 }
 
 

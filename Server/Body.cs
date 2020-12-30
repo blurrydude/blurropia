@@ -1,7 +1,6 @@
 #region References
 using System;
 using System.IO;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -52,15 +51,15 @@ namespace Server
 						}
 						else
 						{
-							ConsoleUtility.OutputLine("Warning: Invalid bodyTable entry:");
-							ConsoleUtility.OutputLine(line);
+							Console.WriteLine("Warning: Invalid bodyTable entry:");
+							Console.WriteLine(line);
 						}
 					}
 				}
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("Warning: Data/bodyTable.cfg does not exist");
+				Console.WriteLine("Warning: Data/bodyTable.cfg does not exist");
 
 				m_Types = new BodyType[0];
 			}

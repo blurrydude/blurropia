@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Server.Multis;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -168,7 +167,7 @@ namespace Server.Items
         {
             if (this.m_Owner != null && this.m_House != null && !this.m_House.IsCoOwner(this.m_Owner))
             {
-                ConsoleUtility.OutputLine("Warning: Destroying strongbox of {0}", this.m_Owner.Name);
+                Console.WriteLine("Warning: Destroying strongbox of {0}", this.m_Owner.Name);
                 this.Destroy();
             }
         }

@@ -13,7 +13,6 @@ using Server.Gumps;
 using Server.HuePickers;
 using Server.Items;
 using Server.Menus;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -418,7 +417,7 @@ namespace Server.Network
 
 		public void WriteConsole(string text)
 		{
-			ConsoleUtility.OutputLine("Client: {0}: {1}", this, text);
+			Console.WriteLine("Client: {0}: {1}", this, text);
 		}
 
 		public void WriteConsole(string format, params object[] args)
@@ -741,7 +740,7 @@ namespace Server.Network
 				catch (CapacityExceededException)
 				{
 					Utility.PushColor(ConsoleColor.Red);
-					ConsoleUtility.OutputLine("Client: {0}: Too much data pending, disconnecting...", this);
+					Console.WriteLine("Client: {0}: Too much data pending, disconnecting...", this);
 					Utility.PopColor();
 
 					Dispose(false);
@@ -757,7 +756,7 @@ namespace Server.Network
 			else
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine("Client: {0}: null buffer send, disconnecting...", this);
+				Console.WriteLine("Client: {0}: null buffer send, disconnecting...", this);
 				Utility.PopColor();
 
 				using (var op = new StreamWriter("null_send.log", true))
@@ -1054,7 +1053,7 @@ namespace Server.Network
 			}
 
 			Utility.PushColor(ConsoleColor.Red);
-			ConsoleUtility.OutputLine("Client: {0}: Disconnecting due to inactivity...", this);
+			Console.WriteLine("Client: {0}: Disconnecting due to inactivity...", this);
 			Utility.PopColor();
 
 			Dispose();
@@ -1084,7 +1083,7 @@ namespace Server.Network
 
 			try
 			{
-				ConsoleUtility.OutputLine(ex);
+				Console.WriteLine(ex);
 			}
 			catch
 			{ }

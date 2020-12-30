@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Server.Mobiles;
 using Server.Gumps;
 using Server.Engines.Quests.Haven;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -240,7 +239,7 @@ namespace Server.Items
             GenerateRevealTiles();
             CheckCannoneers();
 
-            ConsoleUtility.OutputLine("Experimental Room, Puzzle Room and Maze of Death initialized.");
+            Console.WriteLine("Experimental Room, Puzzle Room and Maze of Death initialized.");
         }
 
         public static void GenerateRevealTiles()

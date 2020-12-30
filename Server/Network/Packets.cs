@@ -21,7 +21,6 @@ using Server.Menus.Questions;
 using Server.Mobiles;
 using Server.Prompts;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -1158,7 +1157,7 @@ namespace Server.Network
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("Warning: EquipUpdate on item with !(parent is Mobile)");
+				Console.WriteLine("Warning: EquipUpdate on item with !(parent is Mobile)");
 				parentSerial = Serial.Zero;
 			}
 
@@ -2299,7 +2298,7 @@ m_Stream.Write( (int) renderMode );
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("Warning: ContainerContentUpdate on item with !(parent is Item)");
+				Console.WriteLine("Warning: ContainerContentUpdate on item with !(parent is Item)");
 				parentSerial = Serial.Zero;
 			}
 
@@ -2327,7 +2326,7 @@ m_Stream.Write( (int) renderMode );
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("Warning: ContainerContentUpdate on item with !(parent is Item)");
+				Console.WriteLine("Warning: ContainerContentUpdate on item with !(parent is Item)");
 				parentSerial = Serial.Zero;
 			}
 
@@ -2976,7 +2975,7 @@ m_Stream.Write( (int) renderMode );
 
 			if (m_PackBuffer.Length < wantLength)
 			{
-				//ConsoleUtility.OutputLine("Notice: DisplayGumpPacked creating new {0} byte buffer", wantLength);
+				//Console.WriteLine("Notice: DisplayGumpPacked creating new {0} byte buffer", wantLength);
 				m_PackBuffer = new byte[wantLength];
 			}
 
@@ -4798,7 +4797,7 @@ m_Stream.Write( (int) renderMode );
 
 			flags |= AdditionalFlags;
 
-			ConsoleUtility.OutputLine("{0}: {1} / {2} [{3}]", a.Username, a.Count, a.Limit, flags);
+			Console.WriteLine("{0}: {1} / {2} [{3}]", a.Username, a.Count, a.Limit, flags);
 
             m_Stream.Write((int)flags);
 
@@ -5412,7 +5411,7 @@ m_Stream.Write( (int) renderMode );
 			{
 				int diff = (int)m_Stream.Length - m_Length;
 
-				ConsoleUtility.OutputLine("Packet: 0x{0:X2}: Bad packet length! ({1}{2} bytes)", m_PacketID, diff >= 0 ? "+" : "", diff);
+				Console.WriteLine("Packet: 0x{0:X2}: Bad packet length! ({1}{2} bytes)", m_PacketID, diff >= 0 ? "+" : "", diff);
 			}
 
 			MemoryStream ms = m_Stream.UnderlyingStream;
@@ -5431,7 +5430,7 @@ m_Stream.Write( (int) renderMode );
 
 				if (length <= 0)
 				{
-					ConsoleUtility.OutputLine(
+					Console.WriteLine(
 						"Warning: Compression buffer overflowed on packet 0x{0:X2} ('{1}') (length={2})",
 						m_PacketID,
 						GetType().Name,

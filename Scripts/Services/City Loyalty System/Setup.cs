@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Server.Commands;
 using Server.Regions;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.CityLoyalty
 {
@@ -188,7 +187,7 @@ namespace Server.Engines.CityLoyalty
                         slim.Delete();
                 }
                 else
-                    ConsoleUtility.OutputLine("WARNING: {0} Region not found!", name);
+                    Console.WriteLine("WARNING: {0} Region not found!", name);
             }
             
         }

@@ -5,7 +5,6 @@ using Server.Items;
 using Server.Gumps;
 using Server.Network;
 using System.Collections.Generic;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.NewMagincia
 {
@@ -487,7 +486,7 @@ namespace Server.Engines.NewMagincia
                                 from.SendGump(new ConfirmBidGump(from, m_Plot, m_Plot, amount, amount <= 0));
                                 return;
 							}
-                            catch { ConsoleUtility.OutputLine("Error"); }
+                            catch { Console.WriteLine("Error"); }
 
                             from.SendGump(new StallBidGump(from, m_Plot));
 						}

@@ -6,7 +6,6 @@ using System.IO;
 using Server.Gumps;
 using Server.Commands;
 using System.Xml;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.CannedEvil
 {
@@ -184,7 +183,7 @@ namespace Server.Engines.CannedEvil
             RemoveSpawns();
 
             Utility.PushColor(ConsoleColor.White);
-            ConsoleUtility.OutputLine("Generating Champion Spawns");
+            Console.WriteLine("Generating Champion Spawns");
             Utility.PopColor();
 
             ChampionSpawn spawn;

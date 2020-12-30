@@ -16,7 +16,6 @@ using Server.Regions;
 using Server.Targeting;
 using Server.Engines.Auction;
 using Server.Engines.NewMagincia;
-using ServerUtilityExtensions;
 
 namespace Server.Multis
 {
@@ -1939,7 +1938,7 @@ namespace Server.Multis
             }
             else
             {
-                ConsoleUtility.OutputLine("Warning: Unsupported DoorID: {0}", itemID);
+                Console.WriteLine("Warning: Unsupported DoorID: {0}", itemID);
             }
 
             return door;

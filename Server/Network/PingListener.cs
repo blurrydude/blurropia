@@ -3,7 +3,6 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -35,15 +34,15 @@ namespace Server.Network
                 switch (e.ErrorCode)
                 {
                     case 10048: // WSAEADDRINUSE
-                        ConsoleUtility.OutputLine("Ping Listener Failed: {0}:{1} (In Use)", ipep.Address, Port);
+                        Console.WriteLine("Ping Listener Failed: {0}:{1} (In Use)", ipep.Address, Port);
                         break;
                     case 10049: // WSAEADDRNOTAVAIL
-                        ConsoleUtility.OutputLine("Ping Listener Failed: {0}:{1} (Unavailable)", ipep.Address, Port);
+                        Console.WriteLine("Ping Listener Failed: {0}:{1} (Unavailable)", ipep.Address, Port);
                         break;
                     default:
                         {
-                            ConsoleUtility.OutputLine("Ping Listener Exception:");
-                            ConsoleUtility.OutputLine(e);
+                            Console.WriteLine("Ping Listener Exception:");
+                            Console.WriteLine(e);
                         }
                         break;
                 }
@@ -72,7 +71,7 @@ namespace Server.Network
             var ripep = new IPEndPoint(IPAddress.Any, Port);
             var recvd = _Listener.EndReceive(r, ref ripep);
 
-            //ConsoleUtility.OutputLine("[PING]: \"{0}\" Received from {1}", Encoding.UTF8.GetString(recvd), ripep);
+            //Console.WriteLine("[PING]: \"{0}\" Received from {1}", Encoding.UTF8.GetString(recvd), ripep);
 
             BeginSend(recvd, ripep);
 
@@ -81,7 +80,7 @@ namespace Server.Network
 
         private void BeginSend(byte[] data, IPEndPoint ipep)
         {
-            //ConsoleUtility.OutputLine("[PONG]: \"{0}\" Sent to {1}", Encoding.UTF8.GetString(data), ipep);
+            //Console.WriteLine("[PONG]: \"{0}\" Sent to {1}", Encoding.UTF8.GetString(data), ipep);
 
             _Listener.BeginSend(data, data.Length, ipep, EndSend, _Listener);
         }

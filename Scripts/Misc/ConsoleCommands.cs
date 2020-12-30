@@ -6,7 +6,6 @@ using System.Threading;
 using Server.Accounting;
 using Server.Engines.Help;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -30,7 +29,7 @@ namespace Server.Misc
 
 				if (_HearConsole)
 				{
-					ConsoleUtility.OutputLine("Now listening to the whole shard.");
+					Console.WriteLine("Now listening to the whole shard.");
 				}
 			};
 
@@ -45,11 +44,11 @@ namespace Server.Misc
 				{
 					if (args.Mobile.Region.Name.Length > 0)
 					{
-						ConsoleUtility.OutputLine(args.Mobile.Name + " (" + args.Mobile.Region.Name + "): " + args.Speech);
+						Console.WriteLine(args.Mobile.Name + " (" + args.Mobile.Region.Name + "): " + args.Speech);
 					}
 					else
 					{
-						ConsoleUtility.OutputLine("" + args.Mobile.Name + ": " + args.Speech + "");
+						Console.WriteLine("" + args.Mobile.Name + ": " + args.Speech + "");
 					}
 				}
 				catch
@@ -115,7 +114,7 @@ namespace Server.Misc
 
 				BroadcastMessage(AccessLevel.Player, 0x35, String.Format("[Admin] {0}", sub));
 
-				ConsoleUtility.OutputLine("[World]: {0}", sub);
+				Console.WriteLine("[World]: {0}", sub);
 				return;
 			}
 
@@ -125,7 +124,7 @@ namespace Server.Misc
 
 				BroadcastMessage(AccessLevel.Counselor, 0x32, String.Format("[Admin] {0}", sub));
 
-				ConsoleUtility.OutputLine("[Staff]: {0}", sub);
+				Console.WriteLine("[Staff]: {0}", sub);
 				return;
 			}
 
@@ -137,7 +136,7 @@ namespace Server.Misc
 
 				if (states.Count == 0)
 				{
-					ConsoleUtility.OutputLine("There are no players online.");
+					Console.WriteLine("There are no players online.");
 					return;
 				}
 
@@ -145,7 +144,7 @@ namespace Server.Misc
 
 				if (ns != null)
 				{
-					ConsoleUtility.OutputLine("[Ban]: {0}: Mobile: '{1}' Account: '{2}'", ns, ns.Mobile.RawName, ns.Account.Username);
+					Console.WriteLine("[Ban]: {0}: Mobile: '{1}' Account: '{2}'", ns, ns.Mobile.RawName, ns.Account.Username);
 
 					ns.Dispose();
 				}
@@ -161,7 +160,7 @@ namespace Server.Misc
 
 				if (states.Count == 0)
 				{
-					ConsoleUtility.OutputLine("There are no players online.");
+					Console.WriteLine("There are no players online.");
 					return;
 				}
 
@@ -169,7 +168,7 @@ namespace Server.Misc
 
 				if (ns != null)
 				{
-					ConsoleUtility.OutputLine("[Kick]: {0}: Mobile: '{1}' Account: '{2}'", ns, ns.Mobile.RawName, ns.Account.Username);
+					Console.WriteLine("[Kick]: {0}: Mobile: '{1}' Account: '{2}'", ns, ns.Mobile.RawName, ns.Account.Username);
 
 					ns.Dispose();
 				}
@@ -212,7 +211,7 @@ namespace Server.Misc
 
 						if (states.Count == 0)
 						{
-							ConsoleUtility.OutputLine("There are no users online at this time.");
+							Console.WriteLine("There are no users online at this time.");
 						}
 
 						foreach (var t in states)
@@ -228,7 +227,7 @@ namespace Server.Misc
 
 							if (m != null)
 							{
-								ConsoleUtility.OutputLine("- Account: {0}, Name: {1}, IP: {2}", a.Username, m.Name, t);
+								Console.WriteLine("- Account: {0}, Name: {1}, IP: {2}", a.Username, m.Name, t);
 							}
 						}
 					}
@@ -240,7 +239,7 @@ namespace Server.Misc
 					{
 						_HearConsole = !_HearConsole;
 
-						ConsoleUtility.OutputLine("{0} sending speech to the console.", _HearConsole ? "Now" : "No longer");
+						Console.WriteLine("{0} sending speech to the console.", _HearConsole ? "Now" : "No longer");
 					}
 					break;
 				default:
@@ -251,42 +250,42 @@ namespace Server.Misc
 
 		private static void DisplayHelp()
 		{
-			ConsoleUtility.OutputLine(" ");
-			ConsoleUtility.OutputLine("Commands:");
-			ConsoleUtility.OutputLine("crash           - Forces an exception to be thrown.");
-			ConsoleUtility.OutputLine("save            - Performs a forced save.");
-			ConsoleUtility.OutputLine("shutdown        - Performs a forced save then shuts down the server.");
-			ConsoleUtility.OutputLine("shutdown nosave - Shuts down the server without saving.");
-			ConsoleUtility.OutputLine("restart         - Sends a message to players informing them that the server is");
-			ConsoleUtility.OutputLine("                  restarting, performs a forced save, then shuts down and");
-			ConsoleUtility.OutputLine("                  restarts the server.");
-			ConsoleUtility.OutputLine("restart nosave  - Restarts the server without saving.");
-			ConsoleUtility.OutputLine("online          - Shows a list of every person online:");
-			ConsoleUtility.OutputLine("                  Account, Char Name, IP.");
-			ConsoleUtility.OutputLine("bc <message>    - Type this command and your message after it.");
-			ConsoleUtility.OutputLine("                  It will then be sent to all players.");
-			ConsoleUtility.OutputLine("sc <message>    - Type this command and your message after it.");
-			ConsoleUtility.OutputLine("                  It will then be sent to all staff.");
-			ConsoleUtility.OutputLine("hear            - Copies all local speech to this console:");
-			ConsoleUtility.OutputLine("                  Char Name (Region name): Speech.");
-			ConsoleUtility.OutputLine("ban <name>      - Kicks and bans the users account.");
-			ConsoleUtility.OutputLine("kick <name>     - Kicks the user.");
-			ConsoleUtility.OutputLine("pages           - Enter page mode to handle help requests.");
-			ConsoleUtility.OutputLine("help|?          - Shows this list.");
-			ConsoleUtility.OutputLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine("Commands:");
+			Console.WriteLine("crash           - Forces an exception to be thrown.");
+			Console.WriteLine("save            - Performs a forced save.");
+			Console.WriteLine("shutdown        - Performs a forced save then shuts down the server.");
+			Console.WriteLine("shutdown nosave - Shuts down the server without saving.");
+			Console.WriteLine("restart         - Sends a message to players informing them that the server is");
+			Console.WriteLine("                  restarting, performs a forced save, then shuts down and");
+			Console.WriteLine("                  restarts the server.");
+			Console.WriteLine("restart nosave  - Restarts the server without saving.");
+			Console.WriteLine("online          - Shows a list of every person online:");
+			Console.WriteLine("                  Account, Char Name, IP.");
+			Console.WriteLine("bc <message>    - Type this command and your message after it.");
+			Console.WriteLine("                  It will then be sent to all players.");
+			Console.WriteLine("sc <message>    - Type this command and your message after it.");
+			Console.WriteLine("                  It will then be sent to all staff.");
+			Console.WriteLine("hear            - Copies all local speech to this console:");
+			Console.WriteLine("                  Char Name (Region name): Speech.");
+			Console.WriteLine("ban <name>      - Kicks and bans the users account.");
+			Console.WriteLine("kick <name>     - Kicks the user.");
+			Console.WriteLine("pages           - Enter page mode to handle help requests.");
+			Console.WriteLine("help|?          - Shows this list.");
+			Console.WriteLine(" ");
 		}
 
 		private static void DisplayPagingHelp()
 		{
-			ConsoleUtility.OutputLine(" ");
-			ConsoleUtility.OutputLine("Paging Commands:");
-			ConsoleUtility.OutputLine("view <id>              - View sender message.");
-			ConsoleUtility.OutputLine("remove <id>            - Remove without message.");
-			ConsoleUtility.OutputLine("handle <id> <message>  - Remove with message.");
-			ConsoleUtility.OutputLine("clear                  - Clears the page queue.");
-			ConsoleUtility.OutputLine("exit                   - Exit page mode.");
-			ConsoleUtility.OutputLine("help|?                 - Shows this list.");
-			ConsoleUtility.OutputLine(" ");
+			Console.WriteLine(" ");
+			Console.WriteLine("Paging Commands:");
+			Console.WriteLine("view <id>              - View sender message.");
+			Console.WriteLine("remove <id>            - Remove without message.");
+			Console.WriteLine("handle <id> <message>  - Remove with message.");
+			Console.WriteLine("clear                  - Clears the page queue.");
+			Console.WriteLine("exit                   - Exit page mode.");
+			Console.WriteLine("help|?                 - Shows this list.");
+			Console.WriteLine(" ");
 		}
 
 		private static void HandlePaging(string sub)
@@ -302,13 +301,13 @@ namespace Server.Misc
 
 			if (PageQueue.List.Count == 0)
 			{
-				ConsoleUtility.OutputLine("There are no pages in the queue.");
+				Console.WriteLine("There are no pages in the queue.");
 
 				if (_Pages != null)
 				{
 					_Pages = null;
 
-					ConsoleUtility.OutputLine("[Pages]: Disabled page mode.");
+					Console.WriteLine("[Pages]: Disabled page mode.");
 				}
 
 				return;
@@ -318,7 +317,7 @@ namespace Server.Misc
 			{
 				if (_Pages == null)
 				{
-					ConsoleUtility.OutputLine("[Pages]: Enabled page mode.");
+					Console.WriteLine("[Pages]: Enabled page mode.");
 
 					DisplayPagingHelp();
 				}
@@ -329,7 +328,7 @@ namespace Server.Misc
 
 				for (var i = 0; i < _Pages.Length; i++)
 				{
-					ConsoleUtility.OutputLine(format, i + 1, _Pages[i].Type, _Pages[i].Sender);
+					Console.WriteLine(format, i + 1, _Pages[i].Type, _Pages[i].Sender);
 				}
 
 				return;
@@ -341,7 +340,7 @@ namespace Server.Misc
 				{
 					_Pages = null;
 
-					ConsoleUtility.OutputLine("[Pages]: Disabled page mode.");
+					Console.WriteLine("[Pages]: Disabled page mode.");
 				}
 
 				return;
@@ -356,13 +355,13 @@ namespace Server.Misc
 						PageQueue.Remove(page);
 					}
 
-					ConsoleUtility.OutputLine("[Pages]: Queue cleared.");
+					Console.WriteLine("[Pages]: Queue cleared.");
 
 					Array.Clear(_Pages, 0, _Pages.Length);
 
 					_Pages = null;
 
-					ConsoleUtility.OutputLine("[Pages]: Disabled page mode.");
+					Console.WriteLine("[Pages]: Disabled page mode.");
 				}
 
 				return;
@@ -376,13 +375,13 @@ namespace Server.Misc
 
 				if (page == null)
 				{
-					ConsoleUtility.OutputLine("[Pages]: Invalid page entry.");
+					Console.WriteLine("[Pages]: Invalid page entry.");
 				}
 				else
 				{
 					PageQueue.Remove(page);
 
-					ConsoleUtility.OutputLine("[Pages]: Removed from queue.");
+					Console.WriteLine("[Pages]: Removed from queue.");
 				}
 
 				HandlePaging(String.Empty);
@@ -397,7 +396,7 @@ namespace Server.Misc
 
 				if (page == null)
 				{
-					ConsoleUtility.OutputLine("[Pages]: Invalid page entry.");
+					Console.WriteLine("[Pages]: Invalid page entry.");
 
 					HandlePaging(String.Empty);
 					return;
@@ -405,7 +404,7 @@ namespace Server.Misc
 
 				if (args.Length <= 0)
 				{
-					ConsoleUtility.OutputLine("[Pages]: Message required.");
+					Console.WriteLine("[Pages]: Message required.");
 
 					HandlePaging(String.Empty);
 					return;
@@ -413,11 +412,11 @@ namespace Server.Misc
 
 				page.Sender.SendGump(new MessageSentGump(page.Sender, ServerList.ServerName, String.Join(" ", args)));
 
-				ConsoleUtility.OutputLine("[Pages]: Message sent.");
+				Console.WriteLine("[Pages]: Message sent.");
 
 				PageQueue.Remove(page);
 
-				ConsoleUtility.OutputLine("[Pages]: Removed from queue.");
+				Console.WriteLine("[Pages]: Removed from queue.");
 
 				HandlePaging(String.Empty);
 				return;
@@ -431,7 +430,7 @@ namespace Server.Misc
 
 				if (page == null)
 				{
-					ConsoleUtility.OutputLine("[Pages]: Invalid page entry.");
+					Console.WriteLine("[Pages]: Invalid page entry.");
 
 					HandlePaging(String.Empty);
 					return;
@@ -439,15 +438,15 @@ namespace Server.Misc
 
 				var idx = Array.IndexOf(_Pages, page) + 1;
 
-				ConsoleUtility.OutputLine("[Pages]: {0:D3}:\t{1}\t{2}", idx, page.Type, page.Sender);
+				Console.WriteLine("[Pages]: {0:D3}:\t{1}\t{2}", idx, page.Type, page.Sender);
 
 				if (!String.IsNullOrWhiteSpace(page.Message))
 				{
-					ConsoleUtility.OutputLine("[Pages]: {0}", page.Message);
+					Console.WriteLine("[Pages]: {0}", page.Message);
 				}
 				else
 				{
-					ConsoleUtility.OutputLine("[Pages]: No message supplied.");
+					Console.WriteLine("[Pages]: No message supplied.");
 				}
 
 				HandlePaging(String.Empty);
@@ -464,15 +463,15 @@ namespace Server.Misc
 				{
 					var idx = Array.IndexOf(_Pages, page) + 1;
 
-					ConsoleUtility.OutputLine("[Pages]: {0:D3}:\t{1}\t{2}", idx, page.Type, page.Sender);
+					Console.WriteLine("[Pages]: {0:D3}:\t{1}\t{2}", idx, page.Type, page.Sender);
 
 					if (!String.IsNullOrWhiteSpace(page.Message))
 					{
-						ConsoleUtility.OutputLine("[Pages]: {0}", page.Message);
+						Console.WriteLine("[Pages]: {0}", page.Message);
 					}
 					else
 					{
-						ConsoleUtility.OutputLine("[Pages]: No message supplied.");
+						Console.WriteLine("[Pages]: No message supplied.");
 					}
 
 					HandlePaging(String.Empty);
@@ -483,7 +482,7 @@ namespace Server.Misc
 
 				_Pages = null;
 
-				ConsoleUtility.OutputLine("[Pages]: Disabled page mode.");
+				Console.WriteLine("[Pages]: Disabled page mode.");
 			}
 		}
 

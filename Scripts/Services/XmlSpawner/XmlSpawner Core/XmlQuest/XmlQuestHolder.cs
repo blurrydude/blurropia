@@ -13,7 +13,6 @@ using Server.Mobiles;
 using Server.Targeting;
 using Server.Engines.PartySystem;
 using Server.Engines.XmlSpawner2;
-using ServerUtilityExtensions;
 
 /*
 ** XmlQuestHolder class
@@ -1647,7 +1646,7 @@ namespace Server.Items
 				fs.Close();
 				if (fileerror)
 				{
-					ConsoleUtility.OutputLine("XmlQuestHolder: Error in XML config file '{0}'", filename);
+					Console.WriteLine("XmlQuestHolder: Error in XML config file '{0}'", filename);
 					return;
 				}
 				// Check that at least a single table was loaded

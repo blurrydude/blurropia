@@ -4,7 +4,6 @@ using System.Linq;
 
 using Server.Items;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -179,7 +178,7 @@ namespace Server.Commands
                 }
                 catch(Exception e)
                 {
-                    ConsoleUtility.OutputLine(e.StackTrace);
+                    Console.WriteLine(e.StackTrace);
 
                     m.SendMessage("Error!");
                     return;

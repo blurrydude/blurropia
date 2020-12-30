@@ -9,9 +9,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
-using Microsoft.CSharp;
-using ServerUtilityExtensions;
-
 #endregion
 
 namespace Server
@@ -147,14 +144,14 @@ namespace Server
 		public static bool CompileCSScripts(bool debug, bool cache, out Assembly assembly)
 		{
 			Utility.PushColor(ConsoleColor.Yellow);
-			ConsoleUtility.Output("Scripts: Compiling C# scripts...");
+			Console.Write("Scripts: Compiling C# scripts...");
 			Utility.PopColor();
 			var files = GetScripts("*.cs");
 
 			if (files.Length == 0)
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine("no files found.");
+				Console.WriteLine("no files found.");
 				Utility.PopColor();
 				assembly = null;
 				return true;
@@ -197,7 +194,7 @@ namespace Server
 										}
 
 										Utility.PushColor(ConsoleColor.Green);
-										ConsoleUtility.OutputLine("done (cached)");
+										Console.WriteLine("done (cached)");
 										Utility.PopColor();
 
 										return true;
@@ -301,7 +298,7 @@ namespace Server
 					// Ridiculous. FileName is null if the warning/error is internally generated in csc.
 					if (string.IsNullOrEmpty(file))
 					{
-						ConsoleUtility.OutputLine("ScriptCompiler: {0}: {1}", e.ErrorNumber, e.ErrorText);
+						Console.WriteLine("ScriptCompiler: {0}: {1}", e.ErrorNumber, e.ErrorText);
 						continue;
 					}
 
@@ -321,13 +318,13 @@ namespace Server
 				if (errors.Count > 0)
 				{
 					Utility.PushColor(ConsoleColor.Red);
-					ConsoleUtility.OutputLine("Failed with: {0} errors, {1} warnings", errors.Count, warnings.Count);
+					Console.WriteLine("Failed with: {0} errors, {1} warnings", errors.Count, warnings.Count);
 					Utility.PopColor();
 				}
 				else
 				{
 					Utility.PushColor(ConsoleColor.Green);
-					ConsoleUtility.OutputLine("Finished with: {0} errors, {1} warnings", errors.Count, warnings.Count);
+					Console.WriteLine("Finished with: {0} errors, {1} warnings", errors.Count, warnings.Count);
 					Utility.PopColor();
 				}
 
@@ -338,7 +335,7 @@ namespace Server
 
 				if (warnings.Count > 0)
 				{
-					ConsoleUtility.OutputLine("Warnings:");
+					Console.WriteLine("Warnings:");
 				}
 
 				foreach (var kvp in warnings)
@@ -349,13 +346,13 @@ namespace Server
 					var fullPath = Path.GetFullPath(fileName);
 					var usedPath = Uri.UnescapeDataString(scriptRootUri.MakeRelativeUri(new Uri(fullPath)).OriginalString);
 
-					ConsoleUtility.OutputLine(" + {0}:", usedPath);
+					Console.WriteLine(" + {0}:", usedPath);
 
 					Utility.PushColor(ConsoleColor.DarkYellow);
 
 					foreach (var e in list)
 					{
-						ConsoleUtility.OutputLine("    {0}: Line {1}: {2}", e.ErrorNumber, e.Line, e.ErrorText);
+						Console.WriteLine("    {0}: Line {1}: {2}", e.ErrorNumber, e.Line, e.ErrorText);
 					}
 
 					Utility.PopColor();
@@ -367,7 +364,7 @@ namespace Server
 
 				if (errors.Count > 0)
 				{
-					ConsoleUtility.OutputLine("Errors:");
+					Console.WriteLine("Errors:");
 				}
 
 				foreach (var kvp in errors)
@@ -378,13 +375,13 @@ namespace Server
 					var fullPath = Path.GetFullPath(fileName);
 					var usedPath = Uri.UnescapeDataString(scriptRootUri.MakeRelativeUri(new Uri(fullPath)).OriginalString);
 
-					ConsoleUtility.OutputLine(" + {0}:", usedPath);
+					Console.WriteLine(" + {0}:", usedPath);
 
 					Utility.PushColor(ConsoleColor.Red);
 
 					foreach (var e in list)
 					{
-						ConsoleUtility.OutputLine("    {0}: Line {1}: {2}", e.ErrorNumber, e.Line, e.ErrorText);
+						Console.WriteLine("    {0}: Line {1}: {2}", e.ErrorNumber, e.Line, e.ErrorText);
 					}
 
 					Utility.PopColor();
@@ -395,7 +392,7 @@ namespace Server
 			else
 			{
 				Utility.PushColor(ConsoleColor.Green);
-				ConsoleUtility.OutputLine("Finished with: 0 errors, 0 warnings");
+				Console.WriteLine("Finished with: 0 errors, 0 warnings");
 				Utility.PopColor();
 			}
 		}
@@ -478,7 +475,7 @@ namespace Server
 			Assemblies = assemblies.ToArray();
 
 			Utility.PushColor(ConsoleColor.Yellow);
-			ConsoleUtility.OutputLine("Scripts: Verifying...");
+			Console.WriteLine("Scripts: Verifying...");
 			Utility.PopColor();
 
 			var watch = Stopwatch.StartNew();
@@ -488,7 +485,7 @@ namespace Server
 			watch.Stop();
 
 			Utility.PushColor(ConsoleColor.Green);
-			ConsoleUtility.OutputLine(
+			Console.WriteLine(
 				"Finished ({0} items, {1} mobiles, {2} customs) ({3:F2} seconds)",
 				Core.ScriptItems,
 				Core.ScriptMobiles,

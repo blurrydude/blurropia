@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using ServerUtilityExtensions;
 
 namespace Server
 {
@@ -35,8 +34,8 @@ namespace Server
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine("Warning: Exception caught loading name lists:");
-                ConsoleUtility.OutputLine(e);
+                Console.WriteLine("Warning: Exception caught loading name lists:");
+                Console.WriteLine(e);
             }
         }
 

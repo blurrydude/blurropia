@@ -14,7 +14,6 @@ using Server.ContextMenus;
 using Server.Items;
 using Server.Network;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -1068,7 +1067,7 @@ namespace Server
                 if (Core.Debug)
                 {
                     Utility.PushColor(ConsoleColor.Red);
-                    ConsoleUtility.OutputLine("Ultima Art: Unable to read client files.");
+                    Console.WriteLine("Ultima Art: Unable to read client files.");
                     Utility.PopColor();
                 }
             }
@@ -3978,24 +3977,24 @@ namespace Server
             }
             else if (item == this)
             {
-                ConsoleUtility.OutputLine(
+                Console.WriteLine(
                     "Warning: Adding item to itself: [0x{0:X} {1}].AddItem( [0x{2:X} {3}] )",
                     Serial.Value,
                     GetType().Name,
                     item.Serial.Value,
                     item.GetType().Name);
-                ConsoleUtility.OutputLine(new StackTrace());
+                Console.WriteLine(new StackTrace());
                 return;
             }
             else if (IsChildOf(item))
             {
-                ConsoleUtility.OutputLine(
+                Console.WriteLine(
                     "Warning: Adding parent item to child: [0x{0:X} {1}].AddItem( [0x{2:X} {3}] )",
                     Serial.Value,
                     GetType().Name,
                     item.Serial.Value,
                     item.GetType().Name);
-                ConsoleUtility.OutputLine(new StackTrace());
+                Console.WriteLine(new StackTrace());
                 return;
             }
             else if (item.m_Parent is Mobile)
@@ -5022,7 +5021,7 @@ namespace Server
 
                     if (!Stackable && m_Amount > 1)
                     {
-                        ConsoleUtility.OutputLine(
+                        Console.WriteLine(
                             "Warning: 0x{0:X}: Amount changed for non-stackable item '{2}'. ({1})", m_Serial.Value, m_Amount, GetType().Name);
                     }
                 }
@@ -6419,7 +6418,7 @@ namespace Server
             }
             catch
             {
-                ConsoleUtility.OutputLine(
+                Console.WriteLine(
                     "Warning: 0x{0:X}: Item socket must have a zero paramater constructor to be separated from a stack. '{1}'.",
                     Owner.Serial.Value,
                     GetType().Name);

@@ -1,10 +1,9 @@
-﻿#region References
+#region References
 using System;
 using System.Collections.Generic;
 
 using Server.Gumps;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -224,7 +223,7 @@ namespace Server.Misc
 
 				if (!Settings.KickOnFailure)
 				{
-					ConsoleUtility.OutputLine("Player '{0}' failed to negotiate features.", m);
+					Console.WriteLine("Player '{0}' failed to negotiate features.", m);
 				}
 				else if (m.NetState != null && m.NetState.Running)
 				{
@@ -253,7 +252,7 @@ namespace Server.Misc
 
 				_Dictionary.Remove(m);
 
-				ConsoleUtility.OutputLine("Player {0} kicked (Failed assistant handshake)", m);
+				Console.WriteLine("Player {0} kicked (Failed assistant handshake)", m);
 			}
 
 			private sealed class BeginHandshake : ProtocolExtension

@@ -23,7 +23,6 @@ using Server.Spells;
 using Server.Targeting;
 using System.Text;
 using System.Xml;
-using ServerUtilityExtensions;
 using CPA = Server.CommandPropertyAttribute;
 
 /*
@@ -615,7 +614,7 @@ namespace Server.Mobiles
 									// log it
 									try
 									{
-										ConsoleUtility.OutputLine("SmartSpawning disabled at {0} {1} : Range too large.", loc, Map);
+										Console.WriteLine("SmartSpawning disabled at {0} {1} : Range too large.", loc, Map);
 
 										using (StreamWriter op = new StreamWriter("badspawn.log", true))
 										{
@@ -2428,7 +2427,7 @@ namespace Server.Mobiles
 				fs.Close();
 				if (fileerror)
 				{
-					ConsoleUtility.OutputLine("XmlSpawner: Error in XML config file '{0}'", filename);
+					Console.WriteLine("XmlSpawner: Error in XML config file '{0}'", filename);
 					return;
 				}
 
@@ -2772,67 +2771,67 @@ namespace Server.Mobiles
 		{
 			if (PropertyInfoList != null)
 			{
-				ConsoleUtility.OutputLine("PropertyInfoList: {0}", PropertyInfoList.Count);
+				Console.WriteLine("PropertyInfoList: {0}", PropertyInfoList.Count);
 				foreach (BaseXmlSpawner.TypeInfo to in PropertyInfoList)
 				{
-					ConsoleUtility.OutputLine("\t{0}", to.t);
+					Console.WriteLine("\t{0}", to.t);
 					foreach (PropertyInfo p in to.plist)
 					{
-						ConsoleUtility.OutputLine("\t\t{0}", p);
+						Console.WriteLine("\t\t{0}", p);
 					}
 				}
 			}
 			ShowTagList(this);
 			int count = 0;
-			ConsoleUtility.OutputLine("Registered Skills");
-			ConsoleUtility.OutputLine("Felucca");
+			Console.WriteLine("Registered Skills");
+			Console.WriteLine("Felucca");
 			for (int i = 0; i < XmlSpawnerSkillCheck.RegisteredSkill.MaxSkills + 1; i++)
 			{
 
 				if (XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Felucca).Count > 0)
-					ConsoleUtility.OutputLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Felucca).Count);
+					Console.WriteLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Felucca).Count);
 
 				count += XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Felucca).Count;
 			}
-			ConsoleUtility.OutputLine("Trammel");
+			Console.WriteLine("Trammel");
 			for (int i = 0; i < XmlSpawnerSkillCheck.RegisteredSkill.MaxSkills + 1; i++)
 			{
 
 				if (XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Trammel).Count > 0)
-					ConsoleUtility.OutputLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Trammel).Count);
+					Console.WriteLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Trammel).Count);
 
 				count += XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Trammel).Count;
 			}
-			ConsoleUtility.OutputLine("Ilshenar");
+			Console.WriteLine("Ilshenar");
 			for (int i = 0; i < XmlSpawnerSkillCheck.RegisteredSkill.MaxSkills + 1; i++)
 			{
 
 				if (XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Ilshenar).Count > 0)
-					ConsoleUtility.OutputLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Ilshenar).Count);
+					Console.WriteLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Ilshenar).Count);
 
 				count += XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Ilshenar).Count;
 			}
-			ConsoleUtility.OutputLine("Malas");
+			Console.WriteLine("Malas");
 			for (int i = 0; i < XmlSpawnerSkillCheck.RegisteredSkill.MaxSkills + 1; i++)
 			{
 
 				if (XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Malas).Count > 0)
-					ConsoleUtility.OutputLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Malas).Count);
+					Console.WriteLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Malas).Count);
 
 				count += XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Malas).Count;
 			}
 
-			ConsoleUtility.OutputLine("Tokuno");
+			Console.WriteLine("Tokuno");
 			for (int i = 0; i < XmlSpawnerSkillCheck.RegisteredSkill.MaxSkills + 1; i++)
 			{
 
 				if (XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Tokuno).Count > 0)
-					ConsoleUtility.OutputLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Tokuno).Count);
+					Console.WriteLine("\t{0} : {1}", (SkillName)i, XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Tokuno).Count);
 
 				count += XmlSpawnerSkillCheck.RegisteredSkill.TriggerList((SkillName)i, Map.Tokuno).Count;
 			}
 
-			ConsoleUtility.OutputLine("Total = {0}", count);
+			Console.WriteLine("Total = {0}", count);
 		}
 
 		#endregion
@@ -3423,7 +3422,7 @@ public static void _TraceEnd(int index)
 								}
 								catch
 								{
-									ConsoleUtility.OutputLine("{0}: invalid command {1}", argname, commandname);
+									Console.WriteLine("{0}: invalid command {1}", argname, commandname);
 								}
 							}
 						}
@@ -3460,7 +3459,7 @@ public static void _TraceEnd(int index)
 										}
 										catch
 										{
-											ConsoleUtility.OutputLine("{0}: invalid accesslevel {1} for {2}", argname, namelist[2], newname);
+											Console.WriteLine("{0}: invalid accesslevel {1} for {2}", argname, namelist[2], newname);
 										}
 									}
 									// find the command entry for the old name
@@ -3471,7 +3470,7 @@ public static void _TraceEnd(int index)
 									}
 									catch
 									{
-										ConsoleUtility.OutputLine("{0}: invalid command {1}", argname, oldname);
+										Console.WriteLine("{0}: invalid command {1}", argname, oldname);
 									}
 									if (e != null)
 									{
@@ -3547,7 +3546,7 @@ public static void _TraceEnd(int index)
 				return;
 			}
 
-			ConsoleUtility.OutputLine("Loading {0} configuration", section);
+			Console.WriteLine("Loading {0} configuration", section);
 			using (StreamReader ip = new StreamReader(path))
 			{
 				string line;
@@ -3591,20 +3590,20 @@ public static void _TraceEnd(int index)
 							if (settingshandler(argname, value))
 								nsettings++;
 							else
-								ConsoleUtility.OutputLine("'{0}' setting is invalid in section [{1}]", argname, currentsection);
+								Console.WriteLine("'{0}' setting is invalid in section [{1}]", argname, currentsection);
 
 						}
 						catch (Exception e)
 						{
-							ConsoleUtility.OutputLine("Config error '{0}'='{1}'", argname, value);
-							ConsoleUtility.OutputLine("Error: {0}", e.Message);
+							Console.WriteLine("Config error '{0}'='{1}'", argname, value);
+							Console.WriteLine("Error: {0}", e.Message);
 						}
 					}
 
 				}
 				if (nsettings > 0)
 				{
-					ConsoleUtility.OutputLine("{0} settings processed", nsettings);
+					Console.WriteLine("{0} settings processed", nsettings);
 				}
 			}
 		}
@@ -3804,11 +3803,11 @@ public static void _TraceEnd(int index)
 		public void ShowTagList(XmlSpawner spawner)
 		{
 			int count = 0;
-			ConsoleUtility.OutputLine("{0} tags", spawner.m_KeywordTagList.Count);
+			Console.WriteLine("{0} tags", spawner.m_KeywordTagList.Count);
 			foreach (BaseXmlSpawner.KeywordTag tag in spawner.m_KeywordTagList)
 			{
 				count++;
-				ConsoleUtility.OutputLine("tag {0} : {1}", count, BaseXmlSpawner.TagInfo(tag));
+				Console.WriteLine("tag {0} : {1}", count, BaseXmlSpawner.TagInfo(tag));
 			}
 		}
 
@@ -6191,7 +6190,7 @@ public static void _TraceEnd(int index)
 								{
 									dr["UniqueId"] = SpawnId;
 								}
-								catch { ConsoleUtility.OutputLine("unable to set UniqueId"); }
+								catch { Console.WriteLine("unable to set UniqueId"); }
 							}
 
 							int SpawnCentreX = fromloc.X;
@@ -7689,7 +7688,7 @@ public static void _TraceEnd(int index)
 							}
 						}
 					}
-					catch (Exception ex) { ConsoleUtility.OutputLine("Error attempting to add {0}, {1}", i, ex.Message); }
+					catch (Exception ex) { Console.WriteLine("Error attempting to add {0}, {1}", i, ex.Message); }
 				}
 				// Respawn the items in the array list
 				foreach (Item i in ToRespawn)
@@ -7766,11 +7765,11 @@ public static void _TraceEnd(int index)
 				sysload = processtime/runningtime.TotalMilliseconds;
 			}
 
-			ConsoleUtility.OutputLine( "______________");
-			ConsoleUtility.OutputLine( "Active Traces:");
-			ConsoleUtility.OutputLine( "Running Time = {0}",runningtime);
-			ConsoleUtility.OutputLine( "Adjusted Process Time = {0:####.####} secs",processtime/1000);
-			ConsoleUtility.OutputLine( "Processor Time = {0} ({1:p3} avg sys load)",currentprocess.UserProcessorTime,sysload);
+			Console.WriteLine( "______________");
+			Console.WriteLine( "Active Traces:");
+			Console.WriteLine( "Running Time = {0}",runningtime);
+			Console.WriteLine( "Adjusted Process Time = {0:####.####} secs",processtime/1000);
+			Console.WriteLine( "Processor Time = {0} ({1:p3} avg sys load)",currentprocess.UserProcessorTime,sysload);
 
 			for(int i=0;i<MaxTraces;i++)
 			{
@@ -7781,7 +7780,7 @@ public static void _TraceEnd(int index)
 					{
 						load  = ((double)XmlSpawner._traceTotal[i].TotalMilliseconds)/processtime;
 					}
-						 ConsoleUtility.OutputLine( "{0} ({4}) {1,21} / {2} calls = {3:####.####} ms/call, {5:p3}",
+						 Console.WriteLine( "{0} ({4}) {1,21} / {2} calls = {3:####.####} ms/call, {5:p3}",
 						i,XmlSpawner._traceTotal[i], XmlSpawner._traceCount[i],((double)XmlSpawner._traceTotal[i].TotalMilliseconds)/XmlSpawner._traceCount[i],
 						XmlSpawner._traceName[i], load);
 				}
@@ -7803,7 +7802,7 @@ public static void _TraceEnd(int index)
 				Process currentprocess = Process.GetCurrentProcess();
 				_startProcessTime = currentprocess.UserProcessorTime.TotalMilliseconds;
 
-				 ConsoleUtility.OutputLine( "Traces reset");
+				 Console.WriteLine( "Traces reset");
 			}
 		}
 #endif
@@ -8130,7 +8129,7 @@ public static void _TraceEnd(int index)
 						else
 						{
 							// Don't know what this is, so remove it
-							ConsoleUtility.OutputLine("removing unknown {0} from spawnlist", so);
+							Console.WriteLine("removing unknown {0} from spawnlist", so);
 							so.SpawnedObjects.Remove(o);
 							x--;
 							removed = true;
@@ -9380,7 +9379,7 @@ public static void _TraceEnd(int index)
 								return true;
 							}
 						}
-						catch (Exception ex) { ConsoleUtility.OutputLine("When spawning {0}, {1}", o, ex); }
+						catch (Exception ex) { Console.WriteLine("When spawning {0}, {1}", o, ex); }
 					}
 					else
 					{
@@ -10034,7 +10033,7 @@ public static void _TraceEnd(int index)
 
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("CanFit mob {0}, map={1}", mob, map);
+				Console.WriteLine("CanFit mob {0}, map={1}", mob, map);
 			}
 			if (map == null || map == Map.Internal)
 				return false;
@@ -10055,7 +10054,7 @@ public static void _TraceEnd(int index)
 			}
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("fitting mob {0} checkmob={1} swim={2} walk={3}", mob, checkmob, canswim, cantwalk);
+				Console.WriteLine("fitting mob {0} checkmob={1} swim={2} walk={3}", mob, checkmob, canswim, cantwalk);
 			}
 			LandTile lt = map.Tiles.GetLandTile(x, y);
 			int lowZ = 0, avgZ = 0, topZ = 0;
@@ -10068,7 +10067,7 @@ public static void _TraceEnd(int index)
 
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("landtile at {0},{1},{2} lowZ={3} avgZ={4} topZ={5}", x, y, z, lowZ, avgZ, topZ);
+				Console.WriteLine("landtile at {0},{1},{2} lowZ={3} avgZ={4} topZ={5}", x, y, z, lowZ, avgZ, topZ);
 			}
 
 			impassable = (landFlags & TileFlag.Impassable) != 0;
@@ -10093,7 +10092,7 @@ public static void _TraceEnd(int index)
 
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("landtile at {0},{1},{2} wet={3} impassable={4} hassurface={5}", x, y, z, wet, impassable, hasSurface);
+				Console.WriteLine("landtile at {0},{1},{2} wet={3} impassable={4} hassurface={5}", x, y, z, wet, impassable, hasSurface);
 			}
 
 			StaticTile[] staticTiles = map.Tiles.GetStaticTiles(x, y, true);
@@ -10127,7 +10126,7 @@ public static void _TraceEnd(int index)
 			}
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("statics hassurface={0}", hasSurface);
+				Console.WriteLine("statics hassurface={0}", hasSurface);
 			}
 
 			Sector sector = map.GetSector(x, y);
@@ -10166,7 +10165,7 @@ public static void _TraceEnd(int index)
 
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("items hassurface={0}", hasSurface);
+				Console.WriteLine("items hassurface={0}", hasSurface);
 			}
 
 			if (checkMobiles)
@@ -10183,7 +10182,7 @@ public static void _TraceEnd(int index)
 
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("return requiresurface={0} hassurface={1}", requireSurface, hasSurface);
+				Console.WriteLine("return requiresurface={0} hassurface={1}", requireSurface, hasSurface);
 			}
 
 			return !requireSurface || hasSurface;
@@ -10193,7 +10192,7 @@ public static void _TraceEnd(int index)
 		{
 			if (DebugThis)
 			{
-				ConsoleUtility.OutputLine("CanSpawnMobile mob {0}", mob);
+				Console.WriteLine("CanSpawnMobile mob {0}", mob);
 			}
 			if (!Region.Find(new Point3D(x, y, z), this.Map).AllowSpawn())
 				return false;
@@ -10257,7 +10256,7 @@ public static void _TraceEnd(int index)
 
 					if (includetile && !excludetile && ((lflags & tileflag) == tileflag))
 					{
-						//ConsoleUtility.OutputLine("found landtile {0}/{1} at {2},{3},{4}", ltile.ID, ltile.ID & 0x3fff, x, y, ltile.Z + ltile.Height);
+						//Console.WriteLine("found landtile {0}/{1} at {2},{3},{4}", ltile.ID, ltile.ID & 0x3fff, x, y, ltile.Z + ltile.Height);
 						p=new Point3D(x, y, ltile.Z + ltile.Height);
 						allok=true;
 						//locations.Add(new Point3D(x, y, ltile.Z + ltile.Height));
@@ -10293,7 +10292,7 @@ public static void _TraceEnd(int index)
 
 						if (includetile && !excludetile && ((sflags & tileflag) == tileflag))
 						{
-							//ConsoleUtility.OutputLine("found statictile {0}/{1} at {2},{3},{4}", stile.ID, stile.ID & 0x3fff, x, y, stile.Z + stile.Height);
+							//Console.WriteLine("found statictile {0}/{1} at {2},{3},{4}", stile.ID, stile.ID & 0x3fff, x, y, stile.Z + stile.Height);
 							if(p==Point3D.Zero)
 								p=new Point3D(x, y, stile.Z + stile.Height);
 							else if(!allok && (p.Z - spawnerZ) > Math.Abs(stile.Z - spawnerZ))
@@ -11506,7 +11505,7 @@ public static void _TraceEnd(int index)
 			{
 				try
 				{
-					ConsoleUtility.OutputLine("Warning: {0} bad spawns detected, logged: 'badspawn.log'", m_List.Count);
+					Console.WriteLine("Warning: {0} bad spawns detected, logged: 'badspawn.log'", m_List.Count);
 
 					using (StreamWriter op = new StreamWriter("badspawn.log", true))
 					{

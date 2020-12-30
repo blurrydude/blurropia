@@ -7,7 +7,6 @@ using System.Web.UI;
 using HtmlAttr = System.Web.UI.HtmlTextWriterAttribute;
 using HtmlTag = System.Web.UI.HtmlTextWriterTag;
 using Server.Misc;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Reports
 {
@@ -73,14 +72,14 @@ namespace Server.Engines.Reports
 
         public void Render()
         {
-            ConsoleUtility.OutputLine("Reports: {0}: Render started", this.m_Title);
+            Console.WriteLine("Reports: {0}: Render started", this.m_Title);
 
             this.RenderFull();
 
             for (int i = 0; i < this.m_Objects.Count; ++i)
                 this.RenderSingle(this.m_Objects[i]);
 
-            ConsoleUtility.OutputLine("Reports: {0}: Render complete", this.m_Title);
+            Console.WriteLine("Reports: {0}: Render complete", this.m_Title);
         }
 
         public void Upload()
@@ -88,7 +87,7 @@ namespace Server.Engines.Reports
             if (FtpHost == null)
                 return;
 
-            ConsoleUtility.OutputLine("Reports: {0}: Upload started", this.m_Title);
+            Console.WriteLine("Reports: {0}: Upload started", this.m_Title);
 
             string filePath = Path.Combine(this.m_OutputDirectory, "upload.ftp");
 
@@ -125,7 +124,7 @@ namespace Server.Engines.Reports
             {
             }
 
-            ConsoleUtility.OutputLine("Reports: {0}: Upload complete", this.m_Title);
+            Console.WriteLine("Reports: {0}: Upload complete", this.m_Title);
 
             try
             {

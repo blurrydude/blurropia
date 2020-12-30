@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Net;
 using Server.Misc;
-using ServerUtilityExtensions;
 
 namespace Server
 {
@@ -22,7 +21,7 @@ namespace Server
                 if (Firewall.IsBlocked(ip))
                 {
                     Utility.PushColor(ConsoleColor.Red);
-                    ConsoleUtility.OutputLine("Client: {0}: Firewall blocked connection attempt.", ip);
+                    Console.WriteLine("Client: {0}: Firewall blocked connection attempt.", ip);
                     Utility.PopColor();
                     e.AllowConnection = false;
                     return;
@@ -30,7 +29,7 @@ namespace Server
                 else if (IPLimiter.SocketBlock && !IPLimiter.Verify(ip))
                 {
                     Utility.PushColor(ConsoleColor.Red);
-                    ConsoleUtility.OutputLine("Client: {0}: Past IP limit threshold", ip);
+                    Console.WriteLine("Client: {0}: Past IP limit threshold", ip);
                     Utility.PopColor();
 
                     using (StreamWriter op = new StreamWriter("ipLimits.log", true))

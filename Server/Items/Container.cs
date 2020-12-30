@@ -7,7 +7,6 @@ using System.Linq;
 
 using Server.ContextMenus;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -2101,7 +2100,7 @@ namespace Server.Items
 
                                     if (m_Table.ContainsKey(id))
                                     {
-                                        ConsoleUtility.OutputLine(@"Warning: double ItemID entry in Data\containers.cfg");
+                                        Console.WriteLine(@"Warning: double ItemID entry in Data\containers.cfg");
                                     }
                                     else
                                     {

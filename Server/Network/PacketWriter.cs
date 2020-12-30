@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -66,7 +65,7 @@ namespace Server.Network
 					}
 					catch
 					{
-						ConsoleUtility.OutputLine("net error");
+						Console.WriteLine("net error");
 					}
 				}
 			}
@@ -188,7 +187,7 @@ namespace Server.Network
 		{
 			if (value == null)
 			{
-				ConsoleUtility.OutputLine("Network: Attempted to WriteAsciiFixed() with null value");
+				Console.WriteLine("Network: Attempted to WriteAsciiFixed() with null value");
 				value = String.Empty;
 			}
 
@@ -226,7 +225,7 @@ namespace Server.Network
 		{
 			if (value == null)
 			{
-				ConsoleUtility.OutputLine("Network: Attempted to WriteAsciiNull() with null value");
+				Console.WriteLine("Network: Attempted to WriteAsciiNull() with null value");
 				value = String.Empty;
 			}
 
@@ -250,7 +249,7 @@ namespace Server.Network
 		{
 			if (value == null)
 			{
-				ConsoleUtility.OutputLine("Network: Attempted to WriteLittleUniNull() with null value");
+				Console.WriteLine("Network: Attempted to WriteLittleUniNull() with null value");
 				value = String.Empty;
 			}
 
@@ -277,7 +276,7 @@ namespace Server.Network
 		{
 			if (value == null)
 			{
-				ConsoleUtility.OutputLine("Network: Attempted to WriteLittleUniFixed() with null value");
+				Console.WriteLine("Network: Attempted to WriteLittleUniFixed() with null value");
 				value = String.Empty;
 			}
 
@@ -319,7 +318,7 @@ namespace Server.Network
 		{
 			if (value == null)
 			{
-				ConsoleUtility.OutputLine("Network: Attempted to WriteBigUniNull() with null value");
+				Console.WriteLine("Network: Attempted to WriteBigUniNull() with null value");
 				value = String.Empty;
 			}
 
@@ -347,7 +346,7 @@ namespace Server.Network
 		{
 			if (value == null)
 			{
-				ConsoleUtility.OutputLine("Network: Attempted to WriteBigUniFixed() with null value");
+				Console.WriteLine("Network: Attempted to WriteBigUniFixed() with null value");
 				value = String.Empty;
 			}
 

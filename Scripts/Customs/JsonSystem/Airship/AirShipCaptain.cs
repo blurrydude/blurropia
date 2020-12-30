@@ -12,7 +12,7 @@ namespace Server.Customs
 {
     public class AirshipCaptain : BaseCreature
     {
-        private Item m_teleporter;
+        //private Item m_teleporter;
 
         [Constructable] 
         public AirshipCaptain()
@@ -171,12 +171,12 @@ namespace Server.Customs
         public static readonly int SetWidth = 200;
         private static readonly int NameWidth = 107;
         private static readonly int ValueWidth = 128;
-        private static readonly int EntryCount = 15;
+        //private static readonly int EntryCount = 15;
         private static readonly int TypeWidth = NameWidth + PropsConfig.OffsetSize + ValueWidth;
         private static readonly int TotalWidth =PropsConfig. OffsetSize + NameWidth + PropsConfig.OffsetSize + ValueWidth + PropsConfig.OffsetSize + SetWidth + PropsConfig.OffsetSize;
         
         private static readonly int BackWidth = PropsConfig.BorderSize + TotalWidth + PropsConfig.BorderSize;
-        private static readonly int IndentWidth = 12;
+        //private static readonly int IndentWidth = 12;
         private static AirshipCaptain _captain;
 
         public AirshipGump(AirshipCaptain captain)

@@ -1,7 +1,6 @@
 #region References
 using System;
 using System.IO;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -40,7 +39,7 @@ namespace Server
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("Warning: Data/Binary/Bounds.bin does not exist");
+				Console.WriteLine("Warning: Data/Binary/Bounds.bin does not exist");
 			}
 		}
 	}

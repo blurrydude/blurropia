@@ -8,7 +8,6 @@ using Server.Misc;
 using Server.Gumps;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -196,7 +195,7 @@ namespace Server.Items
                     }
                     catch
                     {
-                        ConsoleUtility.OutputLine("Error: Prefix not in collection: {0}", prefixID);
+                        Console.WriteLine("Error: Prefix not in collection: {0}", prefixID);
                     }
                 }
 
@@ -211,7 +210,7 @@ namespace Server.Items
                     }
                     catch
                     {
-                        ConsoleUtility.OutputLine("Error: Suffix not in collection: {0}", suffixID);
+                        Console.WriteLine("Error: Suffix not in collection: {0}", suffixID);
                     }
                 }
 

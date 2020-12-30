@@ -3,7 +3,6 @@ using System;
 using System.IO;
 
 using Microsoft.Win32;
-using ServerUtilityExtensions;
 using Ultima;
 #endregion
 
@@ -70,8 +69,8 @@ namespace Server.Misc
 
 			if (Core.DataDirectories.Count == 0 && !Core.Service)
 			{
-				ConsoleUtility.OutputLine("Enter the Ultima Online directory:");
-	            ConsoleUtility.Output("> ");
+				Console.WriteLine("Enter the Ultima Online directory:");
+	            Console.Write("> ");
 	
 	            Core.DataDirectories.Add(Console.ReadLine());
 			}
@@ -82,7 +81,7 @@ namespace Server.Misc
 			}
 		
 			Utility.PushColor(ConsoleColor.DarkYellow);
-			ConsoleUtility.OutputLine("DataPath: " + Core.DataDirectories[0]);
+			Console.WriteLine("DataPath: " + Core.DataDirectories[0]);
 			Utility.PopColor();
         }
 

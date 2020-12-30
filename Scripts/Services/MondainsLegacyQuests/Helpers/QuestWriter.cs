@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -41,8 +40,8 @@ namespace Server.Engines.Quests
 				}
 				catch (Exception e)
 				{
-					ConsoleUtility.OutputLine("Quest Save Failure: {0}", Utility.FormatDelegate(serializer));
-					ConsoleUtility.OutputLine(e);
+					Console.WriteLine("Quest Save Failure: {0}", Utility.FormatDelegate(serializer));
+					Console.WriteLine(e);
 
 					writer.Write(0L);
 

@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using Server.Items;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Gumps
 {
@@ -61,8 +60,8 @@ namespace Server.Gumps
                         }
                         catch (Exception ex)
                         {
-                            ConsoleUtility.OutputLine(ex.Message);
-                            ConsoleUtility.OutputLine(ex.StackTrace);
+                            Console.WriteLine(ex.Message);
+                            Console.WriteLine(ex.StackTrace);
                         }
 
                         if (item != null)

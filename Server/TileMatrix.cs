@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -480,7 +479,7 @@ namespace Server
 			{
 				if (DateTime.UtcNow >= m_NextStaticWarning)
 				{
-					ConsoleUtility.OutputLine("Warning: Static EOS for {0} ({1}, {2})", m_Owner, x, y);
+					Console.WriteLine("Warning: Static EOS for {0} ({1}, {2})", m_Owner, x, y);
 					m_NextStaticWarning = DateTime.UtcNow + TimeSpan.FromMinutes(1.0);
 				}
 
@@ -526,7 +525,7 @@ namespace Server
 			{
 				if (DateTime.UtcNow >= m_NextLandWarning)
 				{
-					ConsoleUtility.OutputLine("Warning: Land EOS for {0} ({1}, {2})", m_Owner, x, y);
+					Console.WriteLine("Warning: Land EOS for {0} ({1}, {2})", m_Owner, x, y);
 					m_NextLandWarning = DateTime.UtcNow + TimeSpan.FromMinutes(1.0);
 				}
 

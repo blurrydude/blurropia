@@ -1,7 +1,6 @@
 using System;
 using Server.Items;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -106,7 +105,7 @@ namespace Server.Items
 			} 
 			catch
 			{
-				ConsoleUtility.Output( "Error with Shrunken pet: {0} is being Deleted.  ItemID of:  {1}.", this.Name, this.ItemID );
+				Console.Write( "Error with Shrunken pet: {0} is being Deleted.  ItemID of:  {1}.", this.Name, this.ItemID );
 				//Another "In case Shit hits fan"  thing.
 			}
 

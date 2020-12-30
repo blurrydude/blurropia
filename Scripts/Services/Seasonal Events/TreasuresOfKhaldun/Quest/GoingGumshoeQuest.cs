@@ -8,7 +8,6 @@ using Server.Items;
 using Server.Gumps;
 using Server.Engines.Points;
 using Server.Engines.Quests;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Khaldun
 {
@@ -311,7 +310,7 @@ namespace Server.Engines.Khaldun
                 return (LibraryBookcase)bookcase;
             }
 
-            ConsoleUtility.OutputLine("Error: GoingGumshoeQuest3 has no bookcases. setup LibraryBookcase per EA via [CreateWorld command.");
+            Console.WriteLine("Error: GoingGumshoeQuest3 has no bookcases. setup LibraryBookcase per EA via [CreateWorld command.");
             return null;
         }
 

@@ -5,7 +5,6 @@ using System.Xml;
 
 using Server.Commands;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -42,7 +41,7 @@ namespace Server.Regions
 			{
 				if (!typeof(Mobile).IsAssignableFrom(m_GuardType))
 				{
-					ConsoleUtility.OutputLine("Invalid guard type for region '{0}'", this);
+					Console.WriteLine("Invalid guard type for region '{0}'", this);
 					m_GuardType = DefaultGuardType;
 				}
 			}

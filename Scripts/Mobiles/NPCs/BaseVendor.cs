@@ -16,7 +16,6 @@ using Server.Network;
 using Server.Regions;
 using Server.Services.Virtues;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 #endregion
 

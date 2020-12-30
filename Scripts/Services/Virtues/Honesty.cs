@@ -13,7 +13,6 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
 using Server.Regions;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -205,7 +204,7 @@ namespace Server.Services.Virtues
 			CheckChests();
 
 			Utility.PushColor(ConsoleColor.Yellow);
-			ConsoleUtility.OutputLine("[Honesty]: Generating...");
+			Console.WriteLine("[Honesty]: Generating...");
 			Utility.PopColor();
 
             var sw = new Stopwatch();
@@ -216,7 +215,7 @@ namespace Server.Services.Virtues
                 if (_FeluccaArea == null)
                 {
                     Utility.PushColor(ConsoleColor.Yellow);
-                    ConsoleUtility.Output("[Honesty]: Felucca - Reticulating splines...");
+                    Console.Write("[Honesty]: Felucca - Reticulating splines...");
                     Utility.PopColor();
 
                     sw.Restart();
@@ -228,14 +227,14 @@ namespace Server.Services.Virtues
                     s += sw.Elapsed.TotalSeconds;
 
                     Utility.PushColor(ConsoleColor.Green);
-                    ConsoleUtility.OutputLine("done ({0:F2} seconds)", sw.Elapsed.TotalSeconds);
+                    Console.WriteLine("done ({0:F2} seconds)", sw.Elapsed.TotalSeconds);
                     Utility.PopColor();
                 }
 
                 if (_TrammelArea == null && TrammelGeneration)
                 {
                     Utility.PushColor(ConsoleColor.Yellow);
-                    ConsoleUtility.Output("[Honesty]: Trammel - Reticulating splines...");
+                    Console.Write("[Honesty]: Trammel - Reticulating splines...");
                     Utility.PopColor();
 
                     sw.Restart();
@@ -247,7 +246,7 @@ namespace Server.Services.Virtues
                     s += sw.Elapsed.TotalSeconds;
 
                     Utility.PushColor(ConsoleColor.Green);
-                    ConsoleUtility.OutputLine("done ({0:F2} seconds)", sw.Elapsed.TotalSeconds);
+                    Console.WriteLine("done ({0:F2} seconds)", sw.Elapsed.TotalSeconds);
                     Utility.PopColor();
                 }
             }
@@ -263,7 +262,7 @@ namespace Server.Services.Virtues
 				if (count > 0)
 				{
 					Utility.PushColor(ConsoleColor.Yellow);
-					ConsoleUtility.Output("[Honesty]: Creating {0:#,0} lost items...", count);
+					Console.Write("[Honesty]: Creating {0:#,0} lost items...", count);
 					Utility.PopColor();
 
                     sw.Restart();
@@ -342,22 +341,22 @@ namespace Server.Services.Virtues
 					s += sw.Elapsed.TotalSeconds;
 
 					Utility.PushColor(ConsoleColor.Green);
-					ConsoleUtility.OutputLine("done ({0:F2} seconds)", sw.Elapsed.TotalSeconds);
+					Console.WriteLine("done ({0:F2} seconds)", sw.Elapsed.TotalSeconds);
 					Utility.PopColor();
 				}
 			}
 			catch (Exception e)
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine(e);
+				Console.WriteLine(e);
 				Utility.PopColor();
 			}
 
 			Utility.PushColor(ConsoleColor.Yellow);
-			ConsoleUtility.Output("[Honesty]:");
+			Console.Write("[Honesty]:");
 			Utility.PopColor();
 			Utility.PushColor(ConsoleColor.Green);
-			ConsoleUtility.OutputLine(" Generation completed in {0:F2} seconds.", s);
+			Console.WriteLine(" Generation completed in {0:F2} seconds.", s);
 			Utility.PopColor();
 		}
 

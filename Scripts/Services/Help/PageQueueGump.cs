@@ -3,7 +3,6 @@ using System.Collections;
 using System.IO;
 using Server.Gumps;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Help
 {
@@ -212,7 +211,7 @@ namespace Server.Engines.Help
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine(e);
+                Console.WriteLine(e);
             }
         }
 
@@ -252,7 +251,7 @@ namespace Server.Engines.Help
                 }
                 catch (Exception e)
                 {
-                    ConsoleUtility.OutputLine(e);
+                    Console.WriteLine(e);
                 }
             }
 
@@ -633,7 +632,7 @@ namespace Server.Engines.Help
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine(e);
+                Console.WriteLine(e);
             }
         }
 

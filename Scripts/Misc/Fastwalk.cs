@@ -1,5 +1,4 @@
 using System;
-using ServerUtilityExtensions;
 
 namespace Server.Misc
 {
@@ -26,7 +25,7 @@ namespace Server.Misc
         {
             e.Blocked = true;//disallow this fastwalk
             Utility.PushColor(ConsoleColor.Red);
-            ConsoleUtility.OutputLine("Client: {0}: Fast movement detected! (name={1})", e.NetState, e.NetState.Mobile.Name);
+            Console.WriteLine("Client: {0}: Fast movement detected! (name={1})", e.NetState, e.NetState.Mobile.Name);
             Utility.PopColor();
         }
     }

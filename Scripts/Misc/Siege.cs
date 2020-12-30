@@ -9,7 +9,6 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Regions;
 using Server.Spells;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -162,7 +161,7 @@ namespace Server
 					{
 						foreach (var kvp in ROTTable)
 						{
-							ConsoleUtility.OutputLine("Player: {0}", kvp.Key.Name);
+							Console.WriteLine("Player: {0}", kvp.Key.Name);
 							
 							var stats = 0;
 
@@ -171,7 +170,7 @@ namespace Server
 								stats = StatsTable[kvp.Key];
 							}
 
-							ConsoleUtility.OutputLine("Stats gained today: {0} of {1}", stats, StatsPerDay.ToString());
+							Console.WriteLine("Stats gained today: {0} of {1}", stats, StatsPerDay.ToString());
 
 							Utility.PushColor(ConsoleColor.Magenta);
 							
@@ -185,7 +184,7 @@ namespace Server
 									? "now"
 									: "in " + ((int)(next - DateTime.Now).TotalMinutes).ToString() + " minutes";
 
-								ConsoleUtility.OutputLine(
+								Console.WriteLine(
 									"   {0}: last gained {1}, can gain {2} (every {3} minutes)",
 									kvp2.Key.ToString(),
 									last.ToShortTimeString(),
@@ -196,14 +195,14 @@ namespace Server
 							Utility.PopColor();
 						}
 
-						ConsoleUtility.OutputLine("---");
-						ConsoleUtility.OutputLine(
+						Console.WriteLine("---");
+						Console.WriteLine(
 							"Next Reset: {0} minutes",
 							((LastReset + TimeSpan.FromHours(24) - DateTime.Now)).TotalMinutes.ToString());
 					});
 
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.Output("Initializing Siege Perilous Shard...");
+				Console.Write("Initializing Siege Perilous Shard...");
 
 				var tick = Core.TickCount;
 
@@ -219,7 +218,7 @@ namespace Server
 					item.DoReset = true;
 				}
 
-				ConsoleUtility.OutputLine("Reset {1} trammel spawners in {0} milliseconds!", Core.TickCount - tick, toReset.Count);
+				Console.WriteLine("Reset {1} trammel spawners in {0} milliseconds!", Core.TickCount - tick, toReset.Count);
 				Utility.PopColor();
 
 				ColUtility.Free(toReset);

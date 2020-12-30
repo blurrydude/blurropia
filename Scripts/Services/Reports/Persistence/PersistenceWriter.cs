@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Xml;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Reports
 {
@@ -92,7 +91,7 @@ namespace Server.Engines.Reports
 
         public override void WriteDocument(PersistableObject root)
         {
-            ConsoleUtility.OutputLine("Reports: {0}: Save started", this.m_Title);
+            Console.WriteLine("Reports: {0}: Save started", this.m_Title);
 
             this.m_Xml.Formatting = Formatting.Indented;
             this.m_Xml.IndentChar = '\t';
@@ -102,7 +101,7 @@ namespace Server.Engines.Reports
 
             root.Serialize(this);
 
-            ConsoleUtility.OutputLine("Reports: {0}: Save complete", this.m_Title);
+            Console.WriteLine("Reports: {0}: Save complete", this.m_Title);
         }
 
         public override void Close()
@@ -128,7 +127,7 @@ namespace Server.Engines.Reports
             }
             catch (Exception ex)
             {
-                ConsoleUtility.OutputLine(ex);
+                Console.WriteLine(ex);
             }
         }
     }

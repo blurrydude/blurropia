@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts", "Scripts\Scripts.csproj", "{308EA7C6-2873-4E47-AF3F-ABBA3F8AB63E}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -20,10 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtMachine", "ArtMachine\ArtMachine.csproj", "{FC5E38A0-85BD-470E-9F65-83E072CF5A50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShardApi", "ShardApi\ShardApi.csproj", "{10CF646C-6985-482C-81BB-F7C8ACB6BB2B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShardMarketService", "ShardMarketService\ShardMarketService.csproj", "{F153BC93-03ED-4A0D-82C4-D85810860F12}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShardDataGarbageCollectorService", "ShardDataGarbageCollectorService\ShardDataGarbageCollectorService.csproj", "{BA738CEC-69B6-4E7A-9B24-26303B2F261A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blurropia.com", "Blurropia.com\Blurropia.com.csproj", "{05C76063-C510-496D-BF84-2C2D431FAACB}"
 EndProject
@@ -53,14 +49,6 @@ Global
 		{10CF646C-6985-482C-81BB-F7C8ACB6BB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10CF646C-6985-482C-81BB-F7C8ACB6BB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10CF646C-6985-482C-81BB-F7C8ACB6BB2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F153BC93-03ED-4A0D-82C4-D85810860F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F153BC93-03ED-4A0D-82C4-D85810860F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F153BC93-03ED-4A0D-82C4-D85810860F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F153BC93-03ED-4A0D-82C4-D85810860F12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA738CEC-69B6-4E7A-9B24-26303B2F261A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA738CEC-69B6-4E7A-9B24-26303B2F261A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA738CEC-69B6-4E7A-9B24-26303B2F261A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA738CEC-69B6-4E7A-9B24-26303B2F261A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05C76063-C510-496D-BF84-2C2D431FAACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05C76063-C510-496D-BF84-2C2D431FAACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05C76063-C510-496D-BF84-2C2D431FAACB}.Release|Any CPU.ActiveCfg = Release|Any CPU

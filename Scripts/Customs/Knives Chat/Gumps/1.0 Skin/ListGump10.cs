@@ -14,7 +14,8 @@ namespace Knives.Chat3
         private ListPage c_ListPage;
         private Mobile c_Target;
         private int c_Page;
-        private bool c_Menu, c_Search;
+        //private bool c_Menu;
+        private bool c_Search;
         private string c_TxtSearch = "";
         private string c_CharSearch = "";
 

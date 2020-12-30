@@ -10,7 +10,6 @@ using Server.Engines.PartySystem;
 using System.Data;
 using System.Xml;
 using Server.Engines.XmlSpawner2;
-using ServerUtilityExtensions;
 
 /*
 ** XmlQuestToken class
@@ -1664,7 +1663,7 @@ namespace Server.Items
                 fs.Close();
                 if (fileerror)
                 {
-                    ConsoleUtility.OutputLine("XmlQuestToken: Error in XML config file '{0}'", filename);
+                    Console.WriteLine("XmlQuestToken: Error in XML config file '{0}'", filename);
                     return;
                 }
                 // Check that at least a single table was loaded

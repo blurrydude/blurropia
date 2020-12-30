@@ -9,7 +9,6 @@ using Server.Commands;
 using Server.Accounting;
 using Server.Multis;
 using Server.Gumps;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.NewMagincia
 {
@@ -634,23 +633,23 @@ namespace Server.Engines.NewMagincia
 
                 if (plotTram == null && !m_FreeHousingZones[Map.Trammel].Contains(rec))
                 {
-                    ConsoleUtility.OutputLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot non-existent");
+                    Console.WriteLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot non-existent");
                     m_FreeHousingZones[Map.Trammel].Add(rec);
                 }
                 else if (plotTram != null && plotTram.Stone == null && (plotTram.Writ == null || plotTram.Writ.Expired))
                 {
-                    ConsoleUtility.OutputLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot existed, writ expired");
+                    Console.WriteLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot existed, writ expired");
                     UnregisterPlot(plotTram);
                 }
 
                 if (plotFel == null && !m_FreeHousingZones[Map.Felucca].Contains(rec))
                 {
-                    ConsoleUtility.OutputLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot non-existent");
+                    Console.WriteLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot non-existent");
                     m_FreeHousingZones[Map.Felucca].Add(rec);
                 }
                 else if (plotFel != null && plotFel.Stone == null && (plotFel.Writ == null || plotFel.Writ.Expired))
                 {
-                    ConsoleUtility.OutputLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot existed, writ expired");
+                    Console.WriteLine("Adding {0} to Magincia Free Housing Zone.[{1}]", rec, "Plot existed, writ expired");
                     UnregisterPlot(plotFel);
                 }
             }

@@ -6,7 +6,6 @@ using Server;
 using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -109,7 +108,7 @@ namespace Server.Items
             }
             else
             {
-                ConsoleUtility.OutputLine("ALREADY HAS A SPAWNER!");
+                Console.WriteLine("ALREADY HAS A SPAWNER!");
             }
         }
 

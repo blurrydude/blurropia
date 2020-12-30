@@ -14,18 +14,13 @@ using System.Threading.Tasks;
 using CustomsFramework;
 
 using Server.Network;
-using System.Collections;
 using System.Configuration;
-using Google.Apis.Auth.OAuth2;
-using Newtonsoft.Json;
-using Server.Firestore;
-using ServerUtilityExtensions;
 
 #endregion
 
 namespace Server
 {
-	public delegate void Slice();
+    public delegate void Slice();
 
 	public static class Core
 	{
@@ -226,8 +221,8 @@ namespace Server
 
 		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			ConsoleUtility.OutputLine(e.IsTerminating ? "Error:" : "Warning:");
-			ConsoleUtility.OutputLine(e.ExceptionObject);
+			Console.WriteLine(e.IsTerminating ? "Error:" : "Warning:");
+			Console.WriteLine(e.ExceptionObject);
 
 			if (e.IsTerminating)
 			{
@@ -270,26 +265,26 @@ namespace Server
 
 				    if (ConfigurationManager.AppSettings["RestartOnFatalCrash"] == "true")
 				    {
-				        ConsoleUtility.OutputLine(
+				        Console.WriteLine(
 				            "This exception is fatal, restarting server after 30 second delay. Upload those script fixes, guys.");
 				        Thread.Sleep(5000);
-				        ConsoleUtility.OutputLine("Restarting in 25 seconds...");
+				        Console.WriteLine("Restarting in 25 seconds...");
 				        Thread.Sleep(5000);
-				        ConsoleUtility.OutputLine("Restarting in 20 seconds...");
+				        Console.WriteLine("Restarting in 20 seconds...");
 				        Thread.Sleep(5000);
-				        ConsoleUtility.OutputLine("Restarting in 15 seconds...");
+				        Console.WriteLine("Restarting in 15 seconds...");
 				        Thread.Sleep(5000);
-				        ConsoleUtility.OutputLine("Restarting in 10 seconds...");
+				        Console.WriteLine("Restarting in 10 seconds...");
 				        Thread.Sleep(5000);
-				        ConsoleUtility.OutputLine("Restarting in 5 seconds...");
+				        Console.WriteLine("Restarting in 5 seconds...");
 				        Thread.Sleep(5000);
-				        ConsoleUtility.OutputLine("Restarting...");
+				        Console.WriteLine("Restarting...");
 				        Process.Start(Core.ExePath, Core.Arguments);
-				        ConsoleUtility.OutputLine("done");
+				        Console.WriteLine("done");
 				    }
 				    else
 				    {
-				        ConsoleUtility.OutputLine("This exception is fatal, press return to exit");
+				        Console.WriteLine("This exception is fatal, press return to exit");
 				        Console.ReadLine();
 				    }
 				}
@@ -370,7 +365,7 @@ namespace Server
 			Closing = true;
 
             if(Debug)
-                ConsoleUtility.Output("Exiting...");
+                Console.Write("Exiting...");
 
 			World.WaitForWriteCompletion();
 
@@ -382,7 +377,7 @@ namespace Server
 			Timer.TimerThread.Set();
 
             if (Debug)
-                ConsoleUtility.OutputLine("done");
+                Console.WriteLine("done");
 		}
 
 		private static readonly AutoResetEvent _Signal = new AutoResetEvent(true);
@@ -437,17 +432,17 @@ namespace Server
                 }
                 else if (Insensitive.Equals(a, "-h") || Insensitive.Equals(a, "-help"))
                 {
-                    ConsoleUtility.OutputLine("An Ultima Online server emulator written in C# - Visit https://www.servuo.com for more information.\n\n");
-                    ConsoleUtility.OutputLine(System.AppDomain.CurrentDomain.FriendlyName + " [Parameter]\n\n");
-                    ConsoleUtility.OutputLine("     -debug              Starting ServUO in Debug Mode. Debug Mode is being used in Core and Scripts to give extended inforamtion during runtime.");
-                    ConsoleUtility.OutputLine("     -haltonwarning      ServUO halts if any warning is raised during compilation of scripts.");
-                    ConsoleUtility.OutputLine("     -h or -help         Displays this help text.");
-                    ConsoleUtility.OutputLine("     -nocache            No known effect.");
-                    ConsoleUtility.OutputLine("     -noconsole          No user interaction during startup and runtime.");
-                    ConsoleUtility.OutputLine("     -profile            Enables profiling allowing to get performance diagnostic information of packets, timers etc. in AdminGump -> Maintenance. Use with caution. This increases server load.");
-                    ConsoleUtility.OutputLine("     -service            This parameter should be set if you're running ServUO as a Windows Service. No user interaction. *Windows only*");
-                    ConsoleUtility.OutputLine("     -usehrt             Enables High Resolution Timing if requirements are met. Increasing the resolution of the timer. *Windows only*");
-                    ConsoleUtility.OutputLine("     -vb                 Enables compilation of VB.NET Scripts. Without this option VB.NET Scripts are skipped.");
+                    Console.WriteLine("An Ultima Online server emulator written in C# - Visit https://www.servuo.com for more information.\n\n");
+                    Console.WriteLine(System.AppDomain.CurrentDomain.FriendlyName + " [Parameter]\n\n");
+                    Console.WriteLine("     -debug              Starting ServUO in Debug Mode. Debug Mode is being used in Core and Scripts to give extended inforamtion during runtime.");
+                    Console.WriteLine("     -haltonwarning      ServUO halts if any warning is raised during compilation of scripts.");
+                    Console.WriteLine("     -h or -help         Displays this help text.");
+                    Console.WriteLine("     -nocache            No known effect.");
+                    Console.WriteLine("     -noconsole          No user interaction during startup and runtime.");
+                    Console.WriteLine("     -profile            Enables profiling allowing to get performance diagnostic information of packets, timers etc. in AdminGump -> Maintenance. Use with caution. This increases server load.");
+                    Console.WriteLine("     -service            This parameter should be set if you're running ServUO as a Windows Service. No user interaction. *Windows only*");
+                    Console.WriteLine("     -usehrt             Enables High Resolution Timing if requirements are met. Increasing the resolution of the timer. *Windows only*");
+                    Console.WriteLine("     -vb                 Enables compilation of VB.NET Scripts. Without this option VB.NET Scripts are skipped.");
 
                     System.Environment.Exit(0);
                 }
@@ -503,7 +498,7 @@ namespace Server
 			
 			Utility.PushColor(ConsoleColor.Cyan);
         #if DEBUG
-            ConsoleUtility.OutputLine(
+            Console.WriteLine(
                 "ServUO - [https://www.servuo.com] Version {0}.{1}, Build {2}.{3} - Build on {4} UTC - Debug",
                 ver.Major,
                 ver.Minor,
@@ -511,7 +506,7 @@ namespace Server
                 ver.Revision,
 				buildDate);
         #else
-            ConsoleUtility.OutputLine(
+            Console.WriteLine(
 				"ServUO - [https://www.servuo.com] Version {0}.{1}, Build {2}.{3} - Build on {4} UTC - Release",
 				ver.Major,
 				ver.Minor,
@@ -526,7 +521,7 @@ namespace Server
             if (s.Length > 0)
 			{
 				Utility.PushColor(ConsoleColor.Yellow);
-				ConsoleUtility.OutputLine("Core: Running with arguments: {0}", s);
+				Console.WriteLine("Core: Running with arguments: {0}", s);
 				Utility.PopColor();
 			}
 
@@ -540,7 +535,7 @@ namespace Server
 			if (MultiProcessor || Is64Bit)
 			{
 				Utility.PushColor(ConsoleColor.Green);
-				ConsoleUtility.OutputLine(
+				Console.WriteLine(
 					"Core: Optimizing for {0} {2}processor{1}",
 					ProcessorCount,
 					ProcessorCount == 1 ? "" : "s",
@@ -559,7 +554,7 @@ namespace Server
 					dotnet = displayName.Invoke(null, null).ToString();
 					
 					Utility.PushColor(ConsoleColor.Yellow);
-					ConsoleUtility.OutputLine("Core: Unix environment detected");
+					Console.WriteLine("Core: Unix environment detected");
 					Utility.PopColor();
 					
 					Unix = true;
@@ -615,38 +610,38 @@ namespace Server
                 dotnet = "MONO/CSC/Unknown";
             
             Utility.PushColor(ConsoleColor.Green);
-            ConsoleUtility.OutputLine("Core: Compiled for " + ( Unix ? "MONO and running on {0}" : ".NET {0}" ), dotnet);
+            Console.WriteLine("Core: Compiled for " + ( Unix ? "MONO and running on {0}" : ".NET {0}" ), dotnet);
             Utility.PopColor();
 
 			if (GCSettings.IsServerGC)
 			{
 				Utility.PushColor(ConsoleColor.Green);
-				ConsoleUtility.OutputLine("Core: Server garbage collection mode enabled");
+				Console.WriteLine("Core: Server garbage collection mode enabled");
 				Utility.PopColor();
 			}
 
 			if (_UseHRT)
 			{
 				Utility.PushColor(ConsoleColor.DarkYellow);
-				ConsoleUtility.OutputLine(
+				Console.WriteLine(
 					"Core: Requested high resolution timing ({0})",
 					UsingHighResolutionTiming ? "Supported" : "Unsupported");
 				Utility.PopColor();
 			}
 
 			Utility.PushColor(ConsoleColor.DarkYellow);
-			ConsoleUtility.OutputLine("RandomImpl: {0} ({1})", RandomImpl.Type.Name, RandomImpl.IsHardwareRNG ? "Hardware" : "Software");
+			Console.WriteLine("RandomImpl: {0} ({1})", RandomImpl.Type.Name, RandomImpl.IsHardwareRNG ? "Hardware" : "Software");
 			Utility.PopColor();
 
 			Utility.PushColor(ConsoleColor.Green);
-			ConsoleUtility.OutputLine("Core: Loading config...");
+			Console.WriteLine("Core: Loading config...");
 			Config.Load();
 			Utility.PopColor();
 
 			while (!ScriptCompiler.Compile(Debug, _Cache))
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine("Scripts: One or more scripts failed to compile or no script files were found.");
+				Console.WriteLine("Scripts: One or more scripts failed to compile or no script files were found.");
 				Utility.PopColor();
 
 				if (Service)
@@ -654,7 +649,7 @@ namespace Server
 					return;
 				}
 
-				ConsoleUtility.OutputLine(" - Press return to exit, or R to try again.");
+				Console.WriteLine(" - Press return to exit, or R to try again.");
 
                 if (Console.ReadKey(true).Key != ConsoleKey.R)
 				{
@@ -857,14 +852,14 @@ namespace Server
 					if (warningSb != null && warningSb.Length > 0)
 					{
 						Utility.PushColor(ConsoleColor.Yellow);
-						ConsoleUtility.OutputLine("Warning: {0}\n{1}", t, warningSb);
+						Console.WriteLine("Warning: {0}\n{1}", t, warningSb);
 						Utility.PopColor();
 					}
 				}
 				catch
 				{
 					Utility.PushColor(ConsoleColor.Yellow);
-					ConsoleUtility.OutputLine("Warning: Exception in serialization verification of type {0}", t);
+					Console.WriteLine("Warning: Exception in serialization verification of type {0}", t);
 					Utility.PopColor();
 				}
 			}
@@ -912,14 +907,14 @@ namespace Server
 					if (warningSb != null && warningSb.Length > 0)
 					{
 						Utility.PushColor(ConsoleColor.Yellow);
-						ConsoleUtility.OutputLine("Warning: {0}\n{1}", t, warningSb);
+						Console.WriteLine("Warning: {0}\n{1}", t, warningSb);
 						Utility.PopColor();
 					}
 				}
 				catch
 				{
 					Utility.PushColor(ConsoleColor.Yellow);
-					ConsoleUtility.OutputLine("Warning: Exception in serialization verification of type {0}", t);
+					Console.WriteLine("Warning: Exception in serialization verification of type {0}", t);
 					Utility.PopColor();
 				}
 			}

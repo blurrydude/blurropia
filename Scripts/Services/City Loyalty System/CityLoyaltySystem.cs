@@ -9,7 +9,6 @@ using Server.Network;
 using Server.Commands;
 using Server.Items;
 using Server.Engines.SeasonalEvents;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.CityLoyalty
 {
@@ -1310,18 +1309,18 @@ namespace Server.Engines.CityLoyalty
                     {
                         Board = new CityMessageBoard(City, 0xA0C5);
                         Board.MoveToWorld(Definition.BoardLocation, SystemMap);
-                        ConsoleUtility.OutputLine("City Message Board for {0} Converted!", City.ToString());
+                        Console.WriteLine("City Message Board for {0} Converted!", City.ToString());
                         /*if (Board != null)
                         {
                             //Board.ItemID = 0xA0C5;
                             //board.MoveToWorld(Definition.BoardLocation, SystemMap);
 
 
-                            ConsoleUtility.OutputLine("City Message Board for {0} Converted!", City.ToString());
+                            Console.WriteLine("City Message Board for {0} Converted!", City.ToString());
                         }
                         else
                         {
-                            ConsoleUtility.OutputLine("City Message Board for {0} not found!", City.ToString());
+                            Console.WriteLine("City Message Board for {0} not found!", City.ToString());
                         }*/
                     });
             }

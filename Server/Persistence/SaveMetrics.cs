@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using ServerUtilityExtensions;
 
 
 namespace Server
@@ -64,13 +63,13 @@ namespace Server
 					catch
 					{
 						if (Core.Debug)
-							ConsoleUtility.OutputLine("Metrics: Metrics enabled. Performance counters creation requires ServUO to be run as Administrator once!");
+							Console.WriteLine("Metrics: Metrics enabled. Performance counters creation requires ServUO to be run as Administrator once!");
 					}               
 				}
 				else
 				{
 					Utility.PushColor(ConsoleColor.Yellow);
-					ConsoleUtility.OutputLine("WARNING: You've enabled SaveMetrics. This is currently not supported on Unix based operating systems. Please disable this option to hide this message.");
+					Console.WriteLine("WARNING: You've enabled SaveMetrics. This is currently not supported on Unix based operating systems. Please disable this option to hide this message.");
 					Utility.PopColor();
 				}
             }

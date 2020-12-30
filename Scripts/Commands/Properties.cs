@@ -9,7 +9,6 @@ using Server.Commands.Generic;
 using Server.Gumps;
 using Server.Targeting;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 using CPA = Server.CommandPropertyAttribute;
 #endregion
 
@@ -447,7 +446,7 @@ namespace Server.Commands
 			}
 			catch(Exception e)
 			{
-                ConsoleUtility.OutputLine(e.ToString());
+                Console.WriteLine(e.ToString());
 				return "An exception was caught, the property may not be set.";
 			}
 		}
@@ -475,7 +474,7 @@ namespace Server.Commands
 			}
             catch (Exception e)
 			{
-                ConsoleUtility.OutputLine(e.ToString());
+                Console.WriteLine(e.ToString());
 				return "An exception was caught, the property may not be set.";
 			}
 		}

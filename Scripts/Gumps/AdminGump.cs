@@ -10,7 +10,6 @@ using Server.Misc;
 using Server.Multis;
 using Server.Network;
 using Server.Prompts;
-using ServerUtilityExtensions;
 
 namespace Server.Gumps
 {
@@ -2659,12 +2658,12 @@ namespace Server.Gumps
 
                                         if (time <= unusedGracePeriod)
                                         {
-                                            ConsoleUtility.OutputLine("Remove: " + acct.Username + " TotalGameTime: " + time + " <= " + unusedGracePeriod + ":Grace Period");
+                                            Console.WriteLine("Remove: " + acct.Username + " TotalGameTime: " + time + " <= " + unusedGracePeriod + ":Grace Period");
                                             results.Add(acct);
                                         }
                                         else
                                         {
-                                            ConsoleUtility.OutputLine("Keep: " + acct.Username + " TotalGameTime: " + time + " <= " + unusedGracePeriod + ":Grace Period");
+                                            Console.WriteLine("Keep: " + acct.Username + " TotalGameTime: " + time + " <= " + unusedGracePeriod + ":Grace Period");
                                         }
                                     }
 

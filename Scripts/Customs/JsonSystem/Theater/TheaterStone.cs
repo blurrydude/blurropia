@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Server.Items;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Customs.JsonSystem.Theater
 {
@@ -103,7 +103,7 @@ namespace Server.Customs.JsonSystem.Theater
         {
             if (String.IsNullOrEmpty(_scriptName)) return;
             var json = File.ReadAllText($"Scripts/Customs/JsonSystem/Theater/Data/{_scriptName}.json");
-            Script = (JsonTheaterScript) JsonUtility.Deserialize<JsonTheaterScript>(json);
+            Script = (JsonTheaterScript) JsonConvert.DeserializeObject<JsonTheaterScript>(json);
         }
 
         public void LoadScene()

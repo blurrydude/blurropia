@@ -8,13 +8,11 @@ using System.Text;
 using System.Xml;
 
 using Server.Commands;
-using Server.Firestore;
 using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Multis;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -370,7 +368,7 @@ namespace Server.Accounting
                     catch (Exception ex)
                     {
                         Utility.PushColor(ConsoleColor.Red);
-                        ConsoleUtility.OutputLine("Writing Secure Account Exception: {0}", ex);
+                        Console.WriteLine("Writing Secure Account Exception: {0}", ex);
                         Utility.PopColor();
                     }
                 }
@@ -1501,14 +1499,14 @@ namespace Server.Accounting
 			}
 
 		    World.Broadcast(0x35, true, "{0} has entered the shard.", m.Name);
-		    var pdata = new PlayerData(m);
-		    pdata.LoggedIn = true;
-            DB.UpdateDocument("PlayerData/"+m.Account.Username + "~" + m.Name, pdata);
+		    //var pdata = new PlayerData(m);
+		    //pdata.LoggedIn = true;
+      //      DB.UpdateDocument("PlayerData/"+m.Account.Username + "~" + m.Name, pdata);
             
-		    Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-		    var entry = new ActivityLogEntry(m.Account.Username,m.Name,"entered the shard");
-		    var path = "ActivityLog/" + unixTimestamp;
-		    DB.UpdateDocument(path,entry);
+		    //Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+		    //var entry = new ActivityLogEntry(m.Account.Username,m.Name,"entered the shard");
+		    //var path = "ActivityLog/" + unixTimestamp;
+		    //DB.UpdateDocument(path,entry);
 		    
 			if (!acc.Young || acc.m_YoungTimer != null)
 			{
@@ -1535,14 +1533,14 @@ namespace Server.Accounting
 			}
 
 		    World.Broadcast(0x35, true, "{0} has left the shard.", e.Mobile.Name);
-		    var pdata = new PlayerData(e.Mobile);
-		    pdata.LoggedIn = false;
-		    DB.UpdateDocument("PlayerData/"+e.Mobile.Account.Username + "~" + e.Mobile.Name, pdata);
+		    //var pdata = new PlayerData(e.Mobile);
+		    //pdata.LoggedIn = false;
+		    //DB.UpdateDocument("PlayerData/"+e.Mobile.Account.Username + "~" + e.Mobile.Name, pdata);
             
-		    Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-		    var entry = new ActivityLogEntry(e.Mobile.Account.Username,e.Mobile.Name,"left the shard");
-		    var path = "ActivityLog/" + unixTimestamp;
-		    DB.UpdateDocument(path,entry);
+		    //Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+		    //var entry = new ActivityLogEntry(e.Mobile.Account.Username,e.Mobile.Name,"left the shard");
+		    //var path = "ActivityLog/" + unixTimestamp;
+		    //DB.UpdateDocument(path,entry);
 
 			var m = e.Mobile as PlayerMobile;
 

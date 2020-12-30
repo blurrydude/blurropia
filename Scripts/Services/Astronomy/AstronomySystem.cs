@@ -4,7 +4,6 @@ using System.Linq;
 using System.IO;
 
 using Server.Items;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Astronomy
 {
@@ -133,7 +132,7 @@ namespace Server.Engines.Astronomy
             LoadedConstellations = 0;
 
             CreateConstellations(MaxConstellations);
-            ConsoleUtility.OutputLine("Reset Constellations!");
+            Console.WriteLine("Reset Constellations!");
         }
 
         public static ConstellationInfo GetConstellation(int id)

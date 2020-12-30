@@ -8,7 +8,6 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
-using ServerUtilityExtensions;
 
 namespace Server.Multis
 {
@@ -2389,7 +2388,7 @@ namespace Server.Multis
 
                 if (ce != ZLibError.Okay)
                 {
-                    ConsoleUtility.OutputLine("ZLib error: {0} (#{1})", ce, (int)ce);
+                    Console.WriteLine("ZLib error: {0} (#{1})", ce, (int)ce);
                     deflatedLength = 0;
                     size = 0;
                 }
@@ -2425,7 +2424,7 @@ namespace Server.Multis
 
                 if (ce != ZLibError.Okay)
                 {
-                    ConsoleUtility.OutputLine("ZLib error: {0} (#{1})", ce, (int)ce);
+                    Console.WriteLine("ZLib error: {0} (#{1})", ce, (int)ce);
                     deflatedLength = 0;
                     size = 0;
                 }
@@ -2537,7 +2536,7 @@ namespace Server.Multis
                     }
                     catch (Exception e)
                     {
-                        ConsoleUtility.OutputLine(e);
+                        Console.WriteLine(e);
 
                         try
                         {

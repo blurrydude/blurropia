@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 using Server;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -99,7 +98,7 @@ namespace CustomsFramework
 					if (!firstByte.HasValue)
 					{
 						Utility.PushColor(ConsoleColor.Yellow);
-						ConsoleUtility.OutputLine("Outgoing Packet Override: Unable to decompress packet!");
+						Console.WriteLine("Outgoing Packet Override: Unable to decompress packet!");
 						Utility.PopColor();
 
 						return;

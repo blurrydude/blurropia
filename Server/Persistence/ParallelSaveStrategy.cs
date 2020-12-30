@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using CustomsFramework;
 using Server.Guilds;
-using ServerUtilityExtensions;
 
 
 namespace Server
@@ -365,7 +364,7 @@ namespace Server
                 }
                 catch (Exception ex)
                 {
-                    ConsoleUtility.OutputLine(ex);
+                    Console.WriteLine(ex);
                 }
             }
 

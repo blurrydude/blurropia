@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Server.Commands;
 using Server.ContextMenus;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Regions
 {
@@ -43,7 +42,7 @@ namespace Server.Regions
             this.m_Running = false;
 
             if (m_Table.Contains(id))
-                ConsoleUtility.OutputLine("Warning: double SpawnEntry ID '{0}'", id);
+                Console.WriteLine("Warning: double SpawnEntry ID '{0}'", id);
             else
                 m_Table[id] = this;
         }

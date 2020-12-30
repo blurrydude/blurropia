@@ -1,7 +1,6 @@
 using System;
 using Server.Items;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Mobiles
 {
@@ -127,7 +126,7 @@ namespace Server.Mobiles
         private void FixSpawners()
         {
             long tc = Core.TickCount;
-            ConsoleUtility.Output("Replacing spawner entries GiantSerpent1234 with SerpentNest...");
+            Console.Write("Replacing spawner entries GiantSerpent1234 with SerpentNest...");
             foreach (var spawner in World.Items.Values.OfType<XmlSpawner>())
             {
                 bool changed = false;
@@ -147,8 +146,8 @@ namespace Server.Mobiles
                 if (changed)
                     spawner.DoRespawn = true;
             }
-            ConsoleUtility.Output("Done!");
-            ConsoleUtility.OutputLine("Took {0} milliseconds.", Core.TickCount - tc);
+            Console.Write("Done!");
+            Console.WriteLine("Took {0} milliseconds.", Core.TickCount - tc);
         }
     }
 

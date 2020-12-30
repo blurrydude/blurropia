@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using Server.Items;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Customs
 {
@@ -81,7 +82,7 @@ namespace Server.Customs
 
         private void Reload(bool clearonly = false)
         {
-            ConsoleUtility.OutputLine($"Reloading {Serial}");
+            Console.WriteLine($"Reloading {Serial}");
             List<AddonComponent> toRemove = new List<AddonComponent>(Components);
             List<int> itemsToRemove = Items.Select(x => x.Serial.Value).Where(x => x != Serial.Value).ToList();
 
@@ -89,7 +90,7 @@ namespace Server.Customs
 
             foreach (var remove in toRemove)
             {
-                ConsoleUtility.OutputLine($"Removing {remove.Serial} {remove.GetType()}");
+                Console.WriteLine($"Removing {remove.Serial} {remove.GetType()}");
                 Components.Remove(remove);
                 remove.Delete();
             }
@@ -97,7 +98,7 @@ namespace Server.Customs
             {
                 var remove = World.FindItem(serial);
                 if (remove == null) continue;
-                ConsoleUtility.OutputLine($"Removing {remove.Serial} {remove.GetType()}");
+                Console.WriteLine($"Removing {remove.Serial} {remove.GetType()}");
                 Items.Remove(remove);
                 World.RemoveItem(remove);
                 remove.Delete();
@@ -106,7 +107,7 @@ namespace Server.Customs
 
         private void LoadFromJson()
         {
-            ConsoleUtility.OutputLine($"Load From Json {Serial}");
+            Console.WriteLine($"Load From Json {Serial}");
             if (!Directory.Exists("Scripts/Customs/JsonSystem/JsonAddons/Data"))
             {
                 Directory.CreateDirectory("Scripts/Customs/JsonSystem/JsonAddons/Data");
@@ -120,20 +121,20 @@ namespace Server.Customs
             }
 
             var json = File.ReadAllText(file);
-            var addonComponents = (List<JsonAddonComponent>)JsonUtility.Deserialize<List<JsonAddonComponent>>(json);
+            var addonComponents = JsonConvert.DeserializeObject<List<JsonAddonComponent>>(json);
             foreach (var a in addonComponents)
             {
                 /*if(string.IsNullOrEmpty(a.T) || a.T.ToLower() == "static")
                 {
                     var ac = new AddonComponent(a.I) { Hue = a.H ?? 0 };
-                    ConsoleUtility.OutputLine($"Adding {ac.Serial} {a.T}");
+                    Console.WriteLine($"Adding {ac.Serial} {a.T}");
                     AddComponent(ac, a.X, a.Y, a.Z);
                     continue;
                 }*/
                 if (string.IsNullOrEmpty(a.T)) a.T = "Static";
                 var item = JsonSystemHelper.NewItemByTypeString(a.T);
                 if (item == null) continue;
-                ConsoleUtility.OutputLine($"Adding {((Item)item).Serial} {a.T}");
+                Console.WriteLine($"Adding {((Item)item).Serial} {a.T}");
                 if (a.T.ToLower() == "static") ((Item)item).ItemID = a.I;
                 ((Item)item).Hue = a.H??0;
                 ((Item)item).Movable = false;

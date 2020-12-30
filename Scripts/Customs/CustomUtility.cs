@@ -4,13 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ServerUtilityExtensions;
 
 
 namespace Server.Customs
 {
     public static class CustomUtility
     {
+        public static void ExceptionIgnore(Exception e)
+        {
+
+        }
         public static Point2D GetGumpImageSize(int gumpId)
         {
             var image = Ultima.Gumps.GetGump(gumpId);

@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Server.Regions;
-using ServerUtilityExtensions;
 
 namespace Server
 {
@@ -45,12 +44,12 @@ namespace Server
                             }
                             catch (Exception e)
                             {
-                                ConsoleUtility.OutputLine("{0} {1} {2} {3}", i, x, y, e);
+                                Console.WriteLine("{0} {1} {2} {3}", i, x, y, e);
                             }
                         }
                         catch
                         {
-                            ConsoleUtility.OutputLine("Warning: Error in Line '{0}' of Data/treasure.cfg", line);
+                            Console.WriteLine("Warning: Error in Line '{0}' of Data/treasure.cfg", line);
                         }
                     }
                 }

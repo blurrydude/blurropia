@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Server;
 using Server.Mobiles;
 using Server.Items;
@@ -8,7 +8,6 @@ using Server.Commands;
 using Server.Engines.Quests;
 using Server.Spells;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Regions
 {
@@ -347,11 +346,11 @@ namespace Server.Regions
             if (!m_RestrictBoats)
                 e.Mobile.SendMessage("Boat restriction is currenlty disabled.");
 
-            ConsoleUtility.OutputLine("========Boat Info as Follows===========");
-            ConsoleUtility.OutputLine("Boats: {0}", boats.Count);
+            Console.WriteLine("========Boat Info as Follows===========");
+            Console.WriteLine("Boats: {0}", boats.Count);
 
             if (!m_RestrictBoats)
-                ConsoleUtility.OutputLine("Boat restriction is currenlty disabled.");
+                Console.WriteLine("Boat restriction is currenlty disabled.");
 
             for (int i = 0; i < boats.Count; i++)
             {
@@ -362,7 +361,7 @@ namespace Server.Regions
 
                 e.Mobile.SendMessage("Boat Name: {0}; Boat Owner: {1}; Expires: {2}", boat.ShipName, boat.Owner, times[i]);
 
-                ConsoleUtility.OutputLine("Boat Name: {0}; Boat Owner: {1}; Expires: {2}", boat.ShipName, boat.Owner, times[i]);
+                Console.WriteLine("Boat Name: {0}; Boat Owner: {1}; Expires: {2}", boat.ShipName, boat.Owner, times[i]);
             }
 
             boats.Clear();
@@ -377,11 +376,11 @@ namespace Server.Regions
             if (!m_RestrictBoats)
                 e.Mobile.SendMessage("Boat restriction is currenlty disabled.");
 
-            ConsoleUtility.OutputLine("========Boat Info as Follows===========");
-            ConsoleUtility.OutputLine("Boats: {0}", boats.Count);
+            Console.WriteLine("========Boat Info as Follows===========");
+            Console.WriteLine("Boats: {0}", boats.Count);
 
             if (!m_RestrictBoats)
-                ConsoleUtility.OutputLine("Boat restriction is currenlty disabled.");
+                Console.WriteLine("Boat restriction is currenlty disabled.");
 
             for (int i = 0; i < boats.Count; i++)
             {
@@ -392,7 +391,7 @@ namespace Server.Regions
 
                 e.Mobile.SendMessage("Boat Name: {0}; Boat Owner: {1}; Expires: {2}", boat.ShipName, boat.Owner, times[i]);
 
-                ConsoleUtility.OutputLine("Boat Name: {0}; Boat Owner: {1}; Expires: {2}", boat.ShipName, boat.Owner, times[i]);
+                Console.WriteLine("Boat Name: {0}; Boat Owner: {1}; Expires: {2}", boat.ShipName, boat.Owner, times[i]);
             }
         }
 

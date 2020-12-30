@@ -12,7 +12,6 @@ using Server.Commands;
 using Server.Targeting;
 using Server.Regions;
 using Server.Gumps;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.VendorSearching
 {
@@ -601,7 +600,7 @@ namespace Server.Engines.VendorSearching
                         {
                             if (targeted is Item)
                             {
-                                ConsoleUtility.OutputLine(GetItemName((Item)targeted));
+                                Console.WriteLine(GetItemName((Item)targeted));
                                 e.Mobile.SendMessage(GetItemName((Item)targeted));
                             }
                         });

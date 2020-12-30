@@ -11,7 +11,6 @@ using System.Data;
 using Server.Commands;
 using Server.Gumps;
 using Server.Multis;
-using ServerUtilityExtensions;
 
 /* This script has a purpose, and please adhere to the advice before adding versions.
  * This is used for modifying, removing, adding existing spawners, etc for existing shards,
@@ -262,7 +261,7 @@ namespace Server
         public static void ToConsole(string str, ConsoleColor color = ConsoleColor.Green)
         {
             Utility.PushColor(color);
-            ConsoleUtility.OutputLine("[Spawner Persistence v{0}] {1}", _Version.ToString(), str);
+            Console.WriteLine("[Spawner Persistence v{0}] {1}", _Version.ToString(), str);
             Utility.PopColor();
         }
 

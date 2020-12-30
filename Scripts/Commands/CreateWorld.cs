@@ -8,7 +8,6 @@ using System.Linq;
 using System.IO;
 using Server.Items;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Commands 
 {
@@ -237,7 +236,7 @@ namespace Server.Commands
             if (CreateWorldData.CreateTable.ContainsKey(entry.CheckID) && CreateWorldData.CreateTable[entry.CheckID])
             {
                 string er = String.Format("<br>- {0} have been generated already.", entry.Name);
-                ConsoleUtility.OutputLine(er);
+                Console.WriteLine(er);
 
                 error += er;
 
@@ -252,7 +251,7 @@ namespace Server.Commands
                 }
 
                 string er = String.Format("<br>- Cannot generate {0}. You need to generate Decorations and Spawners first.", entry.Name);
-                ConsoleUtility.OutputLine(er);
+                Console.WriteLine(er);
 
                 error += er;
 
@@ -268,7 +267,7 @@ namespace Server.Commands
                 else
                 {
                     string er = String.Format("<br>- Cannot generate {0}. You need to generate Spawners first.", entry.Name);
-                    ConsoleUtility.OutputLine(er);
+                    Console.WriteLine(er);
 
                     error += er;
 
@@ -281,7 +280,7 @@ namespace Server.Commands
 
         public static void DoDelayedCommand(Mobile from, TimeSpan delay, string command)
         {
-            ConsoleUtility.OutputLine("Setting delayed create command: {0} [{1}] minutes", command, delay.TotalMinutes);
+            Console.WriteLine("Setting delayed create command: {0} [{1}] minutes", command, delay.TotalMinutes);
 
             Timer.DelayCall(delay, () =>
                 {

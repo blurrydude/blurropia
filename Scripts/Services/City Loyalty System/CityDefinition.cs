@@ -4,7 +4,6 @@ using Server.Mobiles;
 using Server.Engines.Points;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.CityLoyalty
 {
@@ -50,7 +49,7 @@ namespace Server.Engines.CityLoyalty
                     _Region = Region.Regions.FirstOrDefault(r => r.Name == Name && r.Map == CityLoyaltySystem.SystemMap);
 
                     if(_Region == null)
-                        ConsoleUtility.OutputLine("WARNING: Region for {0} not found!", Name);
+                        Console.WriteLine("WARNING: Region for {0} not found!", Name);
                 }
 
                 return _Region;

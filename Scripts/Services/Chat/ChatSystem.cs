@@ -2,7 +2,6 @@ using System;
 using System.IO;
 
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Chat
 {
@@ -74,12 +73,12 @@ namespace Server.Engines.Chat
                 }
                 else
                 {
-                    ConsoleUtility.OutputLine("Client: {0}: Unknown chat action 0x{1:X}: {2}", state, actionId, param);
+                    Console.WriteLine("Client: {0}: Unknown chat action 0x{1:X}: {2}", state, actionId, param);
                 }
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine(e);
+                Console.WriteLine(e);
             }
         }
 

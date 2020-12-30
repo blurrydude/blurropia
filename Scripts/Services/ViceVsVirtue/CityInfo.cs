@@ -2,7 +2,6 @@ using Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.VvV
 {
@@ -85,7 +84,7 @@ namespace Server.Engines.VvV
                 Region r = Region.Regions.FirstOrDefault(reg => reg.Name == Name && reg.Map == Map.Felucca);
 
                 if (r == null)
-                    ConsoleUtility.OutputLine("WARNING: Region for {0} not found.", Name);
+                    Console.WriteLine("WARNING: Region for {0} not found.", Name);
 
                 return r;
             }

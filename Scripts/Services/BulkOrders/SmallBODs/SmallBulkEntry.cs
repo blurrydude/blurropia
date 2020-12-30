@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.BulkOrders
 {
@@ -208,7 +207,7 @@ namespace Server.Engines.BulkOrders
                                 }
                                 else
                                 {
-                                    ConsoleUtility.OutputLine("Error Loading BOD Entry at {2}, [Type: {0}], [graphic: {1}]", split[0], graphic.ToString(), path);
+                                    Console.WriteLine("Error Loading BOD Entry at {2}, [Type: {0}], [graphic: {1}]", split[0], graphic.ToString(), path);
                                 }
                             }
                             else if (split.Length >= 3)
@@ -235,13 +234,13 @@ namespace Server.Engines.BulkOrders
                                 }
                                 else
                                 {
-                                    ConsoleUtility.OutputLine("Error Loading BOD Entry at {2}, [Type: {0}], [graphic: {1}]", split[0], graphic.ToString(), path);
+                                    Console.WriteLine("Error Loading BOD Entry at {2}, [Type: {0}], [graphic: {1}]", split[0], graphic.ToString(), path);
                                 }
                             }
                         }
                         catch(Exception e)
                         {
-                            ConsoleUtility.OutputLine(e);
+                            Console.WriteLine(e);
                         }
                     }
                 }

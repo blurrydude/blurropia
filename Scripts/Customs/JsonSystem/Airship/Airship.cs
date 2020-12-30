@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Server.Items;
-using ServerUtilityExtensions;
+using Newtonsoft.Json;
 
 namespace Server.Customs
 {
@@ -22,10 +22,10 @@ namespace Server.Customs
             }
 
             var json = File.ReadAllText("Scripts/Customs/JsonSystem/Airship/Data/airship.json");
-            var addonComponents = (List<JsonAddonComponent>)JsonUtility.Deserialize<List<JsonAddonComponent>>(json);
+            var addonComponents = JsonConvert.DeserializeObject<List<JsonAddonComponent>>(json);
             if (addonComponents.Count == 0)
             {
-                addonComponents = (List<JsonAddonComponent>)JsonUtility.Deserialize<List<JsonAddonComponent>>(backupJson);
+                addonComponents = JsonConvert.DeserializeObject<List<JsonAddonComponent>>(backupJson);
             }
             foreach (var a in addonComponents)
             {

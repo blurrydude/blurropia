@@ -8,7 +8,6 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Gumps;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server
 {
@@ -319,7 +318,7 @@ namespace Server
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine("Error while updating 'Settings.xml': {0}", e);
+                Console.WriteLine("Error while updating 'Settings.xml': {0}", e);
             }
         }
 

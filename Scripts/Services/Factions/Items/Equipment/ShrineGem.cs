@@ -3,7 +3,6 @@ using Server;
 using Server.Items;
 using Server.Mobiles;
 using Server.Gumps;
-using ServerUtilityExtensions;
 
 namespace Server.Factions
 {
@@ -32,7 +31,7 @@ namespace Server.Factions
                             break;
                         }
                     }
-                    ConsoleUtility.OutputLine("Gem: {0}", gem);
+                    Console.WriteLine("Gem: {0}", gem);
                     if (gem != null)
                     {
                         Timer.DelayCall(TimeSpan.FromSeconds(2.5), () =>

@@ -3,7 +3,6 @@ using Server;
 using Server.Items;
 using Server.Mobiles;
 using System.Collections.Generic;
-using ServerUtilityExtensions;
 
 namespace Server.SkillHandlers
 {
@@ -112,7 +111,7 @@ namespace Server.SkillHandlers
             }
 
             if(type != null)
-                ConsoleUtility.OutputLine("Warning, missing name cliloc for type {0}.", type.Name);
+                Console.WriteLine("Warning, missing name cliloc for type {0}.", type.Name);
             return -1;
         }
 

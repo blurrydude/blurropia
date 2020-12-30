@@ -4,7 +4,6 @@ using Server.Mobiles;
 using System.Collections.Generic;
 using System.Linq;
 using Server.Commands;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -209,7 +208,7 @@ namespace Server.Items
                 }
 
                 if(kvp.Value.Count == 0)
-                    ConsoleUtility.OutputLine("Warning: {0} has 0 School entries!", kvp.Key);
+                    Console.WriteLine("Warning: {0} has 0 School entries!", kvp.Key);
             }
 
             CommandSystem.Register("MoveToSchool", AccessLevel.GameMaster, e =>

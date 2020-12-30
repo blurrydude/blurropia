@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using CustomsFramework;
-using Newtonsoft.Json;
 using Server.Accounting;
 using Server.Commands;
 using Server.ContextMenus;
@@ -21,9 +20,7 @@ using Server.Menus;
 using Server.Mobiles;
 using Server.Network;
 using Server.Prompts;
-using Server.Services;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -3758,7 +3755,6 @@ namespace Server
 			}
 		}
 
-        [JsonIgnore]
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.Administrator)]
 		public IAccount Account { get; set; }
 
@@ -4327,7 +4323,6 @@ namespace Server
 				CheckStatTimers();
                 
 			    World.Broadcast(0x35, true, Name + " was slain by " + killedBy);
-			    DBLogger.LogEvent(this, "was slain by " + killedBy);
 			}
 		}
 
@@ -4767,7 +4762,7 @@ namespace Server
 			}
 			catch
 			{
-				ConsoleUtility.OutputLine(
+				Console.WriteLine(
 					"Warning: 0x{0:X}: Item must have a zero paramater constructor to be separated from a stack. '{1}'.",
 					oldItem.Serial.Value,
 					oldItem.GetType().Name);

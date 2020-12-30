@@ -2,7 +2,6 @@ using System;
 using System.Xml;
 using Server.Mobiles;
 using Server.Regions;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Quests
 {
@@ -40,7 +39,7 @@ namespace Server.Engines.Quests
                 }
                 catch (Exception ex)
                 {
-                    ConsoleUtility.OutputLine("Error creating quest {0}: {1}", this.m_Quest, ex);
+                    Console.WriteLine("Error creating quest {0}: {1}", this.m_Quest, ex);
                 }
             }
         }

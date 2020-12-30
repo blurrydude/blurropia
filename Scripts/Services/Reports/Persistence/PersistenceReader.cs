@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Xml;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Reports
 {
@@ -108,12 +107,12 @@ namespace Server.Engines.Reports
 
         public override void ReadDocument(PersistableObject root)
         {
-            ConsoleUtility.Output("Reports: {0}: Loading...", this.m_Title);
+            Console.Write("Reports: {0}: Loading...", this.m_Title);
             this.m_Xml.Read();
             this.m_Xml.Read();
             this.m_HasChild = !this.m_Xml.IsEmptyElement;
             root.Deserialize(this);
-            ConsoleUtility.OutputLine("done");
+            Console.WriteLine("done");
         }
 
         public override void Close()

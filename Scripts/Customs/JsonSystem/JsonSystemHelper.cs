@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -26,7 +27,7 @@ namespace Server.Customs
                     }
                 }
             }
-            catch (Exception e) { }
+            catch (Exception e) { CustomUtility.ExceptionIgnore(e); }
 
             return built;
         }
@@ -38,7 +39,7 @@ namespace Server.Customs
             if (itemType != jsonQuestItem.Item) return false;
             if (item.Amount != jsonQuestItem.Amount) return false;
             var list = item.GetType().GetProperties();
-            var matching = true;
+            //var matching = true;
             foreach (var prop in jsonQuestItem.Props)
             {
                 foreach (var oprop in list)

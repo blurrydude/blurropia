@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -57,8 +56,8 @@ namespace Server.Engines.Quests
 					}
 					catch (Exception e)
 					{
-						ConsoleUtility.OutputLine("Quest Load Failure: {0}", Utility.FormatDelegate(deserializer));
-						ConsoleUtility.OutputLine(e);
+						Console.WriteLine("Quest Load Failure: {0}", Utility.FormatDelegate(deserializer));
+						Console.WriteLine(e);
 
 						return false;
 					}

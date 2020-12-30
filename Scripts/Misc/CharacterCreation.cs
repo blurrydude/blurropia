@@ -5,7 +5,6 @@ using Server.Accounting;
 using Server.Items;
 using Server.Mobiles;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -180,7 +179,7 @@ namespace Server.Misc
 			if (newChar == null)
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine("Login: {0}: Character creation failed, account full", state);
+				Console.WriteLine("Login: {0}: Character creation failed, account full", state);
 				Utility.PopColor();
 				return;
 			}
@@ -284,11 +283,11 @@ namespace Server.Misc
 			newChar.MoveToWorld(city.Location, map);
 
 			Utility.PushColor(ConsoleColor.Green);
-			ConsoleUtility.OutputLine("Login: {0}: New character being created (account={1})", state, args.Account.Username);
+			Console.WriteLine("Login: {0}: New character being created (account={1})", state, args.Account.Username);
 			Utility.PopColor();
 			Utility.PushColor(ConsoleColor.DarkGreen);
-			ConsoleUtility.OutputLine(" - Character: {0} (serial={1})", newChar.Name, newChar.Serial);
-			ConsoleUtility.OutputLine(" - Started: {0} {1} in {2}", city.City, city.Location, city.Map);
+			Console.WriteLine(" - Character: {0} (serial={1})", newChar.Name, newChar.Serial);
+			Console.WriteLine(" - Started: {0} {1} in {2}", city.City, city.Location, city.Map);
 			Utility.PopColor();
 
 			new WelcomeTimer(newChar).Start();

@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using Server.Commands;
 using Server.Customs;
-using ServerUtilityExtensions;
 
 namespace Server.Misc
 {
@@ -87,7 +86,7 @@ namespace Server.Misc
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine("WARNING: Automatic backup FAILED: {0}", e);
+                Console.WriteLine("WARNING: Automatic backup FAILED: {0}", e);
             }
 
             World.Save(true, permitBackgroundWrite);

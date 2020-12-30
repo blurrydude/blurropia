@@ -5,7 +5,6 @@ using Server.Items;
 using Server.Gumps;
 using Server.Commands;
 using System.Collections.Generic;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.NewMagincia
 {
@@ -33,22 +32,22 @@ namespace Server.Engines.NewMagincia
             {
                 MaginciaBazaar.Instance = new MaginciaBazaar();
                 MaginciaBazaar.Instance.MoveToWorld(new Point3D(3729, 2058, 5), Map.Trammel);
-                ConsoleUtility.OutputLine("Generated {0} New Magincia Bazaar Stalls.", MaginciaBazaar.Plots.Count);
+                Console.WriteLine("Generated {0} New Magincia Bazaar Stalls.", MaginciaBazaar.Plots.Count);
             }
             else
-                ConsoleUtility.OutputLine("Magincia Bazaar System already exists!");
+                Console.WriteLine("Magincia Bazaar System already exists!");
 
-            ConsoleUtility.OutputLine("Generating New Magincia Housing Lotty System..");
+            Console.WriteLine("Generating New Magincia Housing Lotty System..");
 
             if (MaginciaLottoSystem.Instance == null)
             {
                 MaginciaLottoSystem.Instance = new MaginciaLottoSystem();
                 MaginciaLottoSystem.Instance.MoveToWorld(new Point3D(3718, 2049, 5), Map.Trammel);
 
-                ConsoleUtility.OutputLine("Generated {0} New Magincia Housing Plots.", MaginciaLottoSystem.Plots.Count);
+                Console.WriteLine("Generated {0} New Magincia Housing Plots.", MaginciaLottoSystem.Plots.Count);
             }
             else
-                ConsoleUtility.OutputLine("Magincia Housing Lotto System already exists!");
+                Console.WriteLine("Magincia Housing Lotto System already exists!");
         }
 
         public static void ViewLottos_OnCommand(CommandEventArgs e)

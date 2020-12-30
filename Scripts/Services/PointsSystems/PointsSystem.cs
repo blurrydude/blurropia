@@ -11,7 +11,6 @@ using Server.Engines.VvV;
 using Server.Engines.ArenaSystem;
 using Server.Engines.SorcerersDungeon;
 using Server.Misc;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Points
 {
@@ -105,7 +104,7 @@ namespace Server.Engines.Points
                 GetEntry(from).Points = points;
 
                 Utility.PushColor(ConsoleColor.Green);
-                ConsoleUtility.OutputLine("Converted {0} points for {1} to {2}!", (int)points, from.Name, this.GetType().Name);
+                Console.WriteLine("Converted {0} points for {1} to {2}!", (int)points, from.Name, this.GetType().Name);
                 Utility.PopColor();
             }
         }

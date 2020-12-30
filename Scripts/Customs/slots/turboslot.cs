@@ -213,7 +213,7 @@ namespace Server.Items
         private int m_LastPay;
         private int m_TotalCollected = 0;
         private int m_TotalWon = 0;
-        private int m_TotalNetProfit = 0;
+        //private int m_TotalNetProfit = 0;
         private int m_TotalSpins = 0;
 
         //Mobile & timeout
@@ -247,19 +247,19 @@ namespace Server.Items
         private bool m_GiveReward = false;
 
         //Profiling stuff
-        private bool m_ProfGetCurrent = false;
+        //private bool m_ProfGetCurrent = false;
         private string m_ProfSymbols = null;
         private string[] m_ProfReel = { null, null, null };
         private string m_ProfPayTable = null;
-        private float m_ProfPercentagehigh;
-        private float m_ProfPercentagelow;
+        //private float m_ProfPercentagehigh;
+        //private float m_ProfPercentagelow;
         private int[] m_ProfDist = { 0, 0, 0, 0, 0, 0, 0, 0 };
-        private bool m_TestMode = false;
-        private int m_TestSpin = 0;
+        //private bool m_TestMode = false;
+        //private int m_TestSpin = 0;
         private bool m_Profile = false;
         private float m_ProfPercentage;
         private int[,] m_CurrentDist = new int[3, 8];
-        private bool m_ProfileAll = false;
+        //private bool m_ProfileAll = false;
 
         // Odds Table and Jackpot events
         private int m_MaxRoll = 100;
@@ -285,7 +285,7 @@ namespace Server.Items
 
         private int m_BlinkCount = 0;
         private int m_BlinkHue;
-        private DateTime m_BlinkTimerEnd;
+        //private DateTime m_BlinkTimerEnd;
         private InternalTimer2 m_BlinkTimer;
 
         //Issue a special "card" for jackpot winners that could be used to get into special places
@@ -3851,19 +3851,19 @@ namespace Server.Items
             decimal payout;
 #if PROFILE
             if (m_Profile)
-                ConsoleUtility.OutputLine("/*\nProfiling: Theme:{0}  Payout Table:{1}  Cost:{2}", m_SlotTheme, m_PaybackType, m_Cost);
+                Console.WriteLine("/*\nProfiling: Theme:{0}  Payout Table:{1}  Cost:{2}", m_SlotTheme, m_PaybackType, m_Cost);
             if (m_Profile && !m_ProfileAll)
             {
-                ConsoleUtility.OutputLine("\nDistribution Tables:\n");
+                Console.WriteLine("\nDistribution Tables:\n");
                 for (int h = 0; h < 3; h++)
                 {
                     for (int i = 0; i < m_TotalSymbols - 1; i++)
                     {
-                        ConsoleUtility.Output("{0},", distTable[h, i]);
+                        Console.Write("{0},", distTable[h, i]);
                     }
-                    ConsoleUtility.OutputLine("{0}", distTable[h, m_TotalSymbols - 1]);
+                    Console.WriteLine("{0}", distTable[h, m_TotalSymbols - 1]);
                 }
-                ConsoleUtility.OutputLine("\nIndividual jackpot odds:");
+                Console.WriteLine("\nIndividual jackpot odds:");
             }
 #endif
             for (int i = 0; i < m_TotalSymbols; i++)
@@ -3873,7 +3873,7 @@ namespace Server.Items
                     scatterjackpotpercent = percentage;
 #if PROFILE
                 if (m_Profile && !m_ProfileAll)
-                    ConsoleUtility.Output("{4}. {0:00}*{1:00}*{2:00}:{6:00}/{3}={5:0.00000}", distTable[0, i], distTable[1, i], distTable[2, i], rolls, i, percentage, distTable[0, i] * distTable[1, i] * distTable[2, i]);
+                    Console.Write("{4}. {0:00}*{1:00}*{2:00}:{6:00}/{3}={5:0.00000}", distTable[0, i], distTable[1, i], distTable[2, i], rolls, i, percentage, distTable[0, i] * distTable[1, i] * distTable[2, i]);
 #endif
                 if (m_Rewards != JackpotRewardType.None)
                     GetJackpotPayoutStr(i, out payout);
@@ -3886,7 +3886,7 @@ namespace Server.Items
                 odds = odds + payoutpercentage;
 #if PROFILE
                 if (m_Profile && !m_ProfileAll)
-                    ConsoleUtility.OutputLine("*{0:0.00000}={1:0.00000} \tcumulative odds:{2:0.00000}", payout, payoutpercentage, odds);
+                    Console.WriteLine("*{0:0.00000}={1:0.00000} \tcumulative odds:{2:0.00000}", payout, payoutpercentage, odds);
 #endif
             }
 
@@ -3933,7 +3933,7 @@ namespace Server.Items
                 odds = odds + payoutpercentage;
 #if PROFILE
                 if (m_Profile & !m_ProfileAll)
-                    ConsoleUtility.OutputLine("\nAny 3: ({0}*{1}*{2}/{3})={4:#.000##}-{5:#.000##}={6:#.000##}*{7}={8:#.000##}", tbars[0], tbars[1], tbars[2], rolls, percentage, anybarminus, percentage - anybarminus, payout, payoutpercentage);
+                    Console.WriteLine("\nAny 3: ({0}*{1}*{2}/{3})={4:#.000##}-{5:#.000##}={6:#.000##}*{7}={8:#.000##}", tbars[0], tbars[1], tbars[2], rolls, percentage, anybarminus, percentage - anybarminus, payout, payoutpercentage);
 #endif
             }
             //Scatter 
@@ -3967,19 +3967,19 @@ namespace Server.Items
 #if PROFILE
                 if (m_Profile && !m_ProfileAll)
                 {
-                    ConsoleUtility.Output("\nScatter2: (");
+                    Console.Write("\nScatter2: (");
                     if (m_ScatterPay == ScatterType.Any)
                     {
-                        ConsoleUtility.Output("{0}*{1}*{2}+", tscatters[0], tscatters[1], (m_MaxRoll - tscatters[2]));
-                        ConsoleUtility.Output("{0}*{1}*{2}+", tscatters[0], (m_MaxRoll - tscatters[1]), tscatters[2]);
-                        ConsoleUtility.Output("{0}*{1}*{2})/{3}", (m_MaxRoll - tscatters[0]), tscatters[1], tscatters[2], rolls);
+                        Console.Write("{0}*{1}*{2}+", tscatters[0], tscatters[1], (m_MaxRoll - tscatters[2]));
+                        Console.Write("{0}*{1}*{2}+", tscatters[0], (m_MaxRoll - tscatters[1]), tscatters[2]);
+                        Console.Write("{0}*{1}*{2})/{3}", (m_MaxRoll - tscatters[0]), tscatters[1], tscatters[2], rolls);
                     }
                     else
                     {
-                        ConsoleUtility.Output("{0}*{1}*{2}", tscatters[0], tscatters[1], m_MaxRoll);
-                        ConsoleUtility.Output("/{0})-{1:0.000##}={2:0.000##}", rolls, scatterjackpotpercent, percentage - scatterjackpotpercent);
+                        Console.Write("{0}*{1}*{2}", tscatters[0], tscatters[1], m_MaxRoll);
+                        Console.Write("/{0})-{1:0.000##}={2:0.000##}", rolls, scatterjackpotpercent, percentage - scatterjackpotpercent);
                     }
-                    ConsoleUtility.OutputLine("*{0:0.000##}={1:0.000##}", payout, payoutpercentage);
+                    Console.WriteLine("*{0:0.000##}={1:0.000##}", payout, payoutpercentage);
                 }
 #endif
                 if (m_ScatterPay == ScatterType.Any)
@@ -4002,26 +4002,26 @@ namespace Server.Items
 #if PROFILE
                 if (m_Profile && !m_ProfileAll)
                 {
-                    ConsoleUtility.Output("Scatter1: (");
+                    Console.Write("Scatter1: (");
                     if (m_ScatterPay == ScatterType.Any)
                     {
-                        ConsoleUtility.Output("{0}*{1}*{2}+", tscatters[0], (m_MaxRoll - tscatters[1]), (m_MaxRoll - tscatters[2]));
-                        ConsoleUtility.Output("{0}*{1}*{2}+", (m_MaxRoll - tscatters[0]), tscatters[1], (m_MaxRoll - tscatters[2]));
-                        ConsoleUtility.Output("{0}*{1}*{2}", (m_MaxRoll - tscatters[0]), (m_MaxRoll - tscatters[1]), tscatters[2]);
-                        ConsoleUtility.Output(")/{0}={1:0.000##}", rolls, percentage);
+                        Console.Write("{0}*{1}*{2}+", tscatters[0], (m_MaxRoll - tscatters[1]), (m_MaxRoll - tscatters[2]));
+                        Console.Write("{0}*{1}*{2}+", (m_MaxRoll - tscatters[0]), tscatters[1], (m_MaxRoll - tscatters[2]));
+                        Console.Write("{0}*{1}*{2}", (m_MaxRoll - tscatters[0]), (m_MaxRoll - tscatters[1]), tscatters[2]);
+                        Console.Write(")/{0}={1:0.000##}", rolls, percentage);
 
                     }
                     else
                     {
-                        ConsoleUtility.Output("{0}*{1}*{2}/{3})-{4:0.000##}={5:0.000##}", tscatters[0], m_MaxRoll, m_MaxRoll, rolls, (scatterjackpotpercent + scat2percent), (percentage - scat2percent));
+                        Console.Write("{0}*{1}*{2}/{3})-{4:0.000##}={5:0.000##}", tscatters[0], m_MaxRoll, m_MaxRoll, rolls, (scatterjackpotpercent + scat2percent), (percentage - scat2percent));
                     }
-                    ConsoleUtility.OutputLine("*{0:0.000##}={1:0.000##}", payout, payoutpercentage);
+                    Console.WriteLine("*{0:0.000##}={1:0.000##}", payout, payoutpercentage);
                 }
 #endif
             }
 #if PROFILE
             if (m_Profile)
-                ConsoleUtility.OutputLine("\nStatistical payout odds for this slot machine is : {0:0.000##}%\n", odds * 100m);
+                Console.WriteLine("\nStatistical payout odds for this slot machine is : {0:0.000##}%\n", odds * 100m);
 #endif
             return (float)odds * 100;
         }
@@ -4068,19 +4068,19 @@ namespace Server.Items
             }
             if (!m_ProfileAll)
             {
-                ConsoleUtility.Output("Symbol Table:");
+                Console.Write("Symbol Table:");
                 for (int i = 0; i < m_Symbols.Length; i++)
-                    ConsoleUtility.Output("{0},", m_Symbols[i]);
+                    Console.Write("{0},", m_Symbols[i]);
                 if (m_AnyBars)
                 {
-                    ConsoleUtility.Output("\nAny bar symbols:");
+                    Console.Write("\nAny bar symbols:");
                     for (int i = 0; i < 4; i++)
-                        ConsoleUtility.Output("{0} ", m_Bars[i]);
+                        Console.Write("{0} ", m_Bars[i]);
                 }
-                ConsoleUtility.Output("\nPay Table:");
+                Console.Write("\nPay Table:");
                 for (int i = 0; i < 11; i++)
-                    ConsoleUtility.Output("{0},", m_jackpotmultiplier[i]);
-                ConsoleUtility.OutputLine("\n");
+                    Console.Write("{0},", m_jackpotmultiplier[i]);
+                Console.WriteLine("\n");
             }
             int spins = 20000000;
             int[] progressivelist = new int[] { 0, 5, 10, 15, 20 };
@@ -4128,11 +4128,11 @@ namespace Server.Items
                         m_TotalWon += m_Cost;
                 }
                 if (progressivelist[h] == 0)
-                    ConsoleUtility.OutputLine("@ {3} million spins:\t Low: {0:##0.00}% High: {1:##0.00}%  Actual: {2:##0.00}%\n", m_ProfPercentagelow, m_ProfPercentagehigh, WinningPercentage, spins / 1000000);
+                    Console.WriteLine("@ {3} million spins:\t Low: {0:##0.00}% High: {1:##0.00}%  Actual: {2:##0.00}%\n", m_ProfPercentagelow, m_ProfPercentagehigh, WinningPercentage, spins / 1000000);
                 else
-                    ConsoleUtility.OutputLine("Progressive @ {3}%:\t Low: {0:##0.00}% High: {1:##0.00}%  Actual: {2:##0.00}%", m_ProfPercentagelow, m_ProfPercentagehigh, WinningPercentage, progressivelist[h]);
+                    Console.WriteLine("Progressive @ {3}%:\t Low: {0:##0.00}% High: {1:##0.00}%  Actual: {2:##0.00}%", m_ProfPercentagelow, m_ProfPercentagehigh, WinningPercentage, progressivelist[h]);
             }
-            ConsoleUtility.OutputLine("*/");
+            Console.WriteLine("*/");
             m_isProgMaster = progmaster;
             m_ProgressivePercent = progpercent;
             m_InUseBy.CloseGump(typeof(TurboSlotGump));

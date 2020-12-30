@@ -15,7 +15,6 @@ using System.Xml;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Services.TownCryer
 {
@@ -379,7 +378,7 @@ namespace Server.Services.TownCryer
                 }
                 catch (Exception e)
                 {
-                    ConsoleUtility.OutputLine(e);
+                    Console.WriteLine(e);
                     Utility.WriteConsoleColor(ConsoleColor.Cyan, "...FAILED! ***");
                     return;
                 }

@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Server.Commands;
-using ServerUtilityExtensions;
 
 namespace Server.Bounds
 {
@@ -19,7 +18,7 @@ namespace Server.Bounds
 			if(Ultima.Files.MulPath["artlegacymul.uop"] != null || (Ultima.Files.MulPath["art.mul"] != null && Ultima.Files.MulPath["artidx.mul"] != null))
 			{	
 				Utility.PushColor(ConsoleColor.Yellow);
-				ConsoleUtility.Output("Generating Bounds.bin...");
+				Console.Write("Generating Bounds.bin...");
 				Utility.PopColor();
 				
 				FileStream fs = new FileStream( "Data/Binary/Bounds.bin", FileMode.Create, FileAccess.Write );
@@ -38,14 +37,14 @@ namespace Server.Bounds
 						bin.Write((ushort)yMax);
 					}
 				Utility.PushColor(ConsoleColor.Green);
-				ConsoleUtility.OutputLine("done");
+				Console.WriteLine("done");
 				Utility.PopColor();
 				bin.Close();	
 			}
 			else
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine("Art files missing.");
+				Console.WriteLine("Art files missing.");
 				Utility.PopColor();
 			}
 		}

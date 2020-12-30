@@ -2,7 +2,6 @@ using System;
 using Server.Items;
 using System.Collections.Generic;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Mobiles
 {
@@ -255,7 +254,7 @@ namespace Server.Mobiles
             }
 
             list.ForEach(spawner => spawner.DoReset = true);
-            ConsoleUtility.OutputLine("Reset {0} Void Spawn Spawners.", list.Count);
+            Console.WriteLine("Reset {0} Void Spawn Spawners.", list.Count);
         }
 
         public override void Serialize(GenericWriter writer)
@@ -274,7 +273,7 @@ namespace Server.Mobiles
 
             if (version == 0 && !_CheckSpawners && RemoveFromSpawners)
             {
-                ConsoleUtility.OutputLine("Removing Spawners...");
+                Console.WriteLine("Removing Spawners...");
                 Timer.DelayCall(TimeSpan.FromSeconds(30), RemoveVoidSpawners);
 
                 _CheckSpawners = true;

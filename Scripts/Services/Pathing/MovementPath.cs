@@ -4,7 +4,6 @@ using Server.PathAlgorithms;
 using Server.PathAlgorithms.FastAStar;
 using Server.PathAlgorithms.SlowAStar;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 namespace Server
 {
@@ -51,8 +50,8 @@ namespace Server
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine("Warning: {0}: Pathing error from {1} to {2}", e.GetType().Name, start, goal);
-                ConsoleUtility.OutputLine(e.StackTrace);
+                Console.WriteLine("Warning: {0}: Pathing error from {1} to {2}", e.GetType().Name, start, goal);
+                Console.WriteLine(e.StackTrace);
             }
         }
 

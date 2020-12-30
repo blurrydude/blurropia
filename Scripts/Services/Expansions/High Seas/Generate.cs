@@ -1,9 +1,8 @@
-﻿using Server;
+using Server;
 using System;
 using Server.Commands;
 using Server.Mobiles;
 using Server.Engines.Quests;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -479,7 +478,7 @@ namespace Server.Items
             WeakEntityCollection.Add(name, bouy7);
             WeakEntityCollection.Add(name, bouy8);
 
-            ConsoleUtility.OutputLine("High Seas Content generated.");
+            Console.WriteLine("High Seas Content generated.");
         }
     }
 }

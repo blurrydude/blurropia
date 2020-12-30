@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 using Server.Items;
-using ServerUtilityExtensions;
 
 namespace Server.Commands
 {
@@ -347,7 +346,7 @@ namespace Server.Commands
                 Type type = ScriptCompiler.FindTypeByName(split[i].Trim());
 
                 if (type == null)
-                    ConsoleUtility.OutputLine("Match type not found ('{0}')", split[i].Trim());
+                    Console.WriteLine("Match type not found ('{0}')", split[i].Trim());
                 else
                     list.Add(type);
             }

@@ -9,7 +9,6 @@ using Server.ContextMenus;
 using Server.Items;
 using CPA = Server.CommandPropertyAttribute;
 using Server.Gumps;
-using ServerUtilityExtensions;
 
 namespace Server.Mobiles
 {
@@ -1149,7 +1148,7 @@ namespace Server.Mobiles
             {
                 try
                 {
-                    ConsoleUtility.OutputLine("Warning: {0} bad spawns detected, logged: 'badspawn.log'", m_List.Count);
+                    Console.WriteLine("Warning: {0} bad spawns detected, logged: 'badspawn.log'", m_List.Count);
 
                     using (StreamWriter op = new StreamWriter("badspawn.log", true))
                     {

@@ -11,7 +11,6 @@ using Server.Commands.Generic;
 using Server.Engines.BulkOrders;
 using Server.Items;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -29,7 +28,7 @@ namespace Server.Commands
 		private static void DocGen_OnCommand(CommandEventArgs e)
 		{
 			World.Broadcast(0x35, true, "Documentation is being generated, please wait.");
-			ConsoleUtility.OutputLine("Documentation is being generated, please wait.");
+			Console.WriteLine("Documentation is being generated, please wait.");
 
 			NetState.FlushAll();
 			NetState.Pause();
@@ -49,7 +48,7 @@ namespace Server.Commands
 					true,
 					"Documentation has been completed. The entire process took {0:F1} seconds.",
 					(endTime - startTime).TotalSeconds);
-				ConsoleUtility.OutputLine("Documentation complete.");
+				Console.WriteLine("Documentation complete.");
 			}
 			else
 			{
@@ -57,7 +56,7 @@ namespace Server.Commands
 					0x35,
 					true,
 					"Docmentation failed: Documentation directories are locked and in use. Please close all open files and directories and try again.");
-				ConsoleUtility.OutputLine("Documentation failed.");
+				Console.WriteLine("Documentation failed.");
 			}
 		}
 
@@ -230,7 +229,7 @@ namespace Server.Commands
 
 				FormatGeneric(m_Type, out m_TypeName, out m_FileName, out m_LinkName);
 
-				//				ConsoleUtility.OutputLine( ">> inline typeinfo: "+m_TypeName );
+				//				Console.WriteLine( ">> inline typeinfo: "+m_TypeName );
 				//				m_TypeName = GetGenericTypeName( m_Type );
 				//				m_FileName = Docs.GetFileName( "docs/types/", GetGenericTypeName( m_Type, "-", "-" ), ".html" );
 				//				m_Writer = Docs.GetWriter( "docs/types/", m_FileName );
@@ -439,7 +438,7 @@ namespace Server.Commands
 			}
 
 			var retval = String.Concat(prepend, aliased, append, name);
-			//ConsoleUtility.OutputLine(">> getpair: "+retval);
+			//Console.WriteLine(">> getpair: "+retval);
 			return retval;
 		}
 		#endregion
@@ -3048,7 +3047,7 @@ namespace Server.Commands
 				linkName = link;
 			}
 
-			//ConsoleUtility.OutputLine( typeName+":"+fileName+":"+linkName );
+			//Console.WriteLine( typeName+":"+fileName+":"+linkName );
 		}
 
 		public static string SanitizeType(string name)

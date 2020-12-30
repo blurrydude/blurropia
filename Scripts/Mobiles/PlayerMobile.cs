@@ -46,7 +46,6 @@ using Server.Engines.SphynxFortune;
 using Server.Engines.VendorSearching;
 using Server.Services;
 using Server.Targeting;
-using ServerUtilityExtensions;
 using RankDefinition = Server.Guilds.RankDefinition;
 #endregion
 
@@ -1603,7 +1602,7 @@ namespace Server.Mobiles
 			}
 			catch (Exception e)
 			{
-				ConsoleUtility.OutputLine(e);
+				Console.WriteLine(e);
 			}
 			finally
 			{
@@ -6390,7 +6389,7 @@ namespace Server.Mobiles
             }
             else
             {
-                DBLogger.LogEvent(this, "said '" + e.Speech+"'.");
+                //DBLogger.LogEvent(this, "said '" + e.Speech+"'.");
                 base.OnSaid(e);
             }
         }

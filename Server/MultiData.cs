@@ -6,7 +6,6 @@ using System.Linq;
 
 using Server;
 using Server.Network;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -272,7 +271,7 @@ namespace Server
                     }
                     else
                     {
-                        ConsoleUtility.OutputLine("Warning: Multi data files not found!");
+                        Console.WriteLine("Warning: Multi data files not found!");
                     }
                 }
             }

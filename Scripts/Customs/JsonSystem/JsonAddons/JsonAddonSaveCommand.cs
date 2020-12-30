@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,6 @@ using Server.Commands;
 using Server.Commands.Generic;
 using Server.Prompts;
 using Server.Targeting;
-using ServerUtilityExtensions;
 
 namespace Server.Customs
 {
@@ -76,7 +76,7 @@ namespace Server.Customs
                         components.Add(jac);
                     }
 
-                    var json = JsonUtility.Serialize(components);
+                    var json = JsonConvert.SerializeObject(components);
                     from.SendMessage("Enter a name for the addon (avoid spaces)");
                     from.Prompt = new NamePrompt(json);
                 }

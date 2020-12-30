@@ -5,7 +5,6 @@ using System.IO;
 using System.Net.Mail;
 using Server.Accounting;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Misc
 {
@@ -39,7 +38,7 @@ namespace Server.Misc
 
         private static void SendEmail(string filePath)
         {
-            ConsoleUtility.Output("Crash: Sending email...");
+            Console.Write("Crash: Sending email...");
 
             MailMessage message = new MailMessage(Email.FromAddress, Email.CrashAddresses);
 
@@ -50,9 +49,9 @@ namespace Server.Misc
             message.Attachments.Add(new Attachment(filePath));
 
             if (Email.Send(message))
-                ConsoleUtility.OutputLine("done");
+                Console.WriteLine("done");
             else
-                ConsoleUtility.OutputLine("failed");
+                Console.WriteLine("failed");
         }
 
         private static string GetRoot()
@@ -79,18 +78,18 @@ namespace Server.Misc
         {
             string root = GetRoot();
 
-            ConsoleUtility.Output("Crash: Restarting...");
+            Console.Write("Crash: Restarting...");
 
             try
             {
                 Process.Start(Core.ExePath, Core.Arguments);
-                ConsoleUtility.OutputLine("done");
+                Console.WriteLine("done");
 
                 e.Close = true;
             }
             catch
             {
-                ConsoleUtility.OutputLine("failed");
+                Console.WriteLine("failed");
             }
         }
 
@@ -122,7 +121,7 @@ namespace Server.Misc
 
         private static void Backup()
         {
-            ConsoleUtility.Output("Crash: Backing up...");
+            Console.Write("Crash: Backing up...");
 
             try
             {
@@ -157,17 +156,17 @@ namespace Server.Misc
                 CopyFile(rootOrigin, rootBackup, "Regions/Regions.bin");
                 CopyFile(rootOrigin, rootBackup, "Regions/Regions.idx");
 
-                ConsoleUtility.OutputLine("done");
+                Console.WriteLine("done");
             }
             catch
             {
-                ConsoleUtility.OutputLine("failed");
+                Console.WriteLine("failed");
             }
         }
 
         private static void GenerateCrashReport(CrashedEventArgs e)
         {
-            ConsoleUtility.Output("Crash: Generating report...");
+            Console.Write("Crash: Generating report...");
 
             try
             {
@@ -242,14 +241,14 @@ namespace Server.Misc
                     }
                 }
 
-                ConsoleUtility.OutputLine("done");
+                Console.WriteLine("done");
 
                 if (Email.FromAddress != null && Email.CrashAddresses != null)
                     SendEmail(filePath);
             }
             catch
             {
-                ConsoleUtility.OutputLine("failed");
+                Console.WriteLine("failed");
             }
         }
 

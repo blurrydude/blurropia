@@ -4,7 +4,6 @@ using System.IO;
 
 using Server;
 using Server.Items;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -150,12 +149,12 @@ namespace CustomsFramework
 
 		public static void DumpToConsole(params object[] elements)
 		{
-			ConsoleUtility.OutputLine();
+			Console.WriteLine();
 
 			foreach (var element in elements)
 			{
-				ConsoleUtility.OutputLine(ObjectDumper.Dump(element));
-				ConsoleUtility.OutputLine();
+				Console.WriteLine(ObjectDumper.Dump(element));
+				Console.WriteLine();
 			}
 		}
 	}

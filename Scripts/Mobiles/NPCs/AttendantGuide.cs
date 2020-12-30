@@ -6,7 +6,6 @@ using Server.ContextMenus;
 using Server.Gumps;
 using Server.Items;
 using Server.Network;
-using ServerUtilityExtensions;
 using Vertex = Server.Mobiles.GuideHelper.GuideVertex;
 
 namespace Server.Mobiles
@@ -29,8 +28,8 @@ namespace Server.Mobiles
             }
             catch (Exception ex)
             {
-                ConsoleUtility.OutputLine(ex.Message);
-                ConsoleUtility.OutputLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
         }
 

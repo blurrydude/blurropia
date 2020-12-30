@@ -7,7 +7,6 @@ using Server.Items;
 using Server.Gumps;
 using Server.Network;
 using Server.Engines.Quests;
-using ServerUtilityExtensions;
 
 namespace Server.Mobiles
 {
@@ -354,7 +353,7 @@ namespace Server.Mobiles
                 {
                     if (m_Wisp.Backpack == null)
                     {
-                        ConsoleUtility.OutputLine("Error, wisp backpack is null");
+                        Console.WriteLine("Error, wisp backpack is null");
                         return;
                     }
 

@@ -1,8 +1,8 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Customs
 {
@@ -68,7 +68,7 @@ namespace Server.Customs
             foreach (var file in files)
             {
                 var json = File.ReadAllText(file);
-                var jsonQuest = (JsonQuest) JsonUtility.Deserialize<JsonQuest>(json);
+                var jsonQuest = JsonConvert.DeserializeObject<JsonQuest>(json);
                 foreach (var giver in jsonQuest.Givers)
                 {
                     var giverMobile = new JsonQuestGiver();
@@ -84,14 +84,14 @@ namespace Server.Customs
 
         private void SaveEngineData()
         {
-            var json = JsonUtility.Serialize(_config);
+            var json = JsonConvert.SerializeObject(_config);
             File.WriteAllText("Scripts/Customs/JsonSystem/Data/JsonQuestEngineConfig.json",json);
         }
 
         private void LoadEngineData()
         {
             var json = File.ReadAllText("Scripts/Customs/JsonSystem/Data/JsonQuestEngineConfig.json");
-            _config = (JsonQuestEngineConfig) JsonUtility.Deserialize<JsonQuestEngineConfig>(json);
+            _config = JsonConvert.DeserializeObject<JsonQuestEngineConfig>(json);
         }
     }
 

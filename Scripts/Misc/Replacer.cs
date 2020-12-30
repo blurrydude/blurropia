@@ -1,7 +1,6 @@
 using System;
 using Server.Items;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server
 {
@@ -55,7 +54,7 @@ namespace Server
                         newItem.Delete();
                         oldItem.Delete();
 
-                        ConsoleUtility.OutputLine("Item replacement failed: {0}", newItem.GetType());
+                        Console.WriteLine("Item replacement failed: {0}", newItem.GetType());
                     }
                 }
             }, item1, item2);

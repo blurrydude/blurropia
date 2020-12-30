@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Server.Mobiles;
 using Server.Spells.Fifth;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Quests
 {
@@ -175,7 +174,7 @@ namespace Server.Engines.Quests
 		
         public override void OnDoubleClick(Mobile m)
         {
-            ConsoleUtility.OutputLine(m.Items.Count);
+            Console.WriteLine(m.Items.Count);
 		
             if (m.Alive)
                 this.OnTalk(m);		

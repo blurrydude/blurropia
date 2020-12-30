@@ -39,7 +39,7 @@ namespace Server.Customs
 
         public class InternalTarget : Target
         {
-            private readonly int m_Page;
+            //private readonly int m_Page;
             private readonly int m_ItemId;
             private string _menu;
             public InternalTarget(string menu)

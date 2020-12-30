@@ -5,7 +5,6 @@ using System.IO;
 using System.Xml;
 using Server.Items;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Regions
 {
@@ -35,7 +34,7 @@ namespace Server.Regions
                         }
                         else
                         {
-                            ConsoleUtility.OutputLine("Invalid type '{0}' in a SpawnDefinition", type.FullName);
+                            Console.WriteLine("Invalid type '{0}' in a SpawnDefinition", type.FullName);
                             return null;
                         }
                     }
@@ -49,7 +48,7 @@ namespace Server.Regions
 
                         if (def == null)
                         {
-                            ConsoleUtility.OutputLine("Could not find group '{0}' in a SpawnDefinition", group);
+                            Console.WriteLine("Could not find group '{0}' in a SpawnDefinition", group);
                             return null;
                         }
                         else
@@ -419,7 +418,7 @@ namespace Server.Regions
             }
             catch (Exception ex)
             {
-                ConsoleUtility.OutputLine("Could not load SpawnDefinitions.xml: " + ex.Message);
+                Console.WriteLine("Could not load SpawnDefinitions.xml: " + ex.Message);
             }
         }
 
@@ -447,7 +446,7 @@ namespace Server.Regions
         public static void Register(SpawnGroup group)
         {
             if (m_Table.Contains(group.Name))
-                ConsoleUtility.OutputLine("Warning: Double SpawnGroup name '{0}'", group.Name);
+                Console.WriteLine("Warning: Double SpawnGroup name '{0}'", group.Name);
             else
                 m_Table[group.Name] = group;
         }

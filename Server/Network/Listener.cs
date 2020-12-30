@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -80,21 +79,21 @@ namespace Server.Network
 					{
 						// WSAEADDRINUSE
 						Utility.PushColor(ConsoleColor.Red);
-						ConsoleUtility.OutputLine("Listener Failed: {0}:{1} (In Use)", ipep.Address, ipep.Port);
+						Console.WriteLine("Listener Failed: {0}:{1} (In Use)", ipep.Address, ipep.Port);
 						Utility.PopColor();
 					}
 					else if (se.ErrorCode == 10049)
 					{
 						// WSAEADDRNOTAVAIL
 						Utility.PushColor(ConsoleColor.Red);
-						ConsoleUtility.OutputLine("Listener Failed: {0}:{1} (Unavailable)", ipep.Address, ipep.Port);
+						Console.WriteLine("Listener Failed: {0}:{1} (Unavailable)", ipep.Address, ipep.Port);
 						Utility.PopColor();
 					}
 					else
 					{
 						Utility.PushColor(ConsoleColor.Red);
-						ConsoleUtility.OutputLine("Listener Exception:");
-						ConsoleUtility.OutputLine(e);
+						Console.WriteLine("Listener Exception:");
+						Console.WriteLine(e);
 						Utility.PopColor();
 					}
 				}
@@ -123,18 +122,18 @@ namespace Server.Network
 						if (ipep.AddressFamily == unicast.Address.AddressFamily)
 						{
 							Utility.PushColor(ConsoleColor.Green);
-							ConsoleUtility.OutputLine("Listening: {0}:{1}", unicast.Address, ipep.Port);
+							Console.WriteLine("Listening: {0}:{1}", unicast.Address, ipep.Port);
 							Utility.PopColor();
 						}
 					}
 				}
 				/*
                 try {
-                ConsoleUtility.OutputLine( "Listening: {0}:{1}", IPAddress.Loopback, ipep.Port );
+                Console.WriteLine( "Listening: {0}:{1}", IPAddress.Loopback, ipep.Port );
                 IPHostEntry iphe = Dns.GetHostEntry( Dns.GetHostName() );
                 IPAddress[] ip = iphe.AddressList;
                 for ( int i = 0; i < ip.Length; ++i )
-                ConsoleUtility.OutputLine( "Listening: {0}:{1}", ip[i], ipep.Port );
+                Console.WriteLine( "Listening: {0}:{1}", ip[i], ipep.Port );
                 }
                 catch { }
                 */
@@ -142,12 +141,12 @@ namespace Server.Network
 			else
 			{
 				Utility.PushColor(ConsoleColor.Green);
-				ConsoleUtility.OutputLine("Listening: {0}:{1}", ipep.Address, ipep.Port);
+				Console.WriteLine("Listening: {0}:{1}", ipep.Address, ipep.Port);
 				Utility.PopColor();
 			}
 
 			Utility.PushColor(ConsoleColor.DarkGreen);
-			ConsoleUtility.OutputLine(@"----------------------------------------------------------------------");
+			Console.WriteLine(@"----------------------------------------------------------------------");
 			Utility.PopColor();
 		}
 		

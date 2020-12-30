@@ -8,7 +8,6 @@ using Server.Factions;
 using Server.Items;
 using Server.Mobiles;
 using Server.Engines.Quests;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -94,7 +93,7 @@ namespace Server.Engines.Craft
         {
             if (Recipe != null)
             {
-                ConsoleUtility.OutputLine(
+                Console.WriteLine(
                     "Warning: Attempted add of recipe #{0} to the crafting of {1} in CraftSystem {2}.", id, ItemType.Name, system);
                 return;
             }

@@ -8,7 +8,6 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -123,19 +122,19 @@ namespace Server.Misc
             if (!HasPublicIPAddress())
             {
                 Utility.PushColor(ConsoleColor.Yellow);
-                ConsoleUtility.OutputLine("ServerList: Auto-detecting public IP address...");
+                Console.WriteLine("ServerList: Auto-detecting public IP address...");
 
                 _PublicAddress = FindPublicAddress(IPServices);
 
                 if (_PublicAddress != null)
                 {
-                    ConsoleUtility.OutputLine("ServerList: Done: '{0}'", _PublicAddress);
+                    Console.WriteLine("ServerList: Done: '{0}'", _PublicAddress);
                 }
                 else
                 {
                     _PublicAddress = IPAddress.Any;
 
-                    ConsoleUtility.OutputLine("ServerList: Failed: reverting to private IP address...");
+                    Console.WriteLine("ServerList: Failed: reverting to private IP address...");
                 }
 
                 Utility.PopColor();
@@ -238,14 +237,14 @@ namespace Server.Misc
                 {
                     uri = new Uri(service);
 
-                    ConsoleUtility.OutputLine("ServerList: >>> {0}", uri.Host);
+                    Console.WriteLine("ServerList: >>> {0}", uri.Host);
 
                     using (var client = new WebClient())
                     {
                         data = client.DownloadString(uri);
                     }
 
-                    ConsoleUtility.OutputLine("ServerList: <<< {0}", data);
+                    Console.WriteLine("ServerList: <<< {0}", data);
 
                     match = _AddressPattern.Match(data);
 
@@ -256,7 +255,7 @@ namespace Server.Misc
                 }
                 catch (UriFormatException)
                 {
-                    ConsoleUtility.OutputLine("ServerList: Invalid IP service Uri '{0}'", service);
+                    Console.WriteLine("ServerList: Invalid IP service Uri '{0}'", service);
 
                     ip = null;
                 }

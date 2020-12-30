@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Linq;
@@ -5,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Server.Items;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Customs
 {
@@ -95,7 +95,7 @@ namespace Server.Customs
             try
             {
                 var json = File.ReadAllText($"Scripts/Customs/JsonSystem/JsonEvo/Data/{FileName}.json");
-                Config = (JsonEvoConfig) JsonUtility.Deserialize<JsonEvoConfig>(json);
+                Config = JsonConvert.DeserializeObject<JsonEvoConfig>(json);
                 Console.Write(Config);
                 if (Config.RandomGender) 
                 if (!String.IsNullOrEmpty(Config.AI))
@@ -159,6 +159,7 @@ namespace Server.Customs
                             }
                             catch (Exception e)
                             {
+                                CustomUtility.ExceptionIgnore(e); // because VS2019 outpus warnings in the build output and I can't find where to shut the bullshit off
                                 try
                                 {
                                     bcprop.SetValue(this, Convert.ToInt32(prop.Value));
@@ -506,7 +507,7 @@ namespace Server.Customs
             try
             {
                 var json = File.ReadAllText($"Scripts/Customs/JsonSystem/JsonEvo/Data/{FileName}.json");
-                Config = (JsonEvoConfig) JsonUtility.Deserialize<JsonEvoConfig>(json);
+                Config = JsonConvert.DeserializeObject<JsonEvoConfig>(json);
                 Hue = ((int?) Config.Levels[0].Props.FirstOrDefault(x => x.Key == "Hue").Value) ?? 0;
                 Name = $"{Config.BaseName} Egg";
             }

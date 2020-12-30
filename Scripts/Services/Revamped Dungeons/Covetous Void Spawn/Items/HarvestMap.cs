@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Server.Mobiles;
 using System.IO;
 using Server.Engines.Harvest;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -235,7 +234,7 @@ namespace Server.Items
 
             if (!File.Exists(path))
             {
-                ConsoleUtility.OutputLine("Warning! {0} does not exist for harvest maps...", path);
+                Console.WriteLine("Warning! {0} does not exist for harvest maps...", path);
                 return null;
             }
 

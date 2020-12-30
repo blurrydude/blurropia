@@ -4,7 +4,6 @@ using Server.ContextMenus;
 using Server.Engines.Craft;
 using Server.Network;
 using System.Linq;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -169,7 +168,7 @@ namespace Server.Items
             }
             catch (Exception ex)
             {
-                ConsoleUtility.OutputLine(ex.ToString());
+                Console.WriteLine(ex.ToString());
             }
 
             return false;

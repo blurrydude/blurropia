@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.IO;
 using System.Collections.Generic;
@@ -17,7 +17,6 @@ using System.Text;
 using System.Globalization;
 using Server.Accounting;
 using Server.Engines.XmlSpawner2;
-using ServerUtilityExtensions;
 
 namespace Server.Mobiles
 {
@@ -1190,7 +1189,7 @@ namespace Server.Mobiles
             }
             catch (Exception e)
             {
-                ConsoleUtility.OutputLine(e.ToString());
+                Console.WriteLine(e.ToString());
                 return "An exception was caught, the property may not be set.";
             }
 		}
@@ -1582,7 +1581,7 @@ namespace Server.Mobiles
 			}
 			catch
 			{
-				ConsoleUtility.OutputLine("GetProperties error with type {0}", type);
+				Console.WriteLine("GetProperties error with type {0}", type);
 				return null;
 			}
 

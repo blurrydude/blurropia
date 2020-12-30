@@ -9,7 +9,7 @@ namespace Server.Gumps
 	{
 		private TurboSlot m_Slot;
 		private int[] m_Symbols;
-		private int[] m_jackpotmultiplier;
+		//private int[] m_jackpotmultiplier;
 
 		public enum BonusRoundType { None, MinerMadness }
         public enum ScatterType { None, Any, LeftOnly };

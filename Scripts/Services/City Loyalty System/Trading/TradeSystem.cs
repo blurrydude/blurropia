@@ -11,7 +11,6 @@ using Server.Items;
 using Server.Multis;
 using Server.Regions;
 using Server.Engines.SeasonalEvents;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.CityLoyalty
 {
@@ -286,7 +285,7 @@ namespace Server.Engines.CityLoyalty
                 return name;
             }
 
-            ConsoleUtility.OutputLine("WARNING: Using Fallback name for: {0}", t.Name);
+            Console.WriteLine("WARNING: Using Fallback name for: {0}", t.Name);
             return fallbackname;
         }
 		

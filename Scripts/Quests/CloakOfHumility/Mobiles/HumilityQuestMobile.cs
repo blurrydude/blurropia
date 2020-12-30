@@ -2,7 +2,6 @@ using System;
 using Server.Items;
 using System.Collections.Generic;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Quests
 {
@@ -116,7 +115,7 @@ namespace Server.Engines.Quests
                         }
                     }
                     else
-                        ConsoleUtility.OutputLine("Error finding index for {0}", this);
+                        Console.WriteLine("Error finding index for {0}", this);
                 }
                 else
                     base.OnDoubleClick(from);

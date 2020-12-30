@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
-
 using Server.Diagnostics;
-using ServerUtilityExtensions;
-
 #endregion
 
 namespace Server.Network
@@ -39,7 +36,7 @@ namespace Server.Network
 				if (!success)
 				{
 					Utility.PushColor(ConsoleColor.Yellow);
-					ConsoleUtility.OutputLine("Retrying...");
+					Console.WriteLine("Retrying...");
 					Utility.PopColor();
 
 					Thread.Sleep(10000);
@@ -81,7 +78,7 @@ namespace Server.Network
                     if (ns.Running && Display(ns))
 					{
 						Utility.PushColor(ConsoleColor.Green);
-						ConsoleUtility.OutputLine("Client: {0}: Connected. [{1} Online]", ns, NetState.Instances.Count);
+						Console.WriteLine("Client: {0}: Connected. [{1} Online]", ns, NetState.Instances.Count);
 						Utility.PopColor();
 					}
 				}
@@ -172,7 +169,7 @@ namespace Server.Network
 				if (seed == 0)
 				{
 					Utility.PushColor(ConsoleColor.Red);
-					ConsoleUtility.OutputLine("Login: {0}: Invalid Client", ns);
+					Console.WriteLine("Login: {0}: Invalid Client", ns);
 					Utility.PopColor();
 
 					ns.Dispose();
@@ -195,7 +192,7 @@ namespace Server.Network
 				packetID != 0x91 && packetID != 0xA4 && packetID != 0xEF && packetID != 0xE4 && packetID != 0xFF)
 			{
 				Utility.PushColor(ConsoleColor.Red);
-				ConsoleUtility.OutputLine("Client: {0}: Encrypted Client Unsupported", ns);
+				Console.WriteLine("Client: {0}: Encrypted Client Unsupported", ns);
 				Utility.PopColor();
 				
 				ns.Dispose();
@@ -273,7 +270,7 @@ namespace Server.Network
 						if (ns.Mobile == null)
 						{
 							Utility.PushColor(ConsoleColor.Red);
-							ConsoleUtility.OutputLine("Client: {0}: Packet (0x{1:X2}) Requires State Mobile", ns, packetID);
+							Console.WriteLine("Client: {0}: Packet (0x{1:X2}) Requires State Mobile", ns, packetID);
 							Utility.PopColor();
 
 							ns.Dispose();
@@ -283,7 +280,7 @@ namespace Server.Network
 						if (ns.Mobile.Deleted)
 						{
 							Utility.PushColor(ConsoleColor.Red);
-							ConsoleUtility.OutputLine("Client: {0}: Packet (0x{1:X2}) Ivalid State Mobile", ns, packetID);
+							Console.WriteLine("Client: {0}: Packet (0x{1:X2}) Ivalid State Mobile", ns, packetID);
 							Utility.PopColor();
 
 							ns.Dispose();

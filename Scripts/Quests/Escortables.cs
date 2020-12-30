@@ -2,7 +2,6 @@ using System;
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Quests
 {
@@ -797,7 +796,7 @@ namespace Server.Engines.Quests
             if (version == 0 && m_Destinations[m_Quest] == Region.Name)
             {
                 m_Quest = RandomDestination();
-                ConsoleUtility.OutputLine("Adjusting escort destination.");
+                Console.WriteLine("Adjusting escort destination.");
             }
         }
     }

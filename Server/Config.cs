@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -133,7 +132,7 @@ namespace Server
 			}
 			catch (DirectoryNotFoundException)
 			{
-				ConsoleUtility.OutputLine("Warning: No configuration files found!");
+				Console.WriteLine("Warning: No configuration files found!");
 				return;
 			}
 
@@ -145,17 +144,17 @@ namespace Server
 				}
 				catch (Exception e)
 				{
-					ConsoleUtility.OutputLine("Warning: Failed to load configuration file:");
-					ConsoleUtility.OutputLine(path);
+					Console.WriteLine("Warning: Failed to load configuration file:");
+					Console.WriteLine(path);
 					Utility.PushColor(ConsoleColor.Red);
-					ConsoleUtility.OutputLine(e.Message);
+					Console.WriteLine(e.Message);
 					Utility.PopColor();
 
 					ConsoleKey key;
 
                     do
                     {
-                        ConsoleUtility.OutputLine("Ignore this warning? (y/n)");
+                        Console.WriteLine("Ignore this warning? (y/n)");
 
 						key = Console.ReadKey(true).Key;
                     }
@@ -163,7 +162,7 @@ namespace Server
                     
 					if (key != ConsoleKey.Y)
 					{
-						ConsoleUtility.OutputLine("Press any key to exit...");
+						Console.WriteLine("Press any key to exit...");
 						Console.ReadKey();
 
 						Core.Kill(false);
@@ -175,14 +174,14 @@ namespace Server
 
 			if (Core.Debug)
 			{
-				ConsoleUtility.OutputLine();
+				Console.WriteLine();
 
 				foreach (var e in _Entries.Values)
 				{
-					ConsoleUtility.OutputLine(e);
+					Console.WriteLine(e);
 				}
 
-				ConsoleUtility.OutputLine();
+				Console.WriteLine();
 			}
 		}
 
@@ -293,10 +292,10 @@ namespace Server
 				}
 				catch (Exception e)
 				{
-					ConsoleUtility.OutputLine("Warning: Failed to save configuration file:");
-					ConsoleUtility.OutputLine(g.Key);
+					Console.WriteLine("Warning: Failed to save configuration file:");
+					Console.WriteLine(g.Key);
 					Utility.PushColor(ConsoleColor.Red);
-					ConsoleUtility.OutputLine(e.Message);
+					Console.WriteLine(e.Message);
 					Utility.PopColor();
 				}
 			}
@@ -471,7 +470,7 @@ namespace Server
 		private static void Warn<T>(string key)
 		{
 			Utility.PushColor(ConsoleColor.Yellow);
-			ConsoleUtility.OutputLine("Config: Warning, '{0}' invalid value for '{1}'", typeof(T), key);
+			Console.WriteLine("Config: Warning, '{0}' invalid value for '{1}'", typeof(T), key);
 			Utility.PopColor();
 		}
 
@@ -490,7 +489,7 @@ namespace Server
 			}
 
 			Utility.PushColor(ConsoleColor.Yellow);
-			ConsoleUtility.OutputLine("Config: Warning, using default value for {0}", key);
+			Console.WriteLine("Config: Warning, using default value for {0}", key);
 			Utility.PopColor();
 
 			return null;

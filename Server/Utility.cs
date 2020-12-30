@@ -11,10 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Linq;
-using Newtonsoft.Json;
-using RestSharp;
 using System.Diagnostics;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -1378,7 +1375,7 @@ namespace Server
 			lock (((ICollection)m_ConsoleColors).SyncRoot)
 			{
 				PushColor(color);
-				ConsoleUtility.OutputLine(format, args);
+				Console.WriteLine(format, args);
 				PopColor();
 			}
 		}
@@ -1388,7 +1385,7 @@ namespace Server
 			lock (((ICollection)m_ConsoleColors).SyncRoot)
 			{
 				PushColor(color);
-				ConsoleUtility.OutputLine(str);
+				Console.WriteLine(str);
 				PopColor();
 			}
 		}

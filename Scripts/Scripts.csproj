@@ -8,6 +8,8 @@
     <AssemblyName>Scripts.CS</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,7 +45,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -293,9 +298,10 @@
     <Compile Include="Context Menus\TeachEntry.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Customs\CustomUtilities.cs" />
+    <Compile Include="Customs\ItemsViewerCommand.cs" />
     <Compile Include="Customs\JsonSystem\Airship\Airship.cs" />
     <Compile Include="Customs\JsonSystem\Airship\AirShipCaptain.cs" />
-    <Compile Include="Customs\AlternativePersistence.cs" />
     <Compile Include="Customs\JsonSystem\JsonAddons\JsonAddonComponent.cs" />
     <Compile Include="Customs\JsonSystem\ArenaBattle\ArenaBattleEngine.cs" />
     <Compile Include="Customs\JsonSystem\ArenaBattle\ArenaBattleGump.cs" />
@@ -356,7 +362,6 @@
     <Compile Include="Customs\EvoPheonix\icephoenyxash.cs" />
     <Compile Include="Customs\EvoPheonix\LifeCycleIcePhoenyx.cs" />
     <Compile Include="Customs\EvoPheonix\LifeCycyleIcePhoenixEgg.cs" />
-    <Compile Include="Customs\FirestoreChatEngine.cs" />
     <Compile Include="Customs\HoodedRobe.cs" />
     <Compile Include="Customs\ItemsViewer.cs" />
     <Compile Include="Customs\JsonSystem\JsonAddons\JsonAddon.cs" />
@@ -389,6 +394,8 @@
     <Compile Include="Customs\JsonSystem\Theater\JsonTheaterScript.cs" />
     <Compile Include="Customs\JsonSystem\Theater\TheaterStone.cs" />
     <Compile Include="Customs\JsonSystem\Theater\TheaterStoneTimer.cs" />
+    <Compile Include="Customs\JsonSystem\TilePack.cs" />
+    <Compile Include="Customs\JsonSystem\TilePackType.cs" />
     <Compile Include="Customs\Knives Chat\Channels\Alliance.cs" />
     <Compile Include="Customs\Knives Chat\Channels\Channel.cs" />
     <Compile Include="Customs\Knives Chat\Channels\Guild.cs" />
@@ -449,7 +456,6 @@
     <Compile Include="Customs\Knives Chat\Gumps\Gumps Plus\HtmlPlus.cs" />
     <Compile Include="Customs\Knives Chat\Gumps\Gumps Plus\InfoGump.cs" />
     <Compile Include="Customs\Knives Chat\RUOVersion.cs" />
-    <Compile Include="Customs\MarketSystem.cs" />
     <Compile Include="Customs\MathHelper.cs" />
     <Compile Include="Customs\ScheduledTeleporter.cs" />
     <Compile Include="Customs\shrink\hitchingPost.cs" />
@@ -465,11 +471,9 @@
     <Compile Include="Customs\slots\turboslotstats.cs" />
     <Compile Include="Customs\slots\turboslotstatsgump.cs" />
     <Compile Include="Customs\JsonSystem\Sudo\SudoTool.cs" />
-    <Compile Include="Customs\testingforphoenix.cs" />
     <Compile Include="Customs\TravelBook.cs" />
-    <Compile Include="Customs\TubeAnnouncer.cs" />
+    <Compile Include="Customs\TravelBookGump.cs" />
     <Compile Include="Customs\VendorStone.cs" />
-    <Compile Include="Customs\WalkTo.cs" />
     <Compile Include="Deprecated\AlchemyStone.cs" />
     <Compile Include="Deprecated\GamblingStone.cs" />
     <Compile Include="Deprecated\GMStone.cs" />

@@ -11,7 +11,6 @@ using Server.Targeting;
 using Server.Network;
 using Server.Regions;
 using Server.Spells;
-using ServerUtilityExtensions;
 
 namespace Server.Engines.Shadowguard
 {
@@ -741,7 +740,7 @@ namespace Server.Engines.Shadowguard
             item.MoveToWorld(new Point3D(160, 2432, 29), Map.TerMur);
 
             from.SendMessage("Shadowguard has been setup!");
-            ConsoleUtility.OutputLine("Shadowguard setup!");
+            Console.WriteLine("Shadowguard setup!");
         }
     }
 

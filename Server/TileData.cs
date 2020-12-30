@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Text;
-using ServerUtilityExtensions;
 
 #endregion
 
@@ -322,9 +321,9 @@ namespace Server
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("tiledata.mul was not found");
-				ConsoleUtility.OutputLine("Make sure your Scripts/Misc/DataPath.cs is properly configured");
-				ConsoleUtility.OutputLine("After pressing return an exception will be thrown and the server will terminate");
+				Console.WriteLine("tiledata.mul was not found");
+				Console.WriteLine("Make sure your Scripts/Misc/DataPath.cs is properly configured");
+				Console.WriteLine("After pressing return an exception will be thrown and the server will terminate");
 
 				throw new Exception(String.Format("TileData: {0} not found", filePath));
 			}

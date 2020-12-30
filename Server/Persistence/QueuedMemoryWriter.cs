@@ -1,4 +1,4 @@
-﻿/***************************************************************************
+/***************************************************************************
 *                            QueuedMemoryWriter.cs
 *                            -------------------
 *   begin                : December 16, 2010
@@ -73,7 +73,7 @@ namespace Server
 
                 dataFile.Write(memBuffer, 0, memLength);	//The buffer contains the data from many items.
 
-                //ConsoleUtility.OutputLine("Writing {0} bytes starting at {1}, with {2} things", memLength, actualPosition, _orderedIndexInfo.Count);
+                //Console.WriteLine("Writing {0} bytes starting at {1}, with {2} things", memLength, actualPosition, _orderedIndexInfo.Count);
 
                 byte[] indexBuffer = new byte[20];
 

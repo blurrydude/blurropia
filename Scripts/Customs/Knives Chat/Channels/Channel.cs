@@ -386,7 +386,7 @@ namespace Knives.Chat3
 
             if (Data.LogChat)
                 Logging.LogChat(String.Format(DateTime.Now + " <{0}{1}> {2}: {3}", c_Name, (c_Style == ChatStyle.Regional && m.Region != null ? "-" + m.Region.Name : ""), m.Name, msg));
-            DBLogger.LogEvent(m, "chatted on "+c_Name+" chat: " + msg);
+            //DBLogger.LogEvent(m, "chatted on "+c_Name+" chat: " + msg);
             //FirestoreChatHandler.MessageSent(m, c_Name, msg);
             Data.TotalChats++;
             Data.GetData(m).Karma++;

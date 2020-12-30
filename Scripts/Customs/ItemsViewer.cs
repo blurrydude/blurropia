@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Server.Commands;
 using Server.Gumps;
 using Server.Items;
 using Server.Network;
@@ -11,20 +10,6 @@ using Server.Targeting;
 
 namespace Server.Customs
 {
-    public class ItemsViewerCommand
-    {
-        public static void Initialize()
-        {
-            CommandSystem.Register("ItemViewer", AccessLevel.GameMaster, new CommandEventHandler(ItemsViewerCommand_OnCommand));
-        }
-
-        [Usage("ItemViewer")]
-        [Description("Opens the item viewer.")]
-        public static void ItemsViewerCommand_OnCommand(CommandEventArgs arg)
-        {
-            arg.Mobile.SendGump(new ItemsViewer(arg.Length > 0 ? (int)arg.GetDouble(0) : 0));
-        }
-    }
 
     public class ItemsViewer : Gump
     {
@@ -72,7 +57,7 @@ namespace Server.Customs
         private static readonly int TotalHeight = OffsetSize + ((EntryHeight + OffsetSize) * (EntryCount + 1));
         private static readonly int BackWidth = BorderSize + TotalWidth + BorderSize;
         private static readonly int BackHeight = BorderSize + TotalHeight + BorderSize;
-        private static readonly int IndentWidth = 12;
+        //private static readonly int IndentWidth = 12;
 
         public ItemsViewer(int itemPage)
             : base(GumpOffsetX, GumpOffsetY)

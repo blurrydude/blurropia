@@ -1,10 +1,10 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Server.Gumps;
 using Server.Network;
-using ServerUtilityExtensions;
 
 namespace Server.Customs
 {
@@ -30,7 +30,7 @@ namespace Server.Customs
         public JsonQuestGump(JsonQuestGiver giver, int currentNode = 0) : base(50, 50)
         {
             var json = File.ReadAllText("Scripts/Customs/JsonSystem/Data/JsonQuestGumpConfig.json");
-            var config = (JsonQuestGumpConfig) JsonUtility.Deserialize<JsonQuestGumpConfig>(json);
+            var config = JsonConvert.DeserializeObject<JsonQuestGumpConfig>(json);
             _giver = giver;
             var convoNode = _giver.ConvoNodes.First(x => x.NodeId == currentNode);
             var outerWidth = config.Width;

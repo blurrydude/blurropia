@@ -100,7 +100,6 @@
 
 #region References
 
-using ServerUtilityExtensions;
 
 #region References
 
@@ -1897,7 +1896,7 @@ namespace Server
 			{
 				if (m_Regions.ContainsKey(regName))
 				{
-					ConsoleUtility.OutputLine("Warning: Duplicate region name '{0}' for map '{1}'", regName, Name);
+					Console.WriteLine("Warning: Duplicate region name '{0}' for map '{1}'", regName, Name);
 				}
 				else
 				{
@@ -2378,7 +2377,7 @@ namespace Server
 					if (m_CurrentIndex < 0 || m_CurrentIndex > m_CurrentList.Count)
 					{
 						// Sanity
-						ConsoleUtility.OutputLine("EntityEnumerator OOB: {0}", m_CurrentIndex);
+						Console.WriteLine("EntityEnumerator OOB: {0}", m_CurrentIndex);
 						return false;
 					}
 
@@ -2856,7 +2855,7 @@ namespace Server
 			}
 			else
 			{
-				ConsoleUtility.OutputLine("Warning: Invalid object ({0}) in line of sight", o);
+				Console.WriteLine("Warning: Invalid object ({0}) in line of sight", o);
 
 				p = Point3D.Zero;
 			}

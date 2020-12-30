@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Server.Items;
 using Server.Mobiles;
 using Server.Multis;
-using ServerUtilityExtensions;
 
 namespace Server.Misc
 {
@@ -113,20 +112,20 @@ namespace Server.Misc
             if (items.Count > 0)
             {
                 if (boxes > 0)
-                    ConsoleUtility.OutputLine("Cleanup: Detected {0} inaccessible items, including {1} bank boxes, removing..", items.Count, boxes);
+                    Console.WriteLine("Cleanup: Detected {0} inaccessible items, including {1} bank boxes, removing..", items.Count, boxes);
                 else
-                    ConsoleUtility.OutputLine("Cleanup: Detected {0} inaccessible items, removing..", items.Count);
+                    Console.WriteLine("Cleanup: Detected {0} inaccessible items, removing..", items.Count);
 
                 for (int i = 0; i < items.Count; ++i)
                 {
-                    ConsoleUtility.OutputLine(items[i].ToString());
+                    Console.WriteLine(items[i].ToString());
                     items[i].Delete();
                 }
             }
 
             if (hairCleanup.Count > 0)
             {
-                ConsoleUtility.OutputLine("Cleanup: Detected {0} hair and facial hair items being worn, converting to their virtual counterparts..", hairCleanup.Count);
+                Console.WriteLine("Cleanup: Detected {0} hair and facial hair items being worn, converting to their virtual counterparts..", hairCleanup.Count);
 
                 for (int i = 0; i < hairCleanup.Count; i++)
                     hairCleanup[i].ConvertHair();

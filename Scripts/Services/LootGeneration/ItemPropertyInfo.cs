@@ -5,7 +5,6 @@ using System.Linq;
 using Server;
 using Server.SkillHandlers;
 using Server.Mobiles;
-using ServerUtilityExtensions;
 
 namespace Server.Items
 {
@@ -234,7 +233,7 @@ namespace Server.Items
             }
 
             if(type != null)
-                ConsoleUtility.OutputLine("Warning, missing text defintion for type {0}.", type.Name);
+                Console.WriteLine("Warning, missing text defintion for type {0}.", type.Name);
 
             return -1;
         }
