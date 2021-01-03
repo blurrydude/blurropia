@@ -1,0 +1,20 @@
+[
+	{ "G": 1755, "P": 0, "X": 0, "Y": 0, "W": 1000, "H": 800, "U": 0, "T": "Background", "V": null, "C": null },
+
+	{ "G": 0, "P": 0, "X": 14, "Y": 10, "W": 0, "H": 0, "U": 2752, "T": "Label", "V": "JSON Quest Control", "C": null },
+    { "G": 0, "P": 0, "X": 13, "Y": 11, "W": 0, "H": 0, "U": 0, "T": "Label", "V": "JSON Quest Control", "C": null },
+    
+	{ "G": 0, "P": 0, "X": 844, "Y": 10, "W": 0, "H": 0, "U": 1472, "T": "Label", "V": "A BlurryDude Creation", "C": null },
+    { "G": 0, "P": 0, "X": 843, "Y": 11, "W": 0, "H": 0, "U": 0, "T": "Label", "V": "A BlurryDude Creation", "C": null },
+    
+    { "G": 1755, "P": 0, "X": 0, "Y": 30, "W": 1000, "H": 3, "U": 0, "T": "Background", "V": null, "C": null },
+    
+    { "G": 0, "P": 0, "X": 16, "Y": 40, "W": 0, "H": 0, "U": 896, "T": "Label", "V": "Current Quest Files", "C": null },
+    
+    
+    { "G": 0, "P": 0, "X": 216, "Y": 40, "W": 0, "H": 0, "U": 896, "T": "Label", "V": "Current Quest Givers", "C": null },
+    
+    
+    { "G": 1755, "P": 0, "X": 0, "Y": 430, "W": 650, "H": 3, "U": 0, "T": "Background", "V": null, "C": null },
+    { "G": 1755, "P": 0, "X": 650, "Y": 30, "W": 3, "H": 770, "U": 0, "T": "Background", "V": null, "C": null }
+	]

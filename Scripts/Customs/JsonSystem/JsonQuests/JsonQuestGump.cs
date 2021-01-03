@@ -42,7 +42,7 @@ namespace Server.Customs
             foreach (var n in convoNode.Nodes)
             {
                 var node = _giver.ConvoNodes.First(x => x.NodeId == n);
-                var lines = GetWrapped(node.OptionText,config.OptionLineCharLimit);
+                var lines = JsonSystemHelper.GetWrapped(node.OptionText,config.OptionLineCharLimit);
                 buttons.Add(new object[] {config.Padding+config.OptionMarginLeft,y + config.HtmlHeight + config.Padding*2,config.ButtonNormal,config.ButtonPressed,n,GumpButtonType.Reply,0});
                 foreach (var line in lines)
                 {
@@ -94,29 +94,6 @@ namespace Server.Customs
             JsonQuestHelper.CheckGiveItem(_giver, node, sender.Mobile);
             sender.Mobile.CloseGump(typeof(JsonQuestGump));
             sender.Mobile.SendGump(new JsonQuestGump(_giver, node.NodeId));
-        }
-
-        public static string[] GetWrapped(string original, int linecharlimit) {
-            var count = 0;
-            var lastspace = -1;
-            var output = new List<string>();
-            while (original.Length > 0)
-            {
-                if (original[count] == ' ') lastspace = count;
-                count++;
-                if (count > linecharlimit)
-                {
-                    count = 0;
-                    var str = original.Substring(0, lastspace + 1);
-                    output.Add(str);
-                    original = original.Substring(lastspace+1);
-                }
-                if(count == original.Length - 1) {
-                    output.Add(original);
-                    original = String.Empty;
-                }
-            }
-            return output.ToArray();
         }
     }
 }

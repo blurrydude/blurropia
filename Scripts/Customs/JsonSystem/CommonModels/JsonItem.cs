@@ -9,21 +9,7 @@ namespace Server.Customs
         public string Item { get; set; }
         public int Amount { get; set; }
         public Dictionary<string, object> Props { get; set; }
-
-        public void Serialize(GenericWriter writer)
-        {
-            writer.Write(Item);
-            writer.Write(Amount);
-            DictionarySerializer.Serialize(Props, writer);
-        }
-
-        public void Deserialize(GenericReader reader)
-        {
-            Item = reader.ReadString();
-            Amount = reader.ReadInt();
-            Props = DictionarySerializer.Deserialize(reader);
-        }
-
+        
         public Item GetItem()
         {
             object built = null;

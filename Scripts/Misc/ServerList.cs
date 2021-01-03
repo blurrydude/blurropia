@@ -47,7 +47,7 @@ namespace Server.Misc
 
         public static readonly bool AutoDetect = Config.Get("Server.AutoDetect", true);
 
-        public static string ServerName = Config.Get("Server.Name", "Blurropia");
+        public static string ServerName = Config.Get("Server.Name", "Default");
 
         private static IPAddress _PublicAddress;
 
@@ -92,18 +92,7 @@ namespace Server.Misc
                     }
                 }
 
-                //e.AddServer(ServerName, new IPEndPoint(localAddress, localPort));
-                var serverList = new Dictionary<int, string>
-                {
-                    {2593, "Blurropia 2593"},
-                    {2596, "Sandbox 2596"},
-                    {2594, "Deco Server 2594"},
-                    {2595, "Phoenyx 2595"}
-                };
-                foreach (var server in serverList)
-                {
-                    e.AddServer(server.Value, new IPEndPoint(localAddress, server.Key));
-                }
+                e.AddServer(ServerName, new IPEndPoint(localAddress, localPort));
             }
             catch
             {

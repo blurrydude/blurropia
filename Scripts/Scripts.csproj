@@ -299,6 +299,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Customs\CustomUtilities.cs" />
+    <Compile Include="Customs\DataSync.cs" />
     <Compile Include="Customs\ItemsViewerCommand.cs" />
     <Compile Include="Customs\JsonSystem\Airship\Airship.cs" />
     <Compile Include="Customs\JsonSystem\Airship\AirShipCaptain.cs" />
@@ -374,9 +375,11 @@
     <Compile Include="Customs\JsonSystem\CommonModels\JsonItem.cs" />
     <Compile Include="Customs\JsonSystem\JsonGump.cs" />
     <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuest.cs" />
-    <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestCommand.cs" />
+    <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestControlCommand.cs" />
     <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestConvoNode.cs" />
     <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestEngine.cs" />
+    <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestEngineConfig.cs" />
+    <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestEngineTimer.cs" />
     <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestGiver.cs" />
     <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestGiverConfig.cs" />
     <Compile Include="Customs\JsonSystem\JsonQuests\JsonQuestGump.cs" />
@@ -12392,7 +12395,8 @@
     <None Include="Customs\JsonSystem\JsonAddons\Data\default.json" />
     <None Include="Customs\JsonSystem\JsonEvo\Data\EvoDaemon.json" />
     <None Include="Customs\JsonSystem\JsonEvo\Data\IcePhoenix.json" />
-    <None Include="Customs\JsonSystem\JsonQuests\Data\testquest.json" />
+    <None Include="Customs\JsonSystem\JsonQuests\Data\Save The Monarchy.json" />
+    <None Include="Customs\JsonSystem\JsonQuests\Gumps\questcontrol.json" />
     <None Include="Customs\JsonSystem\Sudo\Data\arena.json" />
     <None Include="Customs\JsonSystem\Sudo\Data\backgrounds.json" />
     <None Include="Customs\JsonSystem\Sudo\Data\block.json" />
@@ -12413,6 +12417,7 @@
     <None Include="Customs\Knives Chat\Read.doc" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

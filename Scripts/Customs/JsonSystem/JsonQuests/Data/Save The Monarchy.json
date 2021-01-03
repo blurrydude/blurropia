@@ -19,7 +19,7 @@
 				"Sandals"
 			],
 			"StartMap":"Trammel",
-			"StartLocation":[5440,1100,0],
+			"StartLocation":[5440,1101,0],
 			"CantWalk": true,
 			"ConvoNodes":[
 				{
@@ -27,128 +27,128 @@
 					"OptionText":"",
 					"Nodes":[1,2,3],
 					"Text":"Hello, traveler. I have not seen you here, I do not think.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 1,
 					"OptionText":"I have never been here before now.",
 					"Nodes":[4,5,6],
 					"Text":"It is a good land with a good people, but it is not the glorious and honorable place it once was.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 2,
 					"OptionText":"I was a citizen of Britannia, but have been gone a long time.",
 					"Nodes":[4,5,6],
 					"Text":"Much has changed. Not all is as glorious and honorable as it was.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 3,
 					"OptionText":"I would not normally frequent the denizens of such as yourself, but I felt benevolent and thought I'd share my fine visage with the commoners.",
 					"Nodes":[4,5,6],
 					"Text":"Perhaps it is the likes of you that have destroyed the glory and honor of Brittania!",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 4,
 					"OptionText":"All seems well.",
 					"Nodes":[7,8,9],
 					"Text":"Sadly, it is not. Though most people enjoy a fairly safe and sometimes comfortable life here in the capital, there is unrest across the kingdom.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 5,
 					"OptionText":"I cannot imagine Brittania without glory and honor!",
 					"Nodes":[7,8,9],
 					"Text":"It still exists, though it is getting harder and harder to find. There is much unrest.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 6,
 					"OptionText":"What Glory and Honor, knave?",
 					"Nodes":[7,8,9],
 					"Text":"If you could see beyond your ivory tower you would know the hearts of the people of Brittania and you would share its unrest.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 7,
 					"OptionText":"I see. Why is there unrest?",
 					"Nodes":[10,11],
 					"Text":"It has been some time since the disappearance of Lord British and the governors of the cities of Britannia have so far managed to keep law and order, but recently they have begun to twist their positions to suit their own ends. Their law and eddicts have differed more and more from the core of Britannian law and conduct.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 8,
 					"OptionText":"Unrest? What unrest could exist under Lord British?",
 					"Nodes":[10,11],
 					"Text":"Lord British vanished some years ago and the governors of the cities of Britannia have so far managed to keep law and order, but recently they have begun to twist their positions to suit their own ends. Their law and eddicts have differed more and more from the core of Britannian law and conduct.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 9,
 					"OptionText":"What's all this \"unrest\" nonsense?",
 					"Nodes":[10,11],
 					"Text":"Lord British vanished some years ago and the governors of the cities of Britannia have so far managed to keep law and order, but recently they have begun to twist their positions to suit their own ends. Their law and eddicts have differed more and more from the core of Britannian law and conduct.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 10,
 					"OptionText":"How are city laws dividing Britannia?",
 					"Nodes":[12,13,14],
 					"Text":"In Trinsic, it has been growing ever more difficult for bards and artists to find housing in the city proper; they're being pushed out by new laws regarding desireable types. In Vesper, the museum curator just married the governor's daughter and now they've lifted restrictions on merchants from Buc's Den--suddenly, the museum has almost ten times the amount of antiquities it ever has. The Elves are petitioning to hire a group of mages to move their entire city away from Yew after some locals carved \"No Empathy for Kieblers\" into the sacred tree and the priests of Empath Abbey refused to condemn the action. Lord Blackthorne is even rumored to be slinking around looking for the opportunity to sieze control.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 11,
 					"OptionText":"Laws aren't written to divide people, you simpleton, they're written to protect them.",
 					"Nodes":[12,13,14],
 					"Text":"In Trinsic, it has been growing ever more difficult for bards and artists to find housing in the city proper; they're being pushed out by new laws regarding desireable types. In Vesper, the museum curator just married the governor's daughter and now they've lifted restrictions on merchants from Buc's Den--suddenly, the museum has almost ten times the amount of antiquities it ever has. The Elves are petitioning to hire a group of mages to move their entire city away from Yew after some locals carved \"No Empathy for Kieblers\" into the sacred tree and the priests of Empath Abbey refused to condemn the action. Lord Blackthorne is even rumored to be slinking around looking for the opportunity to sieze control.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 12,
 					"OptionText":"Lord Blackthorn? Who is that?",
 					"Nodes":[15],
 					"Text":"Oh, neiher of us have time for me to explain the whole hisory of Lord British and Lord Blackthorn. Suffice it to say, he wasn't a nice guy and I doubt he would be hiding if he were back... again.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 13,
 					"OptionText":"Lord Blackthorn? It isn't posisble. He's dead.",
 					"Nodes":[15],
 					"Text":"Dead, banished, imprisoned... I mean, one of those things definitely happened to him a few times at least, but I don't worry too much about the rumors. I don't think he'd be hiding if he were... corporeal?",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 14,
 					"OptionText":"Lord Blackthorn, you say? Where could one find this up-and-comer?",
 					"Nodes":[15],
 					"Text":"He's been gone for longer than Lord British. I don't think the rumors are true, but it shows the kind of fear the people have.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				},{
 					"NodeId": 15,
 					"OptionText":"So, what can be done?",
 					"Nodes":[],
 					"Text":"The throne cannot not remain empty any longer. There's talk that the royal court is going to look at appointing a member of the noble houses to take the throne. If you really care, find Sherry in Castle British. She will point you in the right direction.",
-					"Item":"",
-					"TriggerItem":"",
+					"Item":null,
+					"TriggerItem":null,
 					"CompletesQuest":false
 				}
 			]

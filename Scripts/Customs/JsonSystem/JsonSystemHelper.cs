@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -64,12 +65,55 @@ namespace Server.Customs
                 {
                     if (oprop.Name == prop.Key)
                     {
-                        oprop.SetValue(item, prop.Value);
+                        try
+                        {
+                            oprop.SetValue(item, prop.Value);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            Console.WriteLine($"Couldn't parse {prop.Key}: {prop.Value} type of {prop.Value.GetType()} trying Int32 instead...");
+                            //I'm not really sure why this comes in thinking it's an Int64, but... yeah, I'm dumb.
+                            //CustomUtility.ExceptionIgnore(e);
+                            try
+                            {
+                                oprop.SetValue(item, Int32.Parse(prop.Value.ToString()));
+                            }
+                            catch (Exception e2)
+                            {
+                                Console.WriteLine(e2);
+                                Console.WriteLine("Failed to parse as Int64, ignoring prop.");
+                                CustomUtility.ExceptionIgnore(e2);
+                            }
+                        }
                     }
                 }
             }
 
             return item;
+        }
+
+        public static string[] GetWrapped(string original, int linecharlimit) {
+            var count = 0;
+            var lastspace = -1;
+            var output = new List<string>();
+            while (original.Length > 0)
+            {
+                if (original[count] == ' ') lastspace = count;
+                count++;
+                if (count > linecharlimit)
+                {
+                    count = 0;
+                    var str = original.Substring(0, lastspace + 1);
+                    output.Add(str);
+                    original = original.Substring(lastspace+1);
+                }
+                if(count == original.Length - 1) {
+                    output.Add(original);
+                    original = String.Empty;
+                }
+            }
+            return output.ToArray();
         }
     }
 }

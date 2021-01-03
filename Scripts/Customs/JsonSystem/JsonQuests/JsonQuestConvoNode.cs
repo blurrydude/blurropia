@@ -4,6 +4,12 @@ namespace Server.Customs
 {
     public class JsonQuestConvoNode
     {
+        public JsonQuestConvoNode()
+        {
+            OptionText = "";
+            Nodes = new List<int>();
+            Text = "";
+        }
         public int NodeId { get; set; }
         public string OptionText { get; set; }
         public List<int> Nodes { get; set; }

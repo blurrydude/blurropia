@@ -40,7 +40,7 @@ namespace Server.Customs
                             AddImageTiled(gd.X, gd.Y, gd.W, gd.H, gd.G);
                             break;
                         case JsonGumpDataType.Button:
-                            AddButton(gd.X, gd.Y, gd.G, gd.P, Convert.ToInt32(gd.V), GumpButtonType.Reply, 0);
+                            AddButton(gd.X, gd.Y, gd.G, gd.P, gd.I??Convert.ToInt32(gd.V), GumpButtonType.Reply, 0);
                             break;
                         case JsonGumpDataType.Html:
                             AddHtml(gd.X, gd.Y, gd.W, gd.H, gd.V, false, true);
@@ -67,8 +67,25 @@ namespace Server.Customs
                             AddPage(Convert.ToInt32(gd.V));
                             break;
                         case JsonGumpDataType.PageButton:
-                            AddButton(gd.X, gd.Y, gd.G, gd.P, Convert.ToInt32(gd.V), GumpButtonType.Page,
+                            AddButton(gd.X, gd.Y, gd.G, gd.P, gd.I??Convert.ToInt32(gd.V), GumpButtonType.Page,
                                 Convert.ToInt32(gd.V));
+                            break;
+                        case JsonGumpDataType.Check:
+                            AddCheck(gd.X,gd.Y,gd.G,gd.P,gd.V.ToLower()=="true",gd.I??0);
+                            break;
+                        case JsonGumpDataType.Radio:
+                            AddRadio(gd.X,gd.Y,gd.G,gd.P,gd.V.ToLower()=="true",gd.I??0);
+                            break;
+                        case JsonGumpDataType.Input:
+                            if (gd.S == null)
+                            {
+                                AddTextEntry(gd.X, gd.Y, gd.W, gd.H, gd.U, gd.I ?? 0, gd.V);
+                            }
+                            else
+                            {
+                                AddTextEntry(gd.X, gd.Y, gd.W, gd.H, gd.U, gd.I ?? 0, gd.V, (int)gd.S);
+                            }
+
                             break;
                     }
                 }
@@ -89,6 +106,8 @@ namespace Server.Customs
         public int W { get; set; }
         public int H { get; set; }
         public int U { get; set; }
+        public int? S { get; set; }
+        public int? I { get; set; }
         public JsonGumpDataType T { get; set; }
         public string V { get; set; }
         public string C { get; set; }
@@ -104,6 +123,9 @@ namespace Server.Customs
         Html,
         Item,
         PageBreak,
-        PageButton
+        PageButton,
+        Check,
+        Input,
+        Radio
     }
 }
